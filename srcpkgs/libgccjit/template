@@ -1,0 +1,30 @@
+# Template file for 'libgccjit'
+pkgname=libgccjit
+version=9.3.0
+revision=1
+build_style=gnu-configure
+configure_args="--disable-multilib
+ --disable-bootstrap
+ --disable-lto
+ --enable-checking=release
+ --enable-host-shared
+ --enable-languages=jit"
+hostmakedepends="pkg-config tar"
+makedepends="gmp-devel mpfr-devel libmpc-devel"
+short_desc="Just-In-Time Compilation using GCC"
+maintainer="Arthur Evstifeev <mail@ap4y.me>"
+license="GPL-3.0-or-later"
+homepage="https://gcc.gnu.org/wiki/JIT"
+distfiles="${GNU_SITE}/gcc/gcc-${version}/gcc-${version}.tar.xz"
+checksum=71e197867611f6054aa1119b13a0c0abac12834765fe2d81f35ac57f84f742d1
+wrksrc="gcc-${version}"
+
+post_install() {
+	rm -rf ${DESTDIR}/usr/bin
+	rm -rf ${DESTDIR}/usr/lib/gcc
+	rm -f ${DESTDIR}/usr/lib/libcc1.so*
+	rm -rf ${DESTDIR}/usr/lib64
+	rm -rf ${DESTDIR}/usr/libexec
+	rm -rf ${DESTDIR}/usr/share
+	vlicense ${wrksrc}/COPYING.RUNTIME RUNTIME.LIBRARY.EXCEPTION
+}
