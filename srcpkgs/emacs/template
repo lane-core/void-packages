@@ -1,14 +1,17 @@
 # Template file for 'emacs'
+_git_sha=e5b052d60d905209c6cefcf18c620167ed946301
+
 pkgname=emacs
-version=27.1
+version=28.0.50.${_git_sha:0:7}
 revision=1
 build_style=gnu-configure
 configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with jpeg) $(vopt_with tiff) $(vopt_with gif) $(vopt_with png)
  $(vopt_with xpm) $(vopt_with svg rsvg) $(vopt_with imagemagick)
  $(vopt_with xml xml2) $(vopt_with gnutls) $(vopt_with sound) $(vopt_with m17n m17n-flt)
- $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)"
-hostmakedepends="pkg-config tar"
+ $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)
+ $(vopt_with nativecomp)"
+hostmakedepends="pkg-config tar $(vopt_if nativecomp automake) $(vopt_if nativecomp texinfo)"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  dbus-devel acl-devel
  $(vopt_if jpeg libjpeg-turbo-devel) $(vopt_if tiff tiff-devel)
@@ -17,26 +20,31 @@ makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  $(vopt_if xml libxml2-devel) $(vopt_if gnutls gnutls-devel)
  $(vopt_if sound alsa-lib-devel) $(vopt_if m17n m17n-lib-devel)
  $(vopt_if json jansson-devel) $(vopt_if harfbuzz harfbuzz-devel)
- $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)"
+ $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel) $(vopt_if nativecomp libgccjit)"
 depends="emacs-common-${version}_${revision}"
 short_desc="GNU Emacs editor"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
-distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=4a4c128f915fc937d61edfc273c98106711b540c9be3cd5d2e2b9b5b2f172e41
+distfiles="https://github.com/emacs-mirror/emacs/archive/${_git_sha}.zip>${pkgname}-${_git_sha}.zip"
+checksum=ac312c6b64bf0916e697767d98f7f000530aaf19a54c43c8c95c162d6b4f82d1
 replaces="emacs>=0"
 nocross=yes
 nopie=yes
+wrksrc="${pkgname}-${_git_sha}"
 
 # Package build options
-build_options="jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus json harfbuzz cairo gmp"
+build_options="nox x11 gtk2 gtk3 jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus json harfbuzz cairo gmp nativecomp"
 desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
 desc_option_m17n="Enable support for m17n multilingual text processing"
-build_options_default="jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp"
+build_options_default="nox x11 gtk2 gtk3 jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp"
 
 pre_configure() {
+	if [ "$build_option_nativecomp" ]; then
+            ./autogen.sh
+	fi
+
 	# Just configuring in different directories results in
 	# spurious emacs rebuilds with incompatible build numbers.
 	mkdir -p nox
@@ -47,26 +55,45 @@ pre_configure() {
 }
 
 do_configure() {
-	cd $wrksrc/nox
-	./configure --without-x $(vopt_with dbus) ${configure_args}
+	if [ "$build_option_nox" ]; then
+		cd $wrksrc/nox
+		./configure --without-x $(vopt_with dbus) ${configure_args}
+	fi
 
-	cd $wrksrc/x11
-	./configure --with-x-toolkit=athena --without-toolkit-scroll-bars \
-		$(vopt_with dbus) --without-gconf --without-gsettings \
-		${configure_args}
+	if [ "$build_option_x11" ]; then
+		cd $wrksrc/x11
+		./configure --with-x-toolkit=athena --without-toolkit-scroll-bars \
+			$(vopt_with dbus) --without-gconf --without-gsettings \
+			${configure_args}
+	fi
 
-	cd $wrksrc/gtk2
-	./configure --with-x-toolkit=gtk2 ${configure_args}
+	if [ "$build_option_gtk2" ]; then
+		cd $wrksrc/gtk2
+		./configure --with-x-toolkit=gtk2 ${configure_args}
+	fi
 
-	cd $wrksrc/gtk3
-	./configure --with-x-toolkit=gtk3 --with-xwidgets ${configure_args}
+	if [ "$build_option_gtk3" ]; then
+		cd $wrksrc/gtk3
+		./configure --with-x-toolkit=gtk3 --with-xwidgets ${configure_args}
+	fi
 }
 
 do_build() {
-	make ${makejobs} -C nox
-	make ${makejobs} -C x11
-	make ${makejobs} -C gtk2
-	make ${makejobs} -C gtk3
+	if [ "$build_option_nox" ]; then
+		make ${makejobs} -C nox
+	fi
+
+	if [ "$build_option_x11" ]; then
+		make ${makejobs} -C x11
+	fi
+
+	if [ "$build_option_gtk2" ]; then
+		make ${makejobs} -C gtk2
+	fi
+
+	if [ "$build_option_gtk3" ]; then
+		make ${makejobs} -C gtk3
+	fi
 }
 
 do_install() {
@@ -90,41 +117,47 @@ emacs-common_package() {
 	}
 }
 
-emacs-x11_package() {
-	depends="emacs-common-${version}_${revision}"
-	provides="emacs-${version}_${revision}"
-	replaces="emacs>=0"
-	short_desc+=" - X11 version"
-	pkg_install() {
-		make DESTDIR=${PKGDESTDIR} -C ${wrksrc}/x11 install
-		rm -f ${PKGDESTDIR}/usr/bin/ctags
-		rm -rf ${PKGDESTDIR}/usr/share
-		rm -rf ${PKGDESTDIR}/usr/lib
+if [ "$build_option_x11" ]; then
+	emacs-x11_package() {
+		depends="emacs-common-${version}_${revision}"
+		provides="emacs-${version}_${revision}"
+		replaces="emacs>=0"
+		short_desc+=" - X11 version"
+		pkg_install() {
+			make DESTDIR=${PKGDESTDIR} -C ${wrksrc}/x11 install
+			rm -f ${PKGDESTDIR}/usr/bin/ctags
+			rm -rf ${PKGDESTDIR}/usr/share
+			rm -rf ${PKGDESTDIR}/usr/lib
+		}
 	}
-}
+fi
 
-emacs-gtk2_package() {
-	depends="emacs-common-${version}_${revision} desktop-file-utils hicolor-icon-theme"
-	provides="emacs-${version}_${revision}"
-	replaces="emacs>=0"
-	short_desc+=" - GTK+2 version"
-	pkg_install() {
-		make DESTDIR=${PKGDESTDIR} -C ${wrksrc}/gtk2 install
-		rm -f ${PKGDESTDIR}/usr/bin/ctags
-		rm -rf ${PKGDESTDIR}/usr/share/{emacs,man,info}
-		rm -rf ${PKGDESTDIR}/usr/lib
+if [ "$build_option_gtk2" ]; then
+	emacs-gtk2_package() {
+		depends="emacs-common-${version}_${revision} desktop-file-utils hicolor-icon-theme"
+		provides="emacs-${version}_${revision}"
+		replaces="emacs>=0"
+		short_desc+=" - GTK+2 version"
+		pkg_install() {
+			make DESTDIR=${PKGDESTDIR} -C ${wrksrc}/gtk2 install
+			rm -f ${PKGDESTDIR}/usr/bin/ctags
+			rm -rf ${PKGDESTDIR}/usr/share/{emacs,man,info}
+			rm -rf ${PKGDESTDIR}/usr/lib
+		}
 	}
-}
+fi
 
-emacs-gtk3_package() {
-	depends="emacs-common-${version}_${revision} desktop-file-utils hicolor-icon-theme"
-	provides="emacs-${version}_${revision}"
-	replaces="emacs>=0"
-	short_desc+=" - GTK+3 version"
-	pkg_install() {
-		make DESTDIR=${PKGDESTDIR} -C ${wrksrc}/gtk3 install
-		rm -f ${PKGDESTDIR}/usr/bin/ctags
-		rm -rf ${PKGDESTDIR}/usr/share/{emacs,man,info}
-		rm -rf ${PKGDESTDIR}/usr/lib
-	}
+if [ "$build_option_gtk3" ]; then
+	emacs-gtk3_package() {
+		depends="emacs-common-${version}_${revision} desktop-file-utils hicolor-icon-theme"
+		provides="emacs-${version}_${revision}"
+		replaces="emacs>=0"
+		short_desc+=" - GTK+3 version"
+		pkg_install() {
+			make DESTDIR=${PKGDESTDIR} -C ${wrksrc}/gtk3 install
+			rm -f ${PKGDESTDIR}/usr/bin/ctags
+			rm -rf ${PKGDESTDIR}/usr/share/{emacs,man,info}
+			rm -rf ${PKGDESTDIR}/usr/lib
+		}
 }
+fi
