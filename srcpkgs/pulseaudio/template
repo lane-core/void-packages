@@ -2,7 +2,7 @@
 pkgname=pulseaudio
 version=13.99.3
 major_version=13.99
-revision=0
+revision=1
 build_style=gnu-configure
 configure_args="--disable-oss-output --disable-oss-wrapper --disable-tcpwrap
  --enable-jack --disable-lirc --disable-hal-compat --disable-gconf --enable-orc
