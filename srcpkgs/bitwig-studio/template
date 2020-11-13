@@ -1,6 +1,6 @@
 # Template file for 'bitwig-studio'
 pkgname=bitwig-studio
-version=3.2.6
+version=3.2.8
 revision=1
 archs="x86_64"
 depends="xdg-utils xcb-util-wm libbsd"
