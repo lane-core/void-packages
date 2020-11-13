@@ -2,9 +2,8 @@
 pkgname=grub
 version=2.04.99
 revision=1
-hostmakedepends="python3 pkg-config flex freetype-devel font-unifont-bdf"
-makedepends="libusb-compat-devel ncurses-devel freetype-devel
- liblzma-devel device-mapper-devel fuse-devel git gettext-devel"
+hostmakedepends="python3 pkg-config flex freetype-devel font-unifont-bdf gettext automake autoconf tar"
+makedepends="libusb-compat-devel ncurses-devel freetype-devel liblzma-devel device-mapper-devel fuse-devel git gettext-devel"
 depends="os-prober"
 conf_files="/etc/default/grub /etc/grub.d/*"
 short_desc="GRand Unified Bootloader 2"
@@ -42,12 +41,10 @@ esac
 
 do_fetch() {
     git clone https://git.savannah.gnu.org/git/grub.git ${wrksrc}
-    cd ${wrksrc}
-    ./bootstrap
 }
 
 post_extract() {
-	sed -i -e 's,freetype/ftsynth.h,freetype2/ftsynth.h,' util/grub-mkfont.c
+        sed -i -e 's,freetype/ftsynth.h,freetype2/ftsynth.h,' util/grub-mkfont.c
 }
 
 do_configure() {
@@ -62,9 +59,14 @@ do_configure() {
 	configure_args+=" --enable-device-mapper --enable-cache-stats --enable-nls
 		--enable-grub-mkfont --enable-grub-mount --disable-werror
 		--sbindir=/usr/bin"
+    
+	msg_normal "Attempting git bootstrap...\n"
+
+    cd $wrksrc
+    ./bootstrap
 
 	# fix unifont.bdf location so grub-mkfont can create *.pf2 files
-	sed -i 's|/usr/share/fonts/unifont|/usr/share/fonts/misc|' configure
+    sed -i 's|/usr/share/fonts/unifont|/usr/share/fonts/misc|' configure
 
 	# build tools
 	_configure_args=${configure_args}
@@ -72,9 +74,11 @@ do_configure() {
 		_configure_args="--with-platform=${_NATIVE_PLATFORM} ${_configure_args}"
 	fi
 	msg_normal "Configuring grub tools...\n"
-	mkdir $wrksrc/build
+	mkdir -p $wrksrc/build
 	cd $wrksrc/build
-	../configure --host=${XBPS_TARGET_MACHINE} ${_configure_args}
+	
+    msg_normal "Starting configure...\n"
+    ../configure --host=${XBPS_TARGET_MACHINE} ${_configure_args}
 
 	for _SUPP_BUILD in ${_SUPPLEMENTARY_BUILDS}; do
 		_TARGET=${_SUPP_BUILD%%-*}
