@@ -43,7 +43,7 @@ esac
 do_fetch() {
     git clone https://git.savannah.gnu.org/git/grub.git ${wrksrc}
     cd ${wrksrc}
-    ./autogen.sh
+    ./bootstrap
 }
 
 post_extract() {
