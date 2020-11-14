@@ -1,20 +1,25 @@
 # Template file for 'tlp'
 pkgname=tlp
-version=1.3.1
+version=1.3.1.99
 revision=1
 archs=noarch
 wrksrc="TLP-${version}"
 depends="hdparm bash iw util-linux ethtool perl"
+makedepends="git"
 short_desc="Advanced power management tool for Linux"
 maintainer="Alan Brown <adbrown@rocketmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html"
 #changelog="https://github.com/linrunner/TLP/blob/master/changelog"
-distfiles="https://github.com/linrunner/TLP/archive/${version}.tar.gz"
-checksum=4c783606ca6e98a3ddb3dc911785b4d7a73fec4ebb9decfca4ca15e315ece768
+#distfiles="https://github.com/linrunner/TLP/archive/${version}.tar.gz"
+#checksum=4c783606ca6e98a3ddb3dc911785b4d7a73fec4ebb9decfca4ca15e315ece768
 
 conflicts="laptop-mode>=0"
 conf_files="/etc/tlp.conf /etc/tlp.d/*.conf"
+
+do_fetch() {
+    git clone https://github.com/linrunner/TLP $wrksrc
+}
 
 do_install() {
 	make DESTDIR=${DESTDIR} \
