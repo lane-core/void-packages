@@ -1274,7 +1274,7 @@ libdtovl.so rpi-userland-20180103_1
 libwiringPi.so libwiringPi-0.0.20200408_1
 libwiringPiDev.so libwiringPi-0.0.20200408_1
 liblockdev.so.1 lockdev-1.0.3_1
-libcec.so.4 libcec-4.0.2_1
+libcec.so.6 libcec-6.0.2_1
 librump.so.0 netbsd-rumpkernel-20140526_3
 librumpvfs.so.0 netbsd-rumpkernel-20140526_3
 librumpdev_disk.so.0 netbsd-rumpkernel-20140526_3
@@ -3993,3 +3993,4 @@ libsonic.so.0 libsonic-0.2.0_1
 libpulsecommon-13.99.so libpulseaudio-13.99.3_1
 libpulsecore-13.99.so libpulseaudio-13.99.3_1
 libtree-sitter.so.0 libtree-sitter-0.17.3_1
+libtickit.so.3 libtickit-0.4.1_1
