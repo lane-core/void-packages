@@ -1,6 +1,6 @@
-# Template file for 'mu'
-pkgname=mu
-version=1.5.6
+# Template file for 'mu-git'
+pkgname=mu-git
+version=$(date +%Y%m%d)
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config texinfo glib-devel"
@@ -10,6 +10,7 @@ short_desc="Emacs-based tool for dealing with e-mail stored in the Maildir-forma
 maintainer="Benjamin Slade <slade@jnanam.net>"
 license="GPL-3.0-or-later"
 homepage="https://www.djcbsoftware.nl/code/mu/"
+replaces="mu>=0"
 
 do_fetch() {
     git clone https://github.com/djcb/mu/ ${wrksrc}
@@ -27,11 +28,12 @@ pre_configure() {
 }
 
 if [ ! "$CROSS_BUILD" ]; then
-	mu4e_package() {
+	mu4e-git_package() {
 		archs=noarch
 		short_desc+=" - Emacs frontend"
 		depends="${sourcepkg}-${version}_${revision} emacs"
-		pkg_install() {
+		replaces="mu4e>=0"
+        pkg_install() {
 			vmove usr/share/emacs
 			vmove usr/share/info
 			vmove usr/share/doc/mu/mu4e*
