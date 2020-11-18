@@ -1,0 +1,25 @@
+# Template file for 'svlogger'
+pkgname=svlogger
+_git_sha=68baa46f58c98442998c6c775c07859a5563133f
+version=${_git_sha:0:7}
+revision=1
+build_style=gnu-makefile
+configure_args=""
+depends="runit-void"
+makedepends="git"
+short_desc="A generic svlogd wrapper for runit services."
+maintainer="Lane Biocini <lane@mailbox.org>"
+license="MIT License"
+homepage="https://github.com/bahamas10/svlogger"
+
+do_fetch() {
+    git clone $homepage $wrksrc
+    cd $wrksrc
+    git checkout ${version}
+}
+
+do_install() {
+    cd $wrksrc
+    mkdir -p ${DESTDIR}/etc/sv
+    cp svlogger ${DESTDIR}/etc/sv
+}

@@ -1,0 +1,27 @@
+# Template file for 'bitwig-studio'
+pkgname=mullvad-vpn-bin
+version=2020.6
+revision=1
+archs="x86_64"
+depends="atk cairo gdk-pixbuf glib gtk+3 pango" # libappindicator is required for gnome menubar icon
+short_desc="Offical Mullvad VPN client (binary package)"
+maintainer="Lane Biocini <lane@mailbox.org>"
+license="GPL-3.0-or-later"
+homepage="https://mullvad.net"
+_file="MullvadVPN-${version}_amd64.deb"
+distfiles="https://mullvad.net/media/app/${_file}"
+checksum=2353c817abd026e3061cdfa30fb41ac304ec2cf0b3057aaf34a86f450eda3935
+nostrip=yes
+restricted=no
+
+do_extract() {
+	mkdir -p ${DESTDIR}
+	ar x ${XBPS_SRCDISTDIR}/mullvad-vpn-bin-${version}/${_file}
+}
+
+do_install() {
+	bsdtar -xf data.tar.xz -C ${DESTDIR}
+    cd ${DESTDIR}
+    mv usr/local/share/* usr/share/
+    rm -r usr/local
+}
