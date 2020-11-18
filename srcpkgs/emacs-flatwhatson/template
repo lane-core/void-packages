@@ -1,8 +1,8 @@
 # Template file for 'emacs-flatwhatson'
-_git_sha=eeb94f39ded1a282f16a661a9e4576fa4b6510e7
+_git_sha=69aafa2e5c8a435b2f4a2357492d4deaed34712f
 pkgname=emacs-flatwhatson
 version=28.0.50.${_git_sha:0:7}
-revision=1
+revision=2
 build_style=gnu-configure
 configure_args="--with-file-notification=inotify --with-modules 
  --without-gconf --without-gsettings --with-nativecomp --with-gameuser=:games 
@@ -12,7 +12,7 @@ configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)"
 hostmakedepends="pkg-config tar automake texinfo git"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
- dbus-devel acl-devel libgccjit
+ dbus-devel acl-devel libgccjit libmagick-devel git libmagick
  $(vopt_if jpeg libjpeg-turbo-devel) $(vopt_if tiff tiff-devel)
  $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel) $(vopt_if xpm libXpm-devel)
  $(vopt_if svg librsvg-devel) $(vopt_if imagemagick libmagick-devel)
@@ -25,8 +25,6 @@ short_desc="GNU Emacs editor (pure-gtk & nativecomp)"
 maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
-#distfiles="https://github.com/flatwhatson/emacs/archive/${_git_sha}.zip>${pkgname}-${_git_sha}.zip"
-#checksum=897cb744a2cdba31bdb10d2d6d53f4da22ab1a13f9b4facac6b11894da3ffbf7
 replaces="emacs>=0"
 nocross=yes
 nopie=yes
@@ -39,8 +37,8 @@ desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
 desc_option_m17n="Enable support for m17n multilingual text processing"
 #build_options_default="nox x11 gtk2 gtk3 jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp"
-build_options_default="nox gtk3 jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp 
-    imagemagick dbus nativecomp cairo harfbuzz"
+build_options_default="nox x11 gtk2 gtk3 jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp 
+    imagemagick dbus cairo harfbuzz fastboot lto"
 
 do_fetch() {
     [[ -d ${wrksrc} ]] || git clone git://github.com/flatwhatson/emacs.git ${wrksrc}
@@ -50,7 +48,7 @@ do_fetch() {
 
 pre_configure() {
     ./autogen.sh
-    
+
 	# Just configuring in different directories results in
 	# spurious emacs rebuilds with incompatible build numbers.
 	mkdir -p nox
@@ -63,12 +61,12 @@ pre_configure() {
 do_configure() {
 	if [ "$build_option_nox" ]; then
 		cd $wrksrc/nox
-		./configure --without-x $(vopt_with dbus) ${configure_args}
+        ./configure --without-x $(vopt_with dbus) ${configure_args}
 	fi
 
 	if [ "$build_option_x11" ]; then
 		cd $wrksrc/x11
-		./configure --with-x-toolkit=athena --without-toolkit-scroll-bars \
+        ./configure --with-x-toolkit=athena --without-toolkit-scroll-bars \
 			$(vopt_with dbus) --without-gconf --without-gsettings \
 			${configure_args}
 	fi

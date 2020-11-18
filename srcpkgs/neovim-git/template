@@ -12,7 +12,9 @@ short_desc="Fork of Vim aiming to improve user experience, plugins and GUIs"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="Apache-2.0, custom:Vim"
 homepage="https://neovim.io"
+provides="neovim>=0"
 replaces="neovim>=0"
+
 
 alternatives="
  vi:vi:/usr/bin/nvim
