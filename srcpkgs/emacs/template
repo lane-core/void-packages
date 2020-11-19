@@ -1,5 +1,5 @@
 # Template file for 'emacs'
-_git_sha=e5b052d60d905209c6cefcf18c620167ed946301
+_git_sha=d5ac6679df4925ef51cc0f299af2a84f27faafe7
 
 pkgname=emacs
 version=28.0.50.${_git_sha:0:7}
@@ -27,7 +27,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://github.com/emacs-mirror/emacs/archive/${_git_sha}.zip>${pkgname}-${_git_sha}.zip"
-checksum=ac312c6b64bf0916e697767d98f7f000530aaf19a54c43c8c95c162d6b4f82d1
+checksum=93b133c601a7bdfd88924722eb002f60700af5bd1e1f3573a69a542376222e02
 replaces="emacs>=0"
 nocross=yes
 nopie=yes
