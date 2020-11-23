@@ -9,9 +9,9 @@ build_style=gnu-configure
 #make_build_args=""
 #make_install_args=""
 #make_dirs="/var/log/dir 0755 root root"
-hostmakedepends="libtool autoconf jackd"
-makedepends="steinberg-vst expat-devel jack-devel lv2 libfluidsynth libglade-devel"
-depends=""
+hostmakedepends="pkg-config autoconf automake libtool jack git lv2"
+makedepends="steinberg-vst expat-devel jack-devel lv2 fluidsynth-devel libglade-devel glib-devel"
+depends="jack libfluidsynth lv2 libglade glib expat"
 short_desc="Calf Studio Gear is an audio plug-in pack for LV2 and JACK environments under LINUX operating systems."
 maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
@@ -25,5 +25,5 @@ do_fetch() {
 
 do_configure() {
     cd ${wrksrc}
-    ./autogen.sh
+    ./autogen.sh --prefix=${DESTDIR}/usr
 }
