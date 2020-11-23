@@ -1,0 +1,29 @@
+# Template file for 'calf-studio-gear'
+pkgname=calf-studio-gear
+version=0.90.3+git.$(date +%Y%m%d)
+revision=1
+wrksrc=${pkgname}-${version}
+#create_wrksrc=yes
+build_style=gnu-configure
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="libtool autoconf jackd"
+makedepends="steinberg-vst expat-devel jack-devel lv2 libfluidsynth libglade-devel"
+depends=""
+short_desc="Calf Studio Gear is an audio plug-in pack for LV2 and JACK environments under LINUX operating systems."
+maintainer="lane-brain <lane@mailbox.org>"
+license="GPL-3.0-or-later"
+homepage="http://calf-studio-gear.org/"
+_git="https://github.com/calf-studio-gear/calf.git"
+
+do_fetch() {
+    mkdir -p ${wrksrc}
+    git clone --depth 1 ${_git} ${wrksrc}
+}
+
+do_configure() {
+    cd ${wrksrc}
+    ./autogen.sh
+}
