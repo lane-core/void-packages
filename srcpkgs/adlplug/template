@@ -1,0 +1,28 @@
+# Template file for 'adlplug'
+pkgname=adlplug
+version=1.0.2+git.$(date +%Y%m%d)
+revision=1
+wrksrc=${pkgname}-${version}
+#create_wrksrc=yes
+build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=Release 
+    $(vopt_if vst -DADLplug_VST2=ON)
+    $(vopt_if opl2 -DADLplug_CHIP=OPL2)"
+build_args=""
+build_options="vst opl2"
+build_options_default="vst"
+hostmakedepends="pkg-config git"
+makedepends="$(vopt_if vst steinberg-vst) jack-devel alsa-lib-devel freetype-devel libX11-devel"
+depends="jack alsa-lib freetype libX11"
+short_desc="This software package provides FM synthesizer plugins, based on OPL3 and OPN2 sound chip emulations."
+maintainer="lane-brain <lane@mailbox.org>"
+license="custom"
+homepage="http://calf-studio-gear.org/"
+_git="https://github.com/jpcima/ADLplug.git"
+
+do_fetch() {
+    mkdir -p ${wrksrc}
+    git clone ${_git} ${wrksrc}
+}
+
+
