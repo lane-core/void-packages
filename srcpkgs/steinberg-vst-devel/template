@@ -1,0 +1,62 @@
+# Template file for 'steinberg-vst-devel'
+
+pkgname=steinberg-vst-devel
+version=3.6.14
+revision=1
+short_desc="Steinberg's VST SDK (version 3.6)"
+homepage="https://www.steinberg.net/sdk_downloads/"
+hostmakedepends="unzip"
+maintainer="lane-brain <lane@mailbox.org>"
+_sdkarchive="vst-sdk_3.6.14_build-24_2019-11-29.zip"
+distfiles="https://download.steinberg.net/sdk_downloads/${_sdkarchive}
+    https://www.steinberg.net/sdk_downloads/vstsdk367_03_03_2017_build_352.zip"
+wrksrc=${pkgname}-${version}
+license="custom:Steinberg"
+checksum="1f61d847d4fbd570a2b3d3cc14210b4e7f808f87b641a44b146a07f708cb1552
+    5e8f1058177472f6dd3b5c1e7f8e0e76f37c5f751fed65936e04ff2441ce831a"
+repository=nonfree
+
+do_extract() {
+    mkdir current vst-sdk-367
+    
+    cd current
+    unzip ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_sdkarchive}
+    
+    cd ../vst-sdk-367
+    unzip ${XBPS_SRCDISTDIR}/${pkgname}-${version}/vstsdk367_03_03_2017_build_352.zip
+}
+
+pre_install() {
+    cd ${wrksrc}/current/VST_SDK
+    cp -r VST2_SDK/* VST3_SDK
+}
+
+do_install() {
+    # Install headers
+    echo "do_install: $PWD"
+    vst_sdk_path="${wrksrc}/current/VST_SDK/VST3_SDK"
+    vst_legacy_path="${wrksrc}/vst-sdk-367/VST_SDK"
+    header_path="usr/include/vst36"
+
+    mkdir -p ${DESTDIR}/${header_path}
+    vcopy ${vst_sdk_path}/* ${header_path}
+
+    mkdir -p ${DESTDIR}/${header_path}/pluginterfaces/vst
+    vcopy ${vst_sdk_path}/pluginterfaces/vst ${header_path}/pluginterfaces/vst
+
+    # Install legacy headers from 3.6.7. According to the notes:
+    #
+    # "The VST2 SDK is not part anymore of the VST3 SDK, you have to use 
+    # an older version of the SDK and copy the VST2_SDK folder into the VST_SDK folder."
+    vcopy ${vst_legacy_path}/VST2_SDK/pluginterfaces/vst2.x ${header_path}/pluginterfaces
+
+    # Clean up unneeded files/directories
+    cd ${DESTDIR}/${header_path}
+    rm -r tools bin
+}
+
+post_install() {
+    vlicense ${wrksrc}/current/VST_SDK/VST3_SDK/LICENSE.txt
+    vlicense ${wrksrc}/current/VST_SDK/VST3_SDK/VST3_License_Agreement.pdf
+}
+

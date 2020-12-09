@@ -1,0 +1,17 @@
+# Template file for 'distrho-ports'
+pkgname=distrho-ports
+version=$(date +%Y%m%d)
+revision=1
+build_style=meson
+hostmakedepends="git cmake ninja alsa-lib pkg-config MesaLib-devel libX11-devel libXcursor-devel libxshmfence-devel libXcursor-devel steinberg-vst"
+makedepends="alsa-lib-devel freetype-devel MesaLib-devel steinberg-vst"
+depends="alsa-lib freetype"
+short_desc="Distrho Audio Plugin Ports"
+maintainer="Lane Biocini <lane@mailbox.org>"
+license="Apache-2.0, custom:Vim"
+homepage="https://github.com/DISTRHO/DISTRHO-Ports"
+
+do_fetch() {
+    git clone --depth 1 https://github.com/DISTRHO/DISTRHO-Ports $wrksrc 
+}
+
