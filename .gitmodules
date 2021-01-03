@@ -1,0 +1,15 @@
+[submodule "lane/lib/dotbot/plugins/crontab-dotbot.git"]
+	path = lane/lib/dotbot/plugins/crontab-dotbot.git
+	url = https://github.com/fundor333/crontab-dotbot.git
+[submodule "lane/lib/dotbot/plugins/dotbot-sync.git"]
+	path = lane/lib/dotbot/plugins/dotbot-sync.git
+	url = https://github.com/j1r1k/dotbot-sync.git
+[submodule "lane/lib/dotbot/plugins/dotbot-xbps.git"]
+	path = lane/lib/dotbot/plugins/dotbot-xbps.git
+	url = https://github.com/m-wynn/dotbot-xbps
+[submodule "lane/lib/dotbot/plugins/dotbot-git.git"]
+	path = lane/lib/dotbot/plugins/dotbot-git.git
+	url = https://github.com/DrDynamic/dotbot-git.git
+[submodule "lane/lib/dotbot/dotbot.git"]
+	path = lane/lib/dotbot/dotbot.git
+	url = https://github.com/anishathalye/dotbot
