@@ -1,0 +1,15 @@
+# Template file for ''
+pkgname=
+version=
+revision=1
+_commit=
+wrksrc=${pkgname}-${_commit}
+build_style=
+hostmakedepends="git"
+short_desc=""
+maintainer="lane-brain <lane@mailbox.org>"
+license=""
+homepage="https://github.com/"
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbad
+
