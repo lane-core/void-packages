@@ -1,0 +1,28 @@
+# Template file for 'kernelstub'
+pkgname=kernelstub
+version=20201001
+revision=1
+_commit=0d4bd8f5214aeda2de7b77004cdd7466af05f758
+wrksrc=${pkgname}-${_commit}
+build_style=python3-module
+hostmakedepends="python3-setuptools"
+short_desc="Kernelstub is a simple EFI boot manager manager for Linux"
+maintainer="lane-brain <lane@mailbox.org>"
+license="ISC"
+homepage="https://github.com/pop-os/kernelstub"
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=7b552d39b63b13f28ae2a0bdd17d370172bf0a862a9fed9f56ca8ba06338660c
+mutable_files="/etc/kernelstub/configuration /etc/initramfs/post-update.d/post-update.d/*
+    /etc/initramfs/post-update.d "
+
+do_install() {
+    vsed -i setup.py \
+        -e "s|/etc/kernel/postinst.d|${PKGDESTDIR}/etc/kernel/postinst.d|g" \
+        -e "s|/etc/initramfs/post-update.d|${PKGDESTDIR}/etc/initramfs/post-update.d|g" \
+        -e "s|/etc/default|${PKGDESTDIR}/etc/default|g"
+    python3 setup.py install --prefix="${PKGDESTDIR}/usr"
+}
+
+post_install() {
+    vlicense LICENSE.txt
+}
