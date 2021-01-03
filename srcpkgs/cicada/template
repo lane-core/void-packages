@@ -1,0 +1,32 @@
+# Template file for 'cicada'
+pkgname=cicada
+version=0.9.15
+revision=1
+wrksrc=${pkgname}-${version}
+build_style=cargo
+#hostmakedepends="git"
+short_desc="Cicada is a bash-like Unix shell written in Rust"
+maintainer="lane-brain <lane@mailbox.org>"
+license="MIT"
+homepage="https://github.com/mitnk/cicada"
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum=ac0b2ece296817a6eda3b835bf0479ce38c7d12e35f7a023a57fcbd9901a97ca
+register_shell="/bin/cicada"
+
+do_check() {
+    make test
+    make scripting-test
+}
+
+do_install() {
+    vinstall "${wrksrc}"/target/x86_64-unknown-linux-gnu/release/cicada 0755 /usr/bin
+    vmkdir /usr/share/doc
+    vcopy "${wrksrc}"/docs /usr/share/doc/cicada
+    vsconf "${wrksrc}/misc/cicadarc-termux"
+    vsconf "${wrksrc}/misc/inputrc"
+}
+
+post_install() {
+    rm -r ${PKGDESTDIR}/usr/lib*
+    vlicense LICENSE
+}
