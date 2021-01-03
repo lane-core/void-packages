@@ -1,20 +1,37 @@
 # Template file for 'ion'
 pkgname=ion
-version=1.0.5
-revision=2
+version=20201230
+revision=1
+_commit=2bc8826a97929b1878375a5c747e5c4cfed2b10b
+wrksrc=${pkgname}-${_commit}
 build_style=cargo
-register_shell="/bin/ion"
-short_desc="The Ion Shell, written in Rust"
-maintainer="Muhammad Herdiansyah <herdiansyah@opmbx.org>"
+hostmakedepends="git mdBook mdbook-linkcheck"
+short_desc="Ion is a modern system shell written in Rust"
+maintainer="lane-brain <lane@mailbox.org>"
 license="MIT"
-nostrip="yes" # Stripping binaries doesn't work in ARM, Remove once fixed.
 homepage="https://github.com/redox-os/ion"
-distfiles="${homepage}/archive/${version}/${pkgname}-${version}.tar.gz"
-checksum=7c7f696060a82669cb9c73cf0ec1d07d4ffefbfd54fc60acad0179ca3f46716d
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=8ab295c5ff40de6b7a8dd93ee8d417b6e884f2b66b628409e4cd9345d70e9c00
+#nostrip="yes" # Stripping binaries doesn't work in ARM, Remove once fixed.
+register_shell="/bin/ion"
 
 case "$XBPS_TARGET_MACHINE" in
 	aarch64-musl|ppc*) broken="https://build.voidlinux.org/builders/aarch64-musl_builder/builds/14113/steps/shell_3/logs/stdio"
 esac
+
+do_build() {
+	cd "${wrksrc}"
+    echo "${_commit}" > git_revision.txt
+	RUSTUP=0 make
+    make manual
+    mdbook build -d ../public manual
+}
+
+do_install() {
+	make install prefix=/usr DESTDIR="${PKGDESTDIR}"
+    vmkdir /usr/share/doc
+    vcopy ${wrksrc}/public /usr/share/doc/ion
+}
 
 post_install() {
 	vlicense LICENSE
