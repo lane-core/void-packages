@@ -1,0 +1,26 @@
+fn XBPS-SRC path
+    # First check path
+    if exists -f $path && break || continue
+    
+    # check for xbps-src in PATH
+    if exists -f $(which xbps-src)
+        break
+    end
+
+    # then check for xbps-src
+    let XBPS_SRC = $XBPSDIR/xbps-src
+    if not exists -f $XBPS_SRC
+        echo "No xbps-src found in path."
+        exit 1
+    end
+end
+
+fn is_file path
+    if exists -f $path
+        echo $path
+    else
+        echo "$path isn't a file."
+        exit 1
+    end
+end
+

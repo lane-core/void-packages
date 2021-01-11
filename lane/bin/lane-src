@@ -1,0 +1,37 @@
+#!/usr/bin/env ion
+# This is a script that symlinks a package to go into lane-pkgs
+# This command is meant to be run from XBPS_DISTDIR
+# 
+# Convenient local variable for env $XBPS_DISTDIR
+let XBPSDIR = $XBPS_DISTDIR
+
+# functions
+. $XBPSDIR/lane/lib
+
+if test $len(@args) -eq 1
+    echo "Welcome! So far you've implemented the '-git' keyword."
+    echo "Otherwise just a path will do."
+    exit
+end
+
+# First we need to parse the input for the 'git' keyword and split up pkg paths
+let allowed_actions = [claim ls edit]
+let selected_action = ""
+let paths = []
+
+# Parse action
+fn parse_action
+    for action in allowed_actions[@]
+        if is @args[1] $action
+            let selected_action = $action
+            break
+        end
+    end
+end
+
+let action = $(parse_action)
+let args = @args[2..]
+
+match $action
+case "ls"
+

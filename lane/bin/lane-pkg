@@ -1,0 +1,57 @@
+#!/usr/bin/env ion
+# This is a script that symlinks a package to go into lane-pkgs
+# This command is meant to be run from XBPS_DISTDIR
+
+# functions
+fn check_xbpssrc
+    let XBPS_SRC = $XBPS_DISTDIR/xbps-src
+    if not exists -f $XBPS_SRC
+        echo "No xbps-src found in path."
+        exit 1
+    end
+end
+
+
+
+# checks if path exists, if so returns path of file. exits with 1 if not
+fn is_file path
+    if exists -f $path
+        echo $path
+    else
+        echo "$path isn't a file."
+        exit 1
+    end
+end
+    
+fn read_file path
+    cat $(is_file $path)
+end     
+
+fn template_read path
+    if exists -f $path
+        echo 
+    end
+end
+        
+fn template_desc path
+end
+
+
+if test $len(@args) -eq 1
+    echo "Welcome! So far you've implemented the '-git' keyword."
+    echo "Otherwise just a path will do."
+    exit
+end
+
+
+# First we need to parse the input for the 'git' keyword and split up pkg paths
+let keywords = [ls git]
+let paths = []
+
+for word in @args
+    if test $word is '-git'
+        
+        
+
+
+cd $XBPS_DISTDIR/lane/srcpkgs/

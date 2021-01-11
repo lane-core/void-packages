@@ -1,0 +1,27 @@
+#!/usr/bin/env ion
+# This is a scratch pad
+
+#fn is_file path
+#    if exists -f $path
+#        echo $path
+#    else
+#        echo "Not a path"
+#        exit 1
+#    end
+#end
+#
+fn read_file path
+    cat $(is_file $path)
+end
+
+let test = []
+
+fn re_cat path
+    let test = @lines($(cat $path))
+end
+
+if exists -f @args[1]
+    let test = @args[1]
+end
+
+echo $test

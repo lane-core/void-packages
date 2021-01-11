@@ -1,0 +1,3 @@
+#!/bin/ion
+
+is "truth" "truth" && echo "maybe" || echo "nay"
