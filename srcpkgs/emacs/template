@@ -1,19 +1,20 @@
 # Template file for 'emacs'
-_commit=fdb63953e7b3c1f65ae521f99a01b065810f3500
+# pinned to git master
+_commit=fa871e4c8271e159d0fc1fc835398ec95a48fc73
 pkgname=emacs
-version=28.0.50.20210110
+version=28.0.50.20210114
 revision=1
 wrksrc="${pkgname}-${_commit}"
 build_style=gnu-configure
 configure_args="--with-file-notification=inotify --with-modules
- --with-nativecomp --with-gameuser=:games $(vopt_with gconf) $(vopt_with gsettings)
+ --with-nativecomp $(vopt_with gconf) $(vopt_with gsettings)
  $(vopt_with jpeg) $(vopt_with tiff) $(vopt_with gif) $(vopt_with png)
  $(vopt_with xpm) $(vopt_with svg rsvg) $(vopt_with imagemagick)
  $(vopt_with xml xml2) $(vopt_with gnutls) $(vopt_with sound) $(vopt_with m17n m17n-flt)
  $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)"
 hostmakedepends="pkg-config tar automake texinfo git"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
- dbus-devel acl-devel libgccjit libmagick-devel git libmagick $(vopt_if gconf GConf-devel)
+ dbus-devel acl-devel libgccjit-devel libmagick-devel git libmagick $(vopt_if gconf GConf-devel)
  $(vopt_if gsettings gsettings-desktop-schemas-devel) $(vopt_if jpeg libjpeg-turbo-devel)
  $(vopt_if tiff tiff-devel) $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel)
  $(vopt_if xpm libXpm-devel) $(vopt_if svg librsvg-devel) $(vopt_if gnutls gnutls-devel)
@@ -21,16 +22,16 @@ makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  $(vopt_if sound alsa-lib-devel) $(vopt_if m17n m17n-lib-devel)
  $(vopt_if json jansson-devel) $(vopt_if harfbuzz harfbuzz-devel)
  $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)"
-depends="emacs-common-${version}_${revision}"
+depends="emacs-common-${version}_${revision} libgccjit-devel"
 short_desc="GNU Emacs editor (pure-gtk & nativecomp)"
 maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://github.com/flatwhatson/emacs/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
-checksum=
-nostrip=yes
+checksum=bcf2a2d9fe1e4f7f4308000cba435d649a9199969fd95b9bba234f79a4f0a8e3
 nocross=yes
 nopie=yes
+
 # Package build options
 build_options="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus
  json harfbuzz cairo gmp fastboot lto"
@@ -73,27 +74,16 @@ do_build() {
 
 do_install() {
     make DESTDIR=${PKGDESTDIR} -C ${wrksrc} install
-    make DESTDIR=${PKGDESTDIR} -C ${wrksrc}   install-eln
+    make DESTDIR=${PKGDESTDIR} -C ${wrksrc} install-eln
 
     # remove conflict with ctags package
     mv ${PKGDESTDIR}/usr/bin/{ctags,ctags.emacs}
-    
     mv ${PKGDESTDIR}/usr/share/man/man1/{ctags.1.gz,ctags.emacs.1.gz}
-  
-    # fix user/root permissions on usr/share files
-    #chown -R root:root ${PKGDESTDIR}/usr/share/emacs/
-
-    # fix permssions on /var/games
-    mkdir -p ${PKGDESTDIR}/var/games/emacs
-    chmod 775 ${PKGDESTDIR}/var/games
-    chmod 775 ${PKGDESTDIR}/var/games/emacs
-}
+  }
 
 emacs-common_package() {
 	short_desc+=" - common files"
 	archs=noarch
-	provides="emacs-common-${version}_${revision}"
-    replaces="emacs-common>=0"
 	pkg_install() {
 		vmove usr/share/emacs
 		vmove usr/share/man
