@@ -1,0 +1,2 @@
+#!/bin/sh
+exec maza stop 2>&1

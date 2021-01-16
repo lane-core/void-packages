@@ -1,0 +1,26 @@
+# Template file for 'maza'
+# pinned to git master
+_commit=73fe6edef8c02e899bc2d741b8672abdedca0d03
+pkgname=maza
+version=20201016 # 'maza' script not updated since 73fe6ed
+revision=1
+wrksrc="${pkgname}-${_commit}"
+build_style=fetch
+makedepends="curl sed"
+depends="dnsmasq"
+short_desc="Simple, native and efficient local ad blocker written in Bash"
+maintainer="lane-brain <lane@mailbox.org>"
+license="Apache-2.0"
+homepage="https://github.com/tanrax/maza-ad-blocking"
+distfiles="${homepage}/raw/${_commit}/maza"
+checksum=3e43e325fadc9703f69a0813fafb0423992fe8230aef6dbc67afa9f6c3073b06
+
+mutable_files="/etc/hosts"
+
+do_install() {
+    vbin maza
+}
+
+post_install() {
+    vsv maza
+}
