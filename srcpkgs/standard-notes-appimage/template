@@ -1,24 +1,21 @@
 # Template file for 'standard-notes'
-pkgname=standard-notes
-version=3.5.11
+# format: appimage
+_app=standard-notes
+pkgname=$"{_app}-appimage"
+version=3.5.14
 revision=1
 build_style=fetch
-distfiles="https://github.com/standardnotes/desktop/releases/download/v3.5.11/standard-notes-3.5.11-linux-x86_64.AppImage"
-checksum=8ef533758303bc37ce693d73f5667d8d28b77114363968a93cc5cf011a0032ba
+wrksrc=yes
 short_desc="A free, open-source, and completely encrypted notes app."
 maintainer="lane-brain <lane@mailbox.org>"
 homepage="https://standardnotes.org"
 license="AGPL-3.0-or-later"
-create_wrksrc=yes
+distfiles="https://github.com/standardnotes/desktop/releases/download/v${version}/standard-notes-${version}-linux-x86_64.AppImage"
+checksum=8ef533758303bc37ce693d73f5667d8d28b77114363968a93cc5cf011a0032ba
 only_for_archs="x86_64"
 nopie=yes
 nostrip=yes
-_appimage=${pkgname}-${version}-linux-x86_64.AppImage
-
-#do_extract() {
-#    ls ${XBPS_SRCDISTDIR}
-#    mv ${XBPS_SRCDISTDIR}/${pkgname}/${_appimage} ${wrksrc}/${pkgname}
-#}
+_imagefile=${_app}-${version}-linux-x86_64.AppImage
 
 do_install() {
     cd ${wrksrc}
