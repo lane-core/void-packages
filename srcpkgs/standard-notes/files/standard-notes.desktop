@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Standard Notes
+Exec=standard-notes
+Icon=standard-notes
+Terminal=false
+Type=Application
+Categories=Utility
+Comment=A free, open-source, and completely encrypted notes app.
+StartupWMClass=standard-notes.AppImage
