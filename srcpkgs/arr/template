@@ -1,0 +1,25 @@
+# Template file for 'arr'
+# pinned to git master
+pkgname=arr
+_commit=55b5ff3097da4c98f0eea2d2f28d9a87cd60c51a
+version=20160214
+revision=1
+wrksrc=${pkgname}-${_commit}
+short_desc="(re)arrange and select fields on each line"
+depends="ruby"
+maintainer="lane-brain <lane@mailbox.org>"
+license="CC0-1.0"
+homepage="https://github.com/leahneukirchen/arr"
+distfiles="${homepage}/archive/55b5ff3097da4c98f0eea2d2f28d9a87cd60c51a.tar.gz>${pkgname}-${_commit}.tar.gz"
+checksum=eadcd288ff88f3c3a2df81e24842c9699b3c5c8359b1e71b7cb42380d8e2722e
+
+post_extract() {
+    cd ${wrksrc}
+    sed -i 's|Christian Neukirchen|Leah Neukirchen|g' arr.1
+    sed -i 's|chneukirchen@gmail.com|leah@vuxu.org|g' arr.1
+}
+
+do_install() {
+    vbin arr
+    vman arr.1
+}
