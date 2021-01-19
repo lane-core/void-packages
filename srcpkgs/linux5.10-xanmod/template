@@ -25,6 +25,8 @@ preserve=yes
 hostmakedepends="tar xz zstd bc elfutils-devel flex gmp-devel kmod ncurses libmpc-devel
  libressl-devel ncurses-devel libelf perl uboot-mkimage cpio pahole python3 git"
 
+case $
+
 _kernver="${version}-xanmod${_xanmod}_${revision}"
 
 triggers="kernel-hooks"
@@ -43,8 +45,17 @@ mutable_files="
  /usr/lib/modules/${_kernver}/modules.alias.bin
  /usr/lib/modules/${_kernver}/modules.devname"
 
+# reproducible build
+export KBUILD_BUILD_TIMESTAMP=${SOURCE_DATE_EPOCH:-0}
+export KBUILD_BUILD_USER=voidlinux
+export KBUILD_BUILD_HOST=voidlinux
+
 if [ "$CROSS_BUILD" ]; then
 	_cross="CROSS_COMPILE=${XBPS_CROSS_TRIPLET}-"
+fi
+
+if [ "${_patchver}" ]; then
+	_version="EXTRAVERSION=${_patchver}"
 fi
 
 do_configure() {
@@ -67,12 +78,6 @@ do_configure() {
 		mips*) arch=mips;;
 	esac
 
-	case "$XBPS_TARGET_MACHINE" in
-		aarch64*) # XXX: fix segfault in pahole 1.18; should be fixed in new releases
-			vsed -i scripts/link-vmlinux.sh -e's;${PAHOLE} -J;& --btf_encode_force;'
-			;;
-	esac
-
 	if [ -f ${FILESDIR}/${subarch:-$arch}-dotconfig-custom ]; then
 		msg_normal "Detected a custom .config file for your arch, using it.\n"
 		cp -f ${FILESDIR}/${subarch:-$arch}-dotconfig-custom .config
@@ -89,9 +94,9 @@ do_configure() {
 		msg_normal "Defaulting to 'allmodconfig'.\n"
 		make ${makejobs} ARCH=$arch ${_cross} allmodconfig
 	fi
-	# Always use our revision to CONFIG_LOCALVERSION to match our pkg version.
+	
+    # Always use our revision to CONFIG_LOCALVERSION to match our pkg version.
 	sed -i -e "s|^\(CONFIG_LOCALVERSION=\).*|\1\"_${revision}\"|" .config
-
 }
 
 do_build() {
