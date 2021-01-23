@@ -15,7 +15,7 @@ checksum="71e197867611f6054aa1119b13a0c0abac12834765fe2d81f35ac57f84f742d1"
 depends="gcc>=${_minorver}"
 makedepends="binutils libssp-devel-${version}_${revision} gmp-devel mpfr-devel
   libmpc-devel zlib-devel" 
-depends="glibc libmpc zlip libgcc"
+depends="glibc libmpc zlib libgcc"
 hostmakedepends="tar texinfo perl flex"
 checkdepends="dejagnu"
 subpackages="libgccjit-devel"
