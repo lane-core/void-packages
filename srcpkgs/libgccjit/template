@@ -1,25 +1,41 @@
 # Template file for 'libgccjit'
-_majorver=9
-_minorver=${_majorver}.3
-_soname=0.0.1
+_majorver=10
+_minorver=${_majorver}.2
+_patchver=${_minorver}.1
+
 pkgname=libgccjit
-version=${_minorver}.0
-revision=9
-short_desc="GNU Compiler Collection - JIT compiler library"
-wrksrc="gcc-${version}"
-maintainer="lane-brain <lane@mailbox.org>"
+# we are using a 10-stable git snapshot alpine is using in order
+# to get regression fixes not yet incorporate into a stable release
+# it should be possible to switch back to stable with 10.3 or 11
+version=${_patchver}pre1
+wrksrc=gcc-${version/pre/_pre}
+revision=2
+short_desc="GNU Compiler Collection"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 homepage="http://gcc.gnu.org"
 license="GFDL-1.2-or-later, GPL-3.0-or-later, LGPL-2.1-or-later"
-distfiles="${GNU_SITE}/gcc/gcc-${version}/gcc-${version}.tar.xz"
-checksum="71e197867611f6054aa1119b13a0c0abac12834765fe2d81f35ac57f84f742d1"
+# *-musl builders have issues fetching https://ftp.gnu.org/gnu/mpc/mpc-1.1.0.tar.gz
+distfiles="https://dev.alpinelinux.org/~nenolod/gcc-${version/pre/_pre}.tar.xz"
+checksum="772cfd5d30eb9cc5a996fec9ba8cdcb45d37df1c9b5770610103b814b732c590"
+nopie=yes
+lib32disabled=yes
+
+# MIPS is untested and does not have go in crosstoolchains
+# 32-bit PowerPC seems weirdly broken since the 10.x release
+# 32-bit little endian PowerPC has no support at all (no GOARCH)
+case "$XBPS_TARGET_MACHINE" in
+	ppc64*) ;;
+	mips*-musl|ppc*) _have_gccgo=no ;;
+esac
+
+if [ "$CHROOT_READY" ]; then
+	hostmakedepends="tar texinfo perl flex"
+fi
+
+makedepends="zlib-devel gmp-devel mpfr-devel libmpc-devel 
+  libstdc++-devel-${version}_${revision} libssp-devel-${version}_${revision}"
 depends="gcc>=${_minorver}"
-makedepends="binutils libssp-devel-${version}_${revision} gmp-devel mpfr-devel
-  libmpc-devel zlib-devel" 
-depends="glibc libmpc zlib libgcc"
-hostmakedepends="tar texinfo perl flex"
 checkdepends="dejagnu"
-subpackages="libgccjit-devel"
-#nostrip=yes
 
 case "$XBPS_TARGET_MACHINE" in
 	i686) _triplet="i686-pc-linux-gnu";;
@@ -47,11 +63,19 @@ case "$XBPS_TARGET_MACHINE" in
 	mipsel-musl) _triplet="mipsel-linux-musl";;
 	mipselhf-musl) _triplet="mipsel-linux-muslhf";;
 esac
-
+case "$XBPS_TARGET_MACHINE" in
+	*-musl)	 depends+=" musl-devel";;
+	*) 	 depends+=" glibc-devel"
+		 ;;
+esac
 
 pre_configure() {
 	# _FORTIFY_SOURCE needs an optimization level.
 	sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" {gcc,libiberty}/configure
+
+	# Do not run fixincludes
+	sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
+
 	case "$XBPS_TARGET_MACHINE" in
 		*-musl)
 			patch -p0 -i ${FILESDIR}/libgnarl-musl.patch
@@ -60,7 +84,6 @@ pre_configure() {
 			;;
 	esac
 }
-
 do_configure() {
 	local _langs _args _hash
 
@@ -84,16 +107,27 @@ do_configure() {
 		ppc*-musl) _args+=" --disable-decimal-float";;
 	esac
 
-    if [ -z "$CHROOT_READY" ]; then
+
+	if [ "$CROSS_BUILD" ]; then
+		export CC_FOR_TARGET="$CC"
+		export GCC_FOR_TARGET="$CC"
+		export CXX_FOR_TARGET="$CXX"
+	#	export GOC_FOR_TARGET="${_triplet}-gccgo"
+	#	export GFORTRAN_FOR_TARGET="${_triplet}-gfortran"
+
+		_args+=" --host=$XBPS_CROSS_TRIPLET"
+		_args+=" --with-build-sysroot=${XBPS_CROSS_BASE}"
+#		_langs+=",objc,obj-c++,fortran"
+	elif [ -z "$CHROOT_READY" ]; then
 		export LD_LIBRARY_PATH="${XBPS_MASTERDIR}/usr/lib${XBPS_TARGET_WORDSIZE}"
 		_args+=" --build=${_triplet}"
 	else
+		_langs="c++,jit,lto"
 		_args+=" --build=${_triplet}"
 	fi
 
 	if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
 		_args+=" --disable-gnu-unique-object"
-		_args+=" --disable-libsanitizer"
 		_args+=" --disable-symvers"
 		_args+=" libat_cv_have_ifunc=no"
 	else
@@ -116,21 +150,23 @@ do_configure() {
 	_args+=" --prefix=/usr"
 	_args+=" --mandir=/usr/share/man"
 	_args+=" --infodir=/usr/share/info"
-    _args+="  --with-bugurl='https://github.com/jashandeep-sohi/libgccjit-pkg/issues'" \
+    _args+=" --with-bugurl='https://github.com/jashandeep-sohi/libgccjit-pkg/issues'" \
 	_args+=" --libexecdir=/usr/lib${XBPS_TARGET_WORDSIZE}"
 	_args+=" --libdir=/usr/lib${XBPS_TARGET_WORDSIZE}"
 	_args+=" --with-system-zlib"
 	_args+=" --with-linker-hash-style=$_hash"
 	_args+=" --enable-linker-build-id"
-    _args+=" --enable-threads=posix"
-    _args+=" --enable-lto" 
-    _args+=" --enable-shared"
+	_args+=" --enable-threads=posix"
+	_args+=" --enable-lto"
+	_args+=" --enable-shared"
     _args+=" --enable-host-shared"
-	_args+=" --enable-checking=release" 
-    _args+=" --enable-default-ssp"
+	_args+=" --enable-checking=release"
+	_args+=" --enable-plugins"
+	_args+=" --enable-default-ssp"
 	_args+=" --enable-default-pie"
-    _args+=" --disable-multilib"
+	_args+=" --disable-multilib"
 	_args+=" --disable-bootstrap"
+	_args+=" --enable-__cxa_atexit"
     _args+=" --disable-libquadmath" 
     _args+=" --disable-libquadmath-support"
     _args+=" --disable-libgomp" 
@@ -138,38 +174,44 @@ do_configure() {
     _args+=" --disable-libada"
     _args+=" --disable-libvtv"
     _args+=" --disable-libsanitizer"
-    _args+=" --disable-werror"
+	_args+=" --disable-werror"
 	_args+=" --disable-nls"
 	_args+=" --disable-libstdcxx-pch"
 	_args+=" --disable-sjlj-exceptions"
 	_args+=" --disable-target-libiberty"
-    # We don't need g++ if we aren't running tests. 
-    [ "$XBPS_CHECK_PKGS" ] && _args+=" --enable-languages=jit,c++" || _args+=" --enable-languages=jit"
 
-    # Configure
-    mkdir -p "${wrksrc}/build"
-	cd "${wrksrc}/build"
+	mkdir -p build
+	cd build
 
+    _langs="jit,c++"
+    _args+=" --enable-languages=${_langs}"
     CONFIG_SHELL=/bin/bash \
-		${wrksrc}/configure ${_args}
+	    ${wrksrc}/configure ${_args}
+
 }
 
 do_build() {
 	if [ -z "$CHROOT_READY" ]; then
 		export LD_LIBRARY_PATH="${XBPS_MASTERDIR}/usr/lib${XBPS_TARGET_WORDSIZE}"
 	fi
-    cd "${wrksrc}/build"
+    cd build
     make ${makejobs}
 }
+pre_install() {
+	if [ "$CROSS_BUILD" ]; then
+		# XXX otherwise links to host libpthread
+		for f in $(find ${wrksrc}/build/${XBPS_CROSS_TRIPLET} -type f -name libtool); do
+			sed -e "s,add_dir=\"-L\$libdir\",add_dir=\"-L${XBPS_CROSS_BASE}\$libdir\",g" -i $f
+		done
+	fi
+}
 
-post_build() { 
+do_install() {
     # Lets stage a folder to install into
     mkdir -p "${wrksrc}/install"
     cd "${wrksrc}/build"
     make DESTDIR="${wrksrc}/install" -C gcc install
-}
 
-do_install() {
     _includehostdir="usr/lib/gcc/${_triplet}/${_minorver}/include"
     
     # Lets get the shlibs over
@@ -193,14 +235,4 @@ do_check() {
 
 post_install() {
     vlicense ${wrksrc}/COPYING.RUNTIME RUNTIME.LIBRARY.EXCEPTION
-}
-
-libgccjit-devel_package() {
-    depends="libgccjit>=${_minorver}"
-	short_desc+=" - development files"
-    pkg_install() {
-        vmove usr/lib/libgccjit.so
-        vmove usr/lib/gcc
-        vmove usr/share/info/libgccjit.info
-    }
 }
