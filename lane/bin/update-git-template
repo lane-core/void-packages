@@ -1,0 +1,81 @@
+#!/bin/bash
+# Update git pinned package templates automatically
+# Needs four variables to be defined:
+#   - XBPS_DISTDIR in the environment
+#   - _commit in the template
+#   - _commitdate in the template
+#   - _repourl in the template
+
+# Settings
+username=lane-brain
+token=$(cat ~/.git-public-token)
+curl_args="-u ${username}:${token}"
+
+# Startup tests
+XBPS_DISTDIR=$(xdistdir) || exit 1
+
+# Does the template exist?
+if [ -z "$1" ]; then
+    echo "This script takes the XBPS package name as argument. Exiting..." 1>&2
+    exit 1
+elif [ -f "$1" ]; then
+	template="$1"
+elif [ -f "$1/template" ]; then
+	template="$1/template"
+elif [ -f "$XBPS_DISTDIR/srcpkgs/$1/template" ]; then
+	template="$XBPS_DISTDIR/srcpkgs/$1/template"
+else
+    echo "No template for $1 exists! Exiting..." 1>&2
+    exit 1
+fi
+
+# Is it a git pinned package?
+if [ -z $(cat $template | grep "_commit=" | awk -F"=" '{print $1}') ]; then
+    echo "${1} is not a git pinned template. Exiting..." 1>&2
+    exit 1
+fi
+
+# Alright we're in business. Let's parse our variables
+repo_url=$(cat $template | grep "_repourl=" | awk -F"=" '{print $2}' | sed 's/\"//g')
+repo_name=${repo_url#*\.*/}
+
+template_sha=$(cat $template | grep "_commit=" | awk -F"=" '{print $2}' | sed 's/\"//g')
+template_sha_date=$(cat $template | grep "_commitdate=" | awk -F"=" '{print $2}' | sed 's/\"//g')
+
+echo "$1: template HEAD is currently set to "$template_sha" committed on $template_sha_date"
+
+# Fetch from the API
+api_fetch=/tmp/${1}.json.tmp
+if [[ -f "${api_fetch}" || -z "$(cat "${api_fetch}")" ]]; then
+    curl ${curl_args} https://api.github.com/repos/$repo_name/commits/master | jq . >${api_fetch}
+fi
+
+origin_sha=$(jq .sha ${api_fetch} | tr -d \")
+origin_sha_date=$(jq .commit.committer.date ${api_fetch} | tr -d \- | tr -d \")
+origin_sha_date=${origin_sha_date%T*}
+
+if [ $origin_sha = 'null' ]; then
+    echo "API request was unsuccessful." 1>&2
+    exit 1
+elif [ $origin_sha = $template_sha ]; then
+    echo "Template up to date with origin! Nothing to do here." 
+    exit 0
+else
+    echo "$1: origin HEAD is currently set to $origin_sha committed on $origin_sha_date\n"
+    echo "Origin HEAD is newer than $template_sha, updating template."
+    echo "$template_date: $template_sha" >> $(dirname $template)/.pinlog
+fi
+
+# Make the edits
+cp $template /tmp/template.bak
+sed -i "s/^_commit=.*/_commit=${origin_sha}/g" "$template" || ret=1
+sed -i "s/^_commitdate=.*/_commitdate=${origin_sha_date}/g" "$template" || ret=1
+
+if [ $ret ]; then
+    echo "Template update wasn't successful. Exiting..." 1>&2
+    mv /tmp/template.bak $template
+    exit 1
+fi
+
+#$PAGER ${template} 
+xgensum -i $1
