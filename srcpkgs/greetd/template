@@ -1,0 +1,50 @@
+# Template file for 'greetd'
+# Thanks to the following at AUR, this package
+# was heavily adapted from their template:
+# + Eric Engestrom <aur [at] engestrom [dot] ch>
+# + Kenny Levinsen <aur [at] kl [dot] wtf>
+pkgname=greetd
+_commit=47d0ee939e05f65f9e954a868b8377053a82fbf9
+version=20210118
+revision=1
+wrksrc=${pkgname}-${_commit}
+build_style=cargo
+makedepends="pam-devel scdoc"
+depends="pam greetd-gtkgreet"
+conf_files="/etc/greetd/config.toml
+/etc/pam.d/greetd.pam"
+make_dirs="/etc/greetd 0644 root root"
+system_accounts="greeter"
+greeter_descr="greetd greeter user"
+greeter_groups="video"
+greeter_homedir="/etc/greetd"
+short_desc="A minimal and flexible login manager daemon"
+maintainer="lane-brain <lane@mailbox.org>"
+license="GPL-3.0-or-later"
+homepage="https://git.sr.ht/~kennylevinsen/greetd"
+distfiles="https://git.sr.ht/~kennylevinsen/greetd/archive/${_commit}.tar.gz"
+checksum=2bc7fe83cea6fcd6a1795da577702b95c16a8f3d26ea740a9196753b5a3389d7
+
+post_build() {
+    cd man
+    for i in *.scd; do
+        scdoc < "$i" > "$(basename "$i" .scd)".roff
+    done
+}
+
+do_install() {
+    vbin target/"${XBPS_RUST_TARGET}"/release/greetd
+    vbin target/"${XBPS_RUST_TARGET}"/release/agreety
+
+    # Install man pages
+    for n in 1 5 7; do
+        vmkdir usr/share/man/man$n
+        for i in man/*-$n.roff; do
+            vinstall $i 755 usr/share/man/man$n ${i%-*}.$n
+        done
+    done
+
+    vinstall "${FILESDIR}"/greetd.pam 644 etc/pam.d
+    vinstall config.toml 644 etc/greetd
+    vsv greetd
+}
