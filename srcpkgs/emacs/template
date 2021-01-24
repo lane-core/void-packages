@@ -1,8 +1,13 @@
 # Template file for 'emacs'
 # pinned to git master
-_commit=fa871e4c8271e159d0fc1fc835398ec95a48fc73
+# this is the latest commit before changes in git master
+# broke many emacs packages
+# ref: https://github.com/hlissner/doom-emacs/issues/4534
 pkgname=emacs
-version=28.0.50.20210114
+_commit=605f19aae43e6b892969d916b9264447038e7aa9
+_commitdate=20210120
+_repourl="https://github.com/flatwhatson/emacs"
+version=28.0.50+${_commitdate}
 revision=1
 wrksrc="${pkgname}-${_commit}"
 build_style=gnu-configure
@@ -14,7 +19,7 @@ configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)"
 hostmakedepends="pkg-config tar automake texinfo git"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
- dbus-devel acl-devel libgccjit-devel libmagick-devel git libmagick $(vopt_if gconf GConf-devel)
+ dbus-devel acl-devel libgccjit libmagick-devel git libmagick $(vopt_if gconf GConf-devel)
  $(vopt_if gsettings gsettings-desktop-schemas-devel) $(vopt_if jpeg libjpeg-turbo-devel)
  $(vopt_if tiff tiff-devel) $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel)
  $(vopt_if xpm libXpm-devel) $(vopt_if svg librsvg-devel) $(vopt_if gnutls gnutls-devel)
@@ -22,13 +27,13 @@ makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  $(vopt_if sound alsa-lib-devel) $(vopt_if m17n m17n-lib-devel)
  $(vopt_if json jansson-devel) $(vopt_if harfbuzz harfbuzz-devel)
  $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)"
-depends="emacs-common-${version}_${revision} libgccjit-devel"
+depends="emacs-common-${version}_${revision} libgccjit"
 short_desc="GNU Emacs editor (pure-gtk & nativecomp)"
 maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
-distfiles="https://github.com/flatwhatson/emacs/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
-checksum=bcf2a2d9fe1e4f7f4308000cba435d649a9199969fd95b9bba234f79a4f0a8e3
+distfiles="${_repourl}/emacs/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
+checksum=bea2e0dc0380304797929880fdf5cb9bb80397f23733dfea0f1dd0d9256b3d13
 nocross=yes
 nopie=yes
 
@@ -91,5 +96,3 @@ emacs-common_package() {
 		rm -f ${PKGDESTDIR}/usr/share/info/info.info.gz
 	}
 }
-
-
