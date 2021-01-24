@@ -1,7 +1,10 @@
 # Template file for 'mu'
 pkgname=mu
-version=1.4.15
+_commit=01db0a42690f335a1810c2c9a303b348d13c8be0
+_commitdate=20210123
+version=${_commitdate}
 revision=1
+wrksrc=${pkgname}-${_commit}
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config texinfo glib-devel"
 makedepends="xapian-core-devel gmime3-devel libuuid-devel"
@@ -10,8 +13,8 @@ short_desc="Emacs-based tool for dealing with e-mail stored in the Maildir-forma
 maintainer="Benjamin Slade <slade@jnanam.net>"
 license="GPL-3.0-or-later"
 homepage="https://www.djcbsoftware.nl/code/mu/"
-distfiles="https://github.com/djcb/${pkgname}/releases/download/${version}/${pkgname}-${version}.tar.xz"
-checksum=f7524e17de09470d1369bc1b3959b1f8ac1286eff2d442db33f8355726f8342a
+distfiles="https://github.com/djcb/${pkgname}/archive/${_commit}.tar.gz"
+checksum=edc881b2105bff71c1e27ef8334571c3f3a14eac40ae6027ab8201af3d287148
 
 if [ ! "$CROSS_BUILD" ]; then
 	hostmakedepends+=" emacs"
