@@ -122,7 +122,7 @@ do_configure() {
 		export LD_LIBRARY_PATH="${XBPS_MASTERDIR}/usr/lib${XBPS_TARGET_WORDSIZE}"
 		_args+=" --build=${_triplet}"
 	else
-		_langs="c++,jit,lto"
+		_langs="jit,lto"
 		_args+=" --build=${_triplet}"
 	fi
 
@@ -167,7 +167,7 @@ do_configure() {
 	_args+=" --disable-multilib"
 	_args+=" --disable-bootstrap"
 	_args+=" --enable-__cxa_atexit"
-    _args+=" --disable-libquadmath" 
+    _args+=" --disable-libquadmath"
     _args+=" --disable-libquadmath-support"
     _args+=" --disable-libgomp" 
     _args+=" --disable-liboffloadmic" 
