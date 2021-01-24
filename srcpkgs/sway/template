@@ -1,10 +1,17 @@
 # Template file for 'sway'
+# pinned to git master
 pkgname=sway
-version=1.5.1
+_commit=62ec528c8cd6d2f7a70412b632ece65cbd6883b6
+_commitdate=20210120
+_repourl="https://github.com/swaywm/sway"
+version=1.5.1+${_commitdate}
 revision=1
+wrksrc=${pkgname}-${_commit}
 build_style=meson
 conf_files="/etc/sway/config"
-hostmakedepends="pkg-config wayland-devel scdoc git"
+hostmakedepends="pkg-config wayland-devel scdoc wlroots-devel pcre-devel 
+wayland-protocols json-c-devel libxkbcommon-devel cairo-devel pango-devel 
+libevdev-devel gdk-pixbuf-devel libinput-devel"
 makedepends="wlroots-devel pcre-devel json-c-devel pango-devel cairo-devel
  gdk-pixbuf-devel"
 depends="swaybg xorg-server-xwayland"
@@ -12,8 +19,8 @@ short_desc="Tiling Wayland compositor compatible with i3"
 maintainer="Olaf Mersmann <olafm@p-value.net>"
 license="MIT"
 homepage="https://swaywm.org"
-distfiles="https://github.com/swaywm/${pkgname}/archive/${version}.tar.gz"
-checksum=095f983c9a5f80d761bc2fb19df8166839b9290124ccd47f3e74119a1335490f
+distfiles="${_repourl}/archive/${_commit}.tar.gz"
+checksum=d31d967d64e13562374d875ba7d33fac9dab98c254476510a6662fc2ad447435
 
 post_patch() {
 	vsed -e 's/werror=true/werror=false/g' -i meson.build
