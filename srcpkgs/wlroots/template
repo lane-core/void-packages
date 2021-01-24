@@ -1,7 +1,11 @@
 # Template file for 'wlroots'
 pkgname=wlroots
-version=0.12.0
+_commit=4f06ce255029a8d216d49e437632e2ecc79ef433
+_commitdate=20210123
+_repourl="https://github.com/swaywm/wlroots"
+version=0.12.0+${_commitdate}
 revision=1
+wrksrc=${pkgname}-${_commit} 
 build_style=meson
 configure_args="-Dlogind=disabled -Dlibseat=enabled
  -Dxcb-errors=enabled -Dxcb-icccm=enabled -Dxwayland=enabled
@@ -17,9 +21,8 @@ short_desc="Modular Wayland compositor library"
 maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://github.com/swaywm/wlroots"
-distfiles="https://github.com/swaywm/wlroots/archive/${version}.tar.gz"
-checksum=c9e9f4f6d2f526d0b2886daf3ec37e64831773059aa669fb98a88522a1626bdb
-
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=6c8abcd8b8214bee73e42d3068c1ca0183cd2a5187930da906c75c3992a1cdc1
 post_install() {
 	vlicense LICENSE
 }
