@@ -1,7 +1,8 @@
 # Template file for 'Thunar'
 pkgname=Thunar
+reverts="4.17.0_1"
 version=4.16.1
-revision=1
+revision=2
 wrksrc=thunar-${version}
 build_style=gnu-configure
 build_helper="gir"
@@ -12,7 +13,7 @@ hostmakedepends="pkg-config intltool"
 makedepends="exo-devel libexif-devel libgudev-devel libnotify-devel xfce4-panel-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Thunar File Manager"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="Ulf <void@uw.anonaddy.com>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://docs.xfce.org/xfce/thunar/Start"
 changelog="https://raw.githubusercontent.com/xfce-mirror/thunar/master/NEWS"
