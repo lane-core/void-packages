@@ -183,7 +183,8 @@ do_configure() {
 	mkdir -p build
 	cd build
 
-    _langs="jit,c++"
+    # If we are checking packages, we need to have c++ compiled
+    [ -z "$XBPS_CHECK_PKGS" ] && _langs="jit" || _langs="jit,c++"
     _args+=" --enable-languages=${_langs}"
     CONFIG_SHELL=/bin/bash \
 	    ${wrksrc}/configure ${_args}
@@ -197,6 +198,23 @@ do_build() {
     cd build
     make ${makejobs}
 }
+
+post_build() {
+    # Lets stage a folder to install into
+    mkdir -p "${wrksrc}/install"
+    cd "${wrksrc}/build"
+    make DESTDIR="${wrksrc}/install" -C gcc install
+
+    # Install symlinks to the soname
+    ln -sf libgccjit.so.0.0.1 "${wrksrc}"/install/usr/lib64/libgccjit.so.0
+    ln -sf libgccjit.so.0.0.1 "${wrksrc}"/install/usr/lib64/libgccjit.so
+}
+
+do_check() {
+    cd "${wrksrc}/build"
+    make check-jit RUNTESTFLAGS="-v -v -v"
+}
+
 pre_install() {
 	if [ "$CROSS_BUILD" ]; then
 		# XXX otherwise links to host libpthread
@@ -207,30 +225,21 @@ pre_install() {
 }
 
 do_install() {
-    # Lets stage a folder to install into
-    mkdir -p "${wrksrc}/install"
-    cd "${wrksrc}/build"
-    make DESTDIR="${wrksrc}/install" -C gcc install
-
     _includehostdir="usr/lib/gcc/${_triplet}/${_minorver}/include"
     
-    # Lets get the shlibs over
+    # Get the shlibs over
     cd "${wrksrc}/install"
-    vinstall usr/lib64/libgccjit.so.0.0.1 0755 "usr/lib/"
-    vinstall usr/lib64/libgccjit.so.0 0755 "usr/lib/"
-    vinstall usr/lib64/libgccjit.so 0755 "usr/lib/"
-    
+
+    for shlib in "${wrksrc}/install/usr/lib64/libgccjit.so"*; do
+        vinstall "${shlib}" 0755 usr/lib
+    done
+
     # Get the header files in place
     vinstall usr/include/libgccjit.h 0644 "${_includehostdir}"
     vinstall usr/include/libgccjit++.h 0644 "${_includehostdir}"
 
     # The most important part, the info file
     vinstall usr/share/info/libgccjit.info 0755 "usr/share/info"
-}
-
-do_check() {
-    cd "$srcdir/$pkgname-build/gcc"
-    make check-jit RUNTESTFLAGS="-v -v -v"
 }
 
 post_install() {
