@@ -4,8 +4,8 @@
 # broke many emacs packages
 # ref: https://github.com/hlissner/doom-emacs/issues/4534
 pkgname=emacs
-_commit=605f19aae43e6b892969d916b9264447038e7aa9
-_commitdate=20210120
+_commit=a68d99009604bd38f880086bea49e00008b70f8a
+_commitdate=20210130
 _repourl="https://github.com/flatwhatson/emacs"
 version=28.0.50+${_commitdate}
 revision=1
@@ -32,8 +32,8 @@ short_desc="GNU Emacs editor (pure-gtk & nativecomp)"
 maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
-distfiles="${_repourl}/emacs/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
-checksum=bea2e0dc0380304797929880fdf5cb9bb80397f23733dfea0f1dd0d9256b3d13
+distfiles="${_repourl}/archive/${_commit}.tar.gz"
+checksum=e41a7020ee0ed6701d01c72dc85f174a51ea462cbe8a82dd0c4d11860cf2c1c3
 nocross=yes
 nopie=yes
 
