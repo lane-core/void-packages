@@ -1,8 +1,9 @@
 # Template file for 'foot'
 pkgname=foot
-version=1.6.2
+_commit=e1eed7bafce536303da814ab9bbf8751a5c542d3
+version=20210131
 revision=1
-wrksrc=$pkgname
+wrksrc=${pkgname}
 build_style=meson
 configure_args="-Dwerror=false"
 hostmakedepends="pkg-config scdoc wayland-devel"
@@ -13,8 +14,8 @@ short_desc="Fast, lightweight and minimalistic Wayland terminal emulator"
 maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://codeberg.org/dnkl/foot"
-distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=dee10d8153a3ed57e21f5d8c0ed4121ddf83eeb33655728e5b8c46dfa3566a45
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=fa3f48b860d1803d15f7e1ddff438db4ab4d3a3bb919c3c8f32025941402078f
 
 post_install() {
 	vlicense LICENSE
