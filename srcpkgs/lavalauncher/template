@@ -1,17 +1,19 @@
 # Template file for 'lavalauncher'
 pkgname=lavalauncher
-version=2.0.0
+_commit=500096914af677bd75bffd6751bbc6b0951fe53e
+version=20210123
 revision=1
-wrksrc="${pkgname}-v${version}"
+wrksrc="${pkgname}-${_commit}"
 build_style=meson
 hostmakedepends="wayland-devel pkg-config scdoc"
-makedepends="wayland-protocols wayland-devel cairo-devel librsvg-devel"
+makedepends="wayland-protocols wayland-devel cairo-devel librsvg-devel
+	libxkbcommon-devel"
 short_desc="Simple panel launcher for Wayland"
 maintainer="Jony <maybe-one-day-ubermensch@protonmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://git.sr.ht/~leon_plickat/lavalauncher"
-distfiles="https://git.sr.ht/~leon_plickat/lavalauncher/archive/v${version}.tar.gz"
-checksum=6aa9d6fe189f658dabb709c1902454ebaa7dace8259d39c2256397657a411f9b
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=2470e6c3358819fada925efa4de88f128a27e12633104b165fb29558c26b9c26
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
 		configure_args="-Dc_args=-D__off64_t=off_t"
