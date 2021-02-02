@@ -205,10 +205,7 @@ post_build() {
     cd "${wrksrc}/build"
     make DESTDIR="${wrksrc}/install" -C gcc install
 
-    # Install symlinks to the soname
-    ln -sf libgccjit.so.0.0.1 "${wrksrc}"/install/usr/lib64/libgccjit.so.0
-    ln -sf libgccjit.so.0.0.1 "${wrksrc}"/install/usr/lib64/libgccjit.so
-}
+    }
 
 do_check() {
     cd "${wrksrc}/build"
@@ -230,9 +227,9 @@ do_install() {
     # Get the shlibs over
     cd "${wrksrc}/install"
 
-    for shlib in "${wrksrc}/install/usr/lib64/libgccjit.so"*; do
-        vinstall "${shlib}" 0755 usr/lib
-    done
+    vinstall "${wrksrc}/install/usr/lib64/libgccjit.so.0.0.1" 0755 usr/lib
+    ln -sf libgccjit.so.0.0.1 "${DESTDIR}"/usr/lib/libgccjit.so.0
+    ln -sf libgccjit.so.0.0.1 "${DESTDIR}"/usr/lib/libgccjit.so
 
     # Get the header files in place
     vinstall usr/include/libgccjit.h 0644 "${_includehostdir}"
