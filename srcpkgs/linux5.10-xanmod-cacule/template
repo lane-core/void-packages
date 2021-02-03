@@ -1,6 +1,6 @@
 # Template file for 'linux5.10-xanmod-cacule'
 pkgname=linux5.10-xanmod-cacule
-version=5.10.10
+version=5.10.12
 revision=1
 _xanmod=1
 wrksrc="linux-${version}-xanmod${_xanmod}-cacule"
@@ -9,7 +9,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://github.com/xanmod/linux/archive/${version}-xanmod${_xanmod}-cacule.tar.gz>linux-${version}-xanmod${_xanmod}-cacule.tar.gz"
-checksum=cac7e19910dc2017f6c10da5bce2d8da0a2706caada77e887e28b9adae5a2f5d
+checksum=2bc85aaf68d4336b8e493cca6883c87741e5453737066f3944503f3780f06c0f
 python_version=3
 patch_args="-Np1"
 
