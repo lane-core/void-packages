@@ -1,15 +1,16 @@
 # Template file for 'i3blocks-blocklets'
 pkgname=i3blocks-blocklets
-version=1.4.0
-revision=3
-wrksrc="i3blocks-contrib-${version}"
+_commit=154001e5713c26c70063446022919225b6f916f0
+version=20201127
+revision=1
+wrksrc="i3blocks-contrib-${_commit}"
 depends="i3blocks>=1.5"
 short_desc="Flexible scheduler for i3bar"
 maintainer="teldra <teldra@rotce.de>"
 license="GPL-3.0-or-later, GPL-3.0-only, GPL-2.0-only"
 homepage="https://github.com/vivien/i3blocks-contrib"
-distfiles="https://github.com/vivien/i3blocks-contrib/archive/v${version}.tar.gz"
-checksum=84148bf8f514de3b3dcaedeb5621e9640f96423d06759b7072507a15d0b6337f
+distfiles="https://github.com/vivien/i3blocks-contrib/archive/${_commit}.tar.gz"
+checksum=05008c567f915657695bee94504911ad2b55c9e36d4717165a963e9410769d2c
 
 do_install() {
 	rm -rf .git CONTRIBUTING.md README.md ISSUE_TEMPLATE.md LICENSE.md .gitignore
