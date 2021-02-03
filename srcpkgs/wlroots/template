@@ -1,7 +1,7 @@
 # Template file for 'wlroots'
 pkgname=wlroots
-_commit=01d21cdd9fe5c3edc5d69986b4fc766eb9e6dc60
-_commitdate=20210201
+_commit=a39dc1f7a894b2ee761ae01af836e9b36b207928
+_commitdate=20210202
 _repourl="https://github.com/swaywm/wlroots"
 version=0.12.0+${_commitdate}
 revision=1
@@ -22,7 +22,7 @@ maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://github.com/swaywm/wlroots"
 distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=50e4a2e8f79fa07e18fcdfd0d965d0acf18a6a4766aefffb5d7ced894f15dac9
+checksum=a936173b00a81f9e1fb74b3cdc5b8151db048fcab818a198d196f314ade15c63
 post_install() {
 	vlicense LICENSE
 }
