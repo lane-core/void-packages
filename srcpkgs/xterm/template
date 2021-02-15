@@ -1,6 +1,6 @@
 # Template file for 'xterm'
 pkgname=xterm
-version=363
+version=366
 revision=1
 build_style=gnu-configure
 configure_args="--enable-wide-chars --enable-88-color --enable-broken-osc
@@ -20,7 +20,7 @@ license="MIT, X11"
 homepage="http://invisible-island.net/xterm/"
 changelog="http://invisible-island.net/xterm/xterm.log.html"
 distfiles="https://invisible-mirror.net/archives/xterm/xterm-${version}.tgz"
-checksum=d81a3639e26552b6765bdcf28be1ecdb8acabf907955708e830ad6397ea10b48
+checksum=858b2885963fe97e712739066aadc1baeba2b33a0016303a7fec7d38bc73bf6e
 
 post_install() {
 	for f in {u,}xterm.desktop; do

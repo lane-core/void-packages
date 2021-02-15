@@ -166,7 +166,12 @@ can be used to perform other operations before configuring the package.
 
 - `build` This phase compiles/prepares the `source files` via `make` or any other compatible method.
 
-- `check` This optional phase checks the result of the `build` phase for example by running `make -k check`.
+- `check` This optional phase checks the result of the `build` phase by running the testsuite provided by the package.
+If the default `do_check` function provided by the build style doesn't do anything, the template should set
+`make_check_target` and/or `make_check_args` appropriately or define its own `do_check` function. If tests take too long
+or can't run in all environments, they should be run only if `XBPS_CHECK_PKGS` is `full`, which means they should either
+be under a `[ "$XBPS_CHECK_PKGS" = full ]` conditional (especially useful with custom `do_check`) or `make_check=extended`
+should be set in the template.
 
 - `install` This phase installs the `package files` into the package destdir `<masterdir>/destdir/<pkgname>-<version>`,
 via `make install` or any other compatible method.
@@ -476,7 +481,8 @@ in the local repository exists to satisfy the required version. Dependencies
 can be specified with the following version comparators: `<`, `>`, `<=`, `>=`
 or `foo-1.0_1` to match an exact version. If version comparator is not
 defined (just a package name), the version comparator is automatically set to `>=0`.
-Example: `depends="foo blah>=1.0"`. See the `Runtime dependencies` section for more information.
+Example: `depends="foo blah>=1.0"`. See the [Runtime dependencies](#deps_runtime) section
+for more information.
 
 - `bootstrap` If enabled the source package is considered to be part of the `bootstrap`
 process and required to be able to build packages in the chroot. Only a
@@ -588,6 +594,11 @@ patches to the package sources during `do_patch()`. Patches are stored in
 
 - `disable_parallel_build` If set the package won't be built in parallel
 and `XBPS_MAKEJOBS` has no effect.
+
+- `make_check` Sets the cases in which the `check` phase is run. Can be `yes` (the default) to run if
+`XBPS_CHECK_PKGS` is set, `extended` to run if `XBPS_CHECK_PKGS` is `full` and `no` to never run.
+This option should usually be accompanied by a comment explaining why it was set, especially when
+set to `no`.
 
 - `keep_libtool_archives` If enabled the `GNU Libtool` archives won't be removed. By default those
 files are always removed automatically.

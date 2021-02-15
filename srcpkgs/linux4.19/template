@@ -1,6 +1,6 @@
 # Template file for 'linux4.19'
 pkgname=linux4.19
-version=4.19.173
+version=4.19.176
 revision=1
 wrksrc="linux-${version}"
 short_desc="Linux kernel and modules (${version%.*} series)"
@@ -8,7 +8,7 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=d2fdd236e6f31aa8e939f4a686c95417d8571bde3d091fc6a2535937c144195f
+checksum=e1c3b8d21ba31bd5c50bb3b2a741f62958eb2a116bf13fa0e14f1656c4826073
 python_version=2 #unverified
 patch_args="-Np1"
 
