@@ -33,18 +33,49 @@ checksum="772cfd5d30eb9cc5a996fec9ba8cdcb45d37df1c9b5770610103b814b732c590
 
 nopie=yes
 lib32disabled=yes
-makedepends="zlib-devel gmp-devel mpfr-devel libmpc-devel isl-devel libssp-devel"
-hostmakedepends="tar texinfo perl flex"
+makedepends="zlib-devel"
+hostmakedepends="tar texinfo perl flex" #gmp-devel mpfr-devel libmpc-devel isl-devel libssp-devel"
 depends="gcc"
 checkdepends="dejagnu"
 
-#post_extract() {
-#	mkdir -p ${wrksrc}/{gmp,mpfr,mpc,isl}
-#	cp -ar ${XBPS_BUILDDIR}/gmp-${_gmp_version}/* ${wrksrc}/gmp/
-#	cp -ar ${XBPS_BUILDDIR}/mpfr-${_mpfr_version}/* ${wrksrc}/mpfr/
-#	cp -ar ${XBPS_BUILDDIR}/mpc-${_mpc_version}/* ${wrksrc}/mpc/
-#	cp -ar ${XBPS_BUILDDIR}/isl-${_isl_version}/* ${wrksrc}/isl/
-#}
+## needed for cross builds
+#case "$XBPS_TARGET_MACHINE" in
+#	i686) _triplet="i686-pc-linux-gnu";;
+#	i686-musl) _triplet="i686-linux-musl";;
+#	x86_64) _triplet="x86_64-unknown-linux-gnu";;
+#	x86_64-musl) _triplet="x86_64-linux-musl";;
+#	armv5tel) _triplet="arm-linux-gnueabi";;
+#	armv5tel-musl) _triplet="arm-linux-musleabi";;
+#	armv6l) _triplet="arm-linux-gnueabihf";;
+#	armv7l) _triplet="armv7l-linux-gnueabihf";;
+#	armv6l-musl) _triplet="arm-linux-musleabihf";;
+#	armv7l-musl) _triplet="armv7l-linux-musleabihf";;
+#	aarch64) _triplet="aarch64-linux-gnu";;
+#	aarch64-musl) _triplet="aarch64-linux-musl";;
+#	ppc) _triplet="powerpc-linux-gnu";;
+#	ppc-musl) _triplet="powerpc-linux-musl";;
+#	ppcle) _triplet="powerpcle-linux-gnu";;
+#	ppcle-musl) _triplet="powerpcle-linux-musl";;
+#	ppc64le) _triplet="powerpc64le-linux-gnu";;
+#	ppc64le-musl) _triplet="powerpc64le-linux-musl";;
+#	ppc64) _triplet="powerpc64-linux-gnu";;
+#	ppc64-musl) _triplet="powerpc64-linux-musl";;
+#	mips-musl) _triplet="mips-linux-musl";;
+#	mipshf-musl) _triplet="mips-linux-muslhf";;
+#	mipsel-musl) _triplet="mipsel-linux-musl";;
+#	mipselhf-musl) _triplet="mipsel-linux-muslhf";;
+#esac
+#if [ "$CROSS_BUILD" ]; then
+#	hostmakedepends+=" cross-${_triplet}"
+#fi
+
+post_extract() {
+	mkdir -p ${wrksrc}/{gmp,mpfr,mpc,isl}
+	cp -ar ${XBPS_BUILDDIR}/gmp-${_gmp_version}/* ${wrksrc}/gmp/
+	cp -ar ${XBPS_BUILDDIR}/mpfr-${_mpfr_version}/* ${wrksrc}/mpfr/
+	cp -ar ${XBPS_BUILDDIR}/mpc-${_mpc_version}/* ${wrksrc}/mpc/
+	cp -ar ${XBPS_BUILDDIR}/isl-${_isl_version}/* ${wrksrc}/isl/
+}
 
 pre_configure() {
 	# _FORTIFY_SOURCE needs an optimization level.
@@ -57,6 +88,7 @@ pre_configure() {
 		*-musl)
 			patch -p0 -i ${FILESDIR}/libgnarl-musl.patch
 			patch -p0 -i ${FILESDIR}/libssp-musl.patch
+			patch -p1 -i ${FILESDIR}/libgccjit-musl.patch
 			;;
 	esac
 }
@@ -117,6 +149,11 @@ do_configure() {
 	export CFLAGS="${CFLAGS//-fno-PIE/}"
 	export CXXFLAGS="${CXXFLAGS//-fno-PIE/}"
 	export LDFLAGS="${LDFLAGS//-no-pie/}"
+	
+	# Needs explicit -fPIC
+	export CFLAGS+=" -fPIC"
+	export CXXFLAGS+=" -fPIC"
+	export LDFLAGS+=" -fPIC"
 
 	_args+=" --prefix=/usr"
 	_args+=" --mandir=/usr/share/man"
