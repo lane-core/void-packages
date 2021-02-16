@@ -1,11 +1,8 @@
 # Template file for 'emacs'
 # pinned to git master
-# this is the latest commit before changes in git master
-# broke many emacs packages
-# ref: https://github.com/hlissner/doom-emacs/issues/4534
 pkgname=emacs
-_commit=a68d99009604bd38f880086bea49e00008b70f8a
-_commitdate=20210130
+_commit=af428ebeb7a2d9a74e546226ab797d98b984658a
+_commitdate=20210203
 _repourl="https://github.com/flatwhatson/emacs"
 version=28.0.50+${_commitdate}
 revision=1
@@ -33,7 +30,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="${_repourl}/archive/${_commit}.tar.gz"
-checksum=e41a7020ee0ed6701d01c72dc85f174a51ea462cbe8a82dd0c4d11860cf2c1c3
+checksum=94b212107de47a0f7272d7bcf272ce396cfa4b7b1a4aeca47328518e00b24313
 nocross=yes
 nopie=yes
 
