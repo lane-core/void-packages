@@ -38,33 +38,33 @@ hostmakedepends="tar texinfo perl flex" #gmp-devel mpfr-devel libmpc-devel isl-d
 depends="gcc"
 checkdepends="dejagnu"
 
-## needed for cross builds
-#case "$XBPS_TARGET_MACHINE" in
-#	i686) _triplet="i686-pc-linux-gnu";;
-#	i686-musl) _triplet="i686-linux-musl";;
-#	x86_64) _triplet="x86_64-unknown-linux-gnu";;
-#	x86_64-musl) _triplet="x86_64-linux-musl";;
-#	armv5tel) _triplet="arm-linux-gnueabi";;
-#	armv5tel-musl) _triplet="arm-linux-musleabi";;
-#	armv6l) _triplet="arm-linux-gnueabihf";;
-#	armv7l) _triplet="armv7l-linux-gnueabihf";;
-#	armv6l-musl) _triplet="arm-linux-musleabihf";;
-#	armv7l-musl) _triplet="armv7l-linux-musleabihf";;
-#	aarch64) _triplet="aarch64-linux-gnu";;
-#	aarch64-musl) _triplet="aarch64-linux-musl";;
-#	ppc) _triplet="powerpc-linux-gnu";;
-#	ppc-musl) _triplet="powerpc-linux-musl";;
-#	ppcle) _triplet="powerpcle-linux-gnu";;
-#	ppcle-musl) _triplet="powerpcle-linux-musl";;
-#	ppc64le) _triplet="powerpc64le-linux-gnu";;
-#	ppc64le-musl) _triplet="powerpc64le-linux-musl";;
-#	ppc64) _triplet="powerpc64-linux-gnu";;
-#	ppc64-musl) _triplet="powerpc64-linux-musl";;
-#	mips-musl) _triplet="mips-linux-musl";;
-#	mipshf-musl) _triplet="mips-linux-muslhf";;
-#	mipsel-musl) _triplet="mipsel-linux-musl";;
-#	mipselhf-musl) _triplet="mipsel-linux-muslhf";;
-#esac
+# needed for cross builds
+case "$XBPS_TARGET_MACHINE" in
+	i686) _triplet="i686-pc-linux-gnu";;
+	i686-musl) _triplet="i686-linux-musl";;
+	x86_64) _triplet="x86_64-unknown-linux-gnu";;
+	x86_64-musl) _triplet="x86_64-linux-musl";;
+	armv5tel) _triplet="arm-linux-gnueabi";;
+	armv5tel-musl) _triplet="arm-linux-musleabi";;
+	armv6l) _triplet="arm-linux-gnueabihf";;
+	armv7l) _triplet="armv7l-linux-gnueabihf";;
+	armv6l-musl) _triplet="arm-linux-musleabihf";;
+	armv7l-musl) _triplet="armv7l-linux-musleabihf";;
+	aarch64) _triplet="aarch64-linux-gnu";;
+	aarch64-musl) _triplet="aarch64-linux-musl";;
+	ppc) _triplet="powerpc-linux-gnu";;
+	ppc-musl) _triplet="powerpc-linux-musl";;
+	ppcle) _triplet="powerpcle-linux-gnu";;
+	ppcle-musl) _triplet="powerpcle-linux-musl";;
+	ppc64le) _triplet="powerpc64le-linux-gnu";;
+	ppc64le-musl) _triplet="powerpc64le-linux-musl";;
+	ppc64) _triplet="powerpc64-linux-gnu";;
+	ppc64-musl) _triplet="powerpc64-linux-musl";;
+	mips-musl) _triplet="mips-linux-musl";;
+	mipshf-musl) _triplet="mips-linux-muslhf";;
+	mipsel-musl) _triplet="mipsel-linux-musl";;
+	mipselhf-musl) _triplet="mipsel-linux-muslhf";;
+esac
 #if [ "$CROSS_BUILD" ]; then
 #	hostmakedepends+=" cross-${_triplet}"
 #fi
@@ -124,9 +124,9 @@ do_configure() {
 		_args+=" --with-build-sysroot=${XBPS_CROSS_BASE}"
 	elif [ -z "$CHROOT_READY" ]; then
 		export LD_LIBRARY_PATH="${XBPS_MASTERDIR}/usr/lib${XBPS_TARGET_WORDSIZE}"
-		_args+=" --build=${XBPS_TARGET_TRIPLET}"
+		_args+=" --build=${_triplet}"
 	else
-		_args+=" --build=${XBPS_TARGET_TRIPLET}"
+		_args+=" --build=${_triplet}"
 	fi
 
 	if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
@@ -149,7 +149,7 @@ do_configure() {
 	export CFLAGS="${CFLAGS//-fno-PIE/}"
 	export CXXFLAGS="${CXXFLAGS//-fno-PIE/}"
 	export LDFLAGS="${LDFLAGS//-no-pie/}"
-	
+
 	# Needs explicit -fPIC
 	export CFLAGS+=" -fPIC"
 	export CXXFLAGS+=" -fPIC"
@@ -229,7 +229,11 @@ pre_install() {
 }
 
 do_install() {
-	_includehostdir="usr/lib/gcc/${XBPS_TARGET_TRIPLET}/${_minorver}/include"
+	if [ "$CROSS_BUILD" ]; then
+		_includehostdir="usr/lib/gcc/${XBPS_CROSS_TRIPLET}/${_minorver}/include"
+	else
+		_includehostdir="usr/lib/gcc/${_triplet}/${_minorver}/include"
+	fi
 
 	# Get the shlibs over
 	cd "${wrksrc}/install"
