@@ -1,7 +1,7 @@
 # Template file for 'mako'
 pkgname=mako
-_commit=2808b0f3aa74aa179a0cc4f7f1bb17b5ceeacb1b
-version=20210131
+_commit=27f08a8f0dd5e4a773d8c0f043ccae129a08445a
+version=20210231
 revision=1
 wrksrc=${pkgname}-${_commit}
 build_style=meson
@@ -14,7 +14,7 @@ maintainer="Emerson Ferreira <me@skrps.me>"
 license="MIT"
 homepage="https://mako-project.org/"
 distfiles="https://github.com/emersion/${pkgname}/archive/${_commit}.tar.gz"
-checksum=bd9609790e84272da3760f14f9e52f0119fd5fafe4282e9ad4af32df2cfb614d
+checksum=12b696b53512c10f4cb8d8cb43d7d71f98adac9b0d0dab17fe92503fdcfe395a
 
 conf_files="/etc/apparmor.d/local/fr.emersion.Mako"
 
