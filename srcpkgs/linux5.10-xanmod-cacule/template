@@ -1,6 +1,6 @@
 # Template file for 'linux5.10-xanmod-cacule'
 pkgname=linux5.10-xanmod-cacule
-version=5.10.12
+version=5.10.14
 revision=1
 _xanmod=1
 wrksrc="linux-${version}-xanmod${_xanmod}-cacule"
@@ -9,7 +9,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://github.com/xanmod/linux/archive/${version}-xanmod${_xanmod}-cacule.tar.gz>linux-${version}-xanmod${_xanmod}-cacule.tar.gz"
-checksum=2bc85aaf68d4336b8e493cca6883c87741e5453737066f3944503f3780f06c0f
+checksum=dc400aa8b978bda3f8aaebdaa0584a55131707e528d7ab441d12d4a0510dc440
 python_version=3
 patch_args="-Np1"
 
@@ -78,7 +78,7 @@ do_configure() {
 		mips*) arch=mips;;
 	esac
 
-    if [ -f ${FILESDIR}/${subarch:-$arch}-dotconfig-custom ]; then
+	if [ -f ${FILESDIR}/${subarch:-$arch}-dotconfig-custom ]; then
 		msg_normal "Detected a custom .config file for your arch, using it.\n"
 		cp -f ${FILESDIR}/${subarch:-$arch}-dotconfig-custom .config
 		make ${makejobs} ARCH=$arch ${_cross} oldconfig
@@ -114,9 +114,9 @@ do_configure() {
 }
 
 do_build() {
-    local arch _args
+	local arch _args
 
-    case "$XBPS_TARGET_MACHINE" in
+	case "$XBPS_TARGET_MACHINE" in
 		i686*) _args="bzImage modules"; arch=i386;;
 		x86_64*) _args="bzImage modules"; arch=x86_64;;
 		arm*) _args="zImage modules dtbs"; arch=arm;;
