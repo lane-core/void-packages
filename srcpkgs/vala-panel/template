@@ -1,8 +1,9 @@
 # Template file for 'vala-panel'
 pkgname=vala-panel
-_glhash=da591ffc8460b2a473e1aba3e3dcf178
-version=0.5.0
+_commit=9f1161f3051e6499ffe7a719afdd8415b2812666
+version=20201223
 revision=1
+wrksrc=${pkgname}-${_commit}
 build_style=meson
 configure_args="$(vopt_if wayland -Dplatforms=x11,layer-shell -Dplatforms=x11)"
 hostmakedepends="vala pkg-config gettext glib-devel"
@@ -11,8 +12,8 @@ short_desc="GTK+3 desktop panel forked from LXPanel"
 maintainer="Joshua Krämer <joshua@kraemer.link>"
 license="LGPL-3.0-or-later"
 homepage="https://gitlab.com/vala-panel-project/vala-panel"
-distfiles="https://gitlab.com/vala-panel-project/vala-panel/uploads/$_glhash/vala-panel-${version}.tar.xz"
-checksum=ee3a9e000133da43b218ecd1738463c2de3f45783a5a09a11b9c263df4e233d1
+distfiles="https://gitlab.com/vala-panel-project/vala-panel/-/archive/${_commit}.tar.gz"
+checksum=bb85670be9da4a68a0ddfc0933026cf0503e7515aea3e7377038f3ec5f40af32
 
 # Package build options
 build_options="wayland"

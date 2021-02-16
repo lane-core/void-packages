@@ -112,12 +112,9 @@ do_configure() {
 		export CC_FOR_TARGET="$CC"
 		export GCC_FOR_TARGET="$CC"
 		export CXX_FOR_TARGET="$CXX"
-	#	export GOC_FOR_TARGET="${_triplet}-gccgo"
-	#	export GFORTRAN_FOR_TARGET="${_triplet}-gfortran"
 
 		_args+=" --host=$XBPS_CROSS_TRIPLET"
 		_args+=" --with-build-sysroot=${XBPS_CROSS_BASE}"
-#		_langs+=",objc,obj-c++,fortran"
 	elif [ -z "$CHROOT_READY" ]; then
 		export LD_LIBRARY_PATH="${XBPS_MASTERDIR}/usr/lib${XBPS_TARGET_WORDSIZE}"
 		_args+=" --build=${_triplet}"
@@ -200,15 +197,15 @@ do_build() {
 }
 
 post_build() {
-    # Lets stage a folder to install into
+    # Lets create a staging folder to install into
     mkdir -p "${wrksrc}/install"
     cd "${wrksrc}/build"
     make DESTDIR="${wrksrc}/install" -C gcc install
 
-    }
+}
 
 do_check() {
-    cd "${wrksrc}/build"
+    cd "${wrksrc}/build/gcc"
     make check-jit RUNTESTFLAGS="-v -v -v"
 }
 
