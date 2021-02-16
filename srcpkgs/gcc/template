@@ -55,7 +55,7 @@ else
 fi
 makedepends="zlib-devel"
 depends="binutils libgcc-devel-${version}_${revision}
- libstdc++-devel-${version}_${revision} libssp-devel-${version}_${revision}"
+ libstdc++-devel-${version}_${revision}"
 checkdepends="dejagnu"
 
 subpackages="libgcc libgomp libgomp-devel libatomic libatomic-devel"
