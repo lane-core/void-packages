@@ -1,7 +1,7 @@
 # Template file for 'i3status-rust'
 pkgname=i3status-rust
 _commit=205b257991bee762f2f226ed7067ce50f32d887a
-version=20210203
+version=20210204
 revision=1
 wrksrc=${pkgname}-${_commit}
 build_style=cargo
@@ -17,6 +17,6 @@ checksum=664b5dbe8714722b080cedb92fcd59db2e21e9f79eba7c5055b14604b0773fc0
 
 post_install() {
 	# Install example as per the man page's location
-	vinstall ${wrksrc}/example/theme/solarized-dark.toml 644 usr/share/example/i3status-rust/themes
+	vinstall ${wrksrc}/example/theme/solarized-dark.toml 644 usr/share/examples/i3status-rust/themes
 	vman man/i3status-rs.1
 }
