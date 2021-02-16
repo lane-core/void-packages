@@ -2,9 +2,7 @@
 # pinned to git master
 pkgname=sway
 _commit=89b4bc4bc7e52ecdcc809b4ffe48cba93de2794e
-_commitdate=20210202
-_repourl="https://github.com/swaywm/sway"
-version=1.5.1+${_commitdate}
+version=20210202
 revision=1
 wrksrc=${pkgname}-${_commit}
 build_style=meson
@@ -18,8 +16,8 @@ depends="swaybg xorg-server-xwayland"
 short_desc="Tiling Wayland compositor compatible with i3"
 maintainer="Olaf Mersmann <olafm@p-value.net>"
 license="MIT"
-homepage="https://swaywm.org"
-distfiles="${_repourl}/archive/${_commit}.tar.gz"
+homepage="https://github.com/swaywm/sway"
+distfiles="${homepage}/archive/${_commit}.tar.gz"
 checksum=b0703f3589f7fa09ac4afb6e5ddd87ff70bcb1061898638e3bb1cb92ba80fe44
 
 post_patch() {
