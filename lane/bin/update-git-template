@@ -42,20 +42,26 @@ fi
 # Alright we're in business. Let's parse our variables
 #
 # First, we check whether $homepage contains a git repo, if not
-# then we use $repo as defined in the template. If neither are
+# then we use $_repo as defined in the template. If neither are
 # present we exit with error code 1
 for link in $repos[@]; do
 	if [ ! -z $(cat $template | grep "homepage=" | grep $link) ]; then
 		use_homepage_flag=1
+		domain=$link
 		repo=$( cat $template | grep "homepage=" | awk -F"=" '{print $2}' | sed 's/\"//g' )
 		break
 	# always use _repo if it is defined
 	elif [ ! -z $(cat $template | grep "_repo=" | grep $link) ]; then
 		use_repo_flag=1
 		repo=$( cat $template | grep "_repo=" | awk -F"=" '{print $2}' | sed 's/\"//g' )
+		domain=$link
 		break
 	fi
 done
+
+if [[ -z $use_homepage_flag || -z $use_repo_flag ]]; then
+	echo "No git repos found in this template. Aborting..."
+fi
 
 repo_name=${repo#*\.*/}
 
@@ -67,7 +73,7 @@ echo "$1: template HEAD is currently set to "$template_sha" committed on $templa
 # Fetch from the API
 api_fetch=/tmp/${1}.json.tmp
 if [[ -f "${api_fetch}" || -z "$(cat "${api_fetch}")" ]]; then
-    curl ${curl_args} https://api.github.com/repos/$repo_name/commits/master | jq . >${api_fetch}
+    curl ${curl_args} "https://api.${domain}/repos/${repo_name}/commits/master" | jq . >${api_fetch}
 fi
 
 origin_sha=$(jq .sha ${api_fetch} | tr -d \")
