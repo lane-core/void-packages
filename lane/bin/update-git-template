@@ -16,7 +16,7 @@ curl_args="-u ${username}:${token}"
 XBPS_DISTDIR=$(xdistdir) || exit 1
 
 # Config
-repos=[ "github.com" "codeberg.org" "gitea.io" "sr.ht" ]
+repos="github.com codeberg.org gitea.io sr.ht"
 
 # Does the template exist?
 if [ -z "$1" ]; then
@@ -44,24 +44,23 @@ fi
 # First, we check whether $homepage contains a git repo, if not
 # then we use $_repo as defined in the template. If neither are
 # present we exit with error code 1
-for link in $repos[@]; do
+for link in $repos; do
+	echo "Checking for $link"
 	if [ ! -z $(cat $template | grep "homepage=" | grep $link) ]; then
+		echo "Found $link in \$homepage"
 		use_homepage_flag=1
 		domain=$link
 		repo=$( cat $template | grep "homepage=" | awk -F"=" '{print $2}' | sed 's/\"//g' )
 		break
 	# always use _repo if it is defined
 	elif [ ! -z $(cat $template | grep "_repo=" | grep $link) ]; then
+		echo "Found $link in \$_repo"
 		use_repo_flag=1
 		repo=$( cat $template | grep "_repo=" | awk -F"=" '{print $2}' | sed 's/\"//g' )
 		domain=$link
 		break
 	fi
 done
-
-if [[ -z $use_homepage_flag || -z $use_repo_flag ]]; then
-	echo "No git repos found in this template. Aborting..."
-fi
 
 repo_name=${repo#*\.*/}
 
@@ -72,8 +71,10 @@ echo "$1: template HEAD is currently set to "$template_sha" committed on $templa
 
 # Fetch from the API
 api_fetch=/tmp/${1}.json.tmp
+api_link="https://api.${domain}/repos/${repo_name}"
 if [[ -f "${api_fetch}" || -z "$(cat "${api_fetch}")" ]]; then
-    curl ${curl_args} "https://api.${domain}/repos/${repo_name}/commits/master" | jq . >${api_fetch}
+	echo "Pulling repo info from ${api_link}"
+    curl ${curl_args} "${api_link}/commits/master" | jq . >${api_fetch}
 fi
 
 origin_sha=$(jq .sha ${api_fetch} | tr -d \")
@@ -94,8 +95,8 @@ fi
 
 # Make the edits
 cp $template /tmp/template.bak
-sed -i "s/^_commit=.*$/^_commit=${origin_sha}$/g" "$template" || ret=1
-sed -i "s/^version=.*$/^version=${origin_sha_date}$/g" "$template" || ret=1
+sed -i "s/_commit=.*$/_commit=${origin_sha}/g" "$template" || ret=1
+sed -i "s/version=.*$/version=${origin_sha_date}/g" "$template" || ret=1
 
 if [ $ret ]; then
     echo "Template update wasn't successful. Exiting..." >&1
