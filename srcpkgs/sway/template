@@ -1,24 +1,27 @@
-# Template file for 'sway'
+# Template file for 'sway-git'
 # pinned to git master
 pkgname=sway
-_commit=89b4bc4bc7e52ecdcc809b4ffe48cba93de2794e
-version=20210202
+_commit=2ad14b372e1f699f3e8c846a94099b504fe293e9
+version=20210217
 revision=1
 wrksrc=${pkgname}-${_commit}
 build_style=meson
 conf_files="/etc/sway/config"
 hostmakedepends="pkg-config wayland-devel scdoc wlroots-devel pcre-devel 
 wayland-protocols json-c-devel libxkbcommon-devel cairo-devel pango-devel 
-libevdev-devel gdk-pixbuf-devel libinput-devel"
-makedepends="wlroots-devel pcre-devel json-c-devel pango-devel cairo-devel
- gdk-pixbuf-devel"
-depends="swaybg xorg-server-xwayland"
+libevdev-devel gdk-pixbuf-devel libinput-devel xcb-util-renderutil-devel"
+makedepends="wlroots xcb-util-renderutil wlroots-devel pcre-devel json-c-devel pango-devel cairo-devel
+ gdk-pixbuf-devel xcb-util-renderutil-devel"
+depends="swaybg xorg-server-xwayland xcb-util-renderutil wlroots"
 short_desc="Tiling Wayland compositor compatible with i3"
 maintainer="Olaf Mersmann <olafm@p-value.net>"
 license="MIT"
 homepage="https://github.com/swaywm/sway"
 distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=b0703f3589f7fa09ac4afb6e5ddd87ff70bcb1061898638e3bb1cb92ba80fe44
+checksum=3e621883033b8ea2911bcfbf92bb593db09ead306d9d2e5159bf1e5e2be8d391
+
+provides="sway-${version}_${revision}"
+replaces="sway>=0"
 
 post_patch() {
 	vsed -e 's/werror=true/werror=false/g' -i meson.build
