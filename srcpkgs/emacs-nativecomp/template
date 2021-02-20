@@ -1,4 +1,4 @@
-# Template file for 'emacs-nativecomp'
+s# Template file for 'emacs-nativecomp'
 # pinned to git master
 pkgname=emacs-nativecomp
 _commit=e251ce0cfb53d746ac4bc488725d83f2e123ee64
