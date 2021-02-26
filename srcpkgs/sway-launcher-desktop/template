@@ -1,8 +1,8 @@
 # Template file for 'sway-launcher-desktop'
 # pinned to git master
 pkgname=sway-launcher-desktop
-_commit=232a3f9c00accd03cd3afd2c5f515051e142c74f
-version=20210122
+_commit=fda862a4d5958fa4fbc9668b99339c7a1e584584
+version=20210203
 revision=1
 wrksrc=${pkgname}-${_commit}
 depends="fzf"
@@ -11,7 +11,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Biont/sway-launcher-desktop"
 distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=d01c47552928bc66ec00dfd55b02b8466d1c5406c537f1f80046f29d3c215ede
+checksum=3524c7c74b57536633bf8b5cf1e9ee0f25dcc54f8686119d6f96730d92769a9d
 
 do_install() {
     vbin sway-launcher-desktop.sh
