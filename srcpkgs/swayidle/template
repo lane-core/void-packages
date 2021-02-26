@@ -1,7 +1,7 @@
 # Template file for 'swayidle'
 pkgname=swayidle
-_commit=068942751ba459ef3b9ba0ec8eddf9f6f212c4d7
-version=20201106
+_commit=e0bf32cfdf1514a9555dd4326e6ffd9023d79d44
+version=20210209
 revision=1
 wrksrc=${pkgname}-${_commit}
 build_style=meson
@@ -13,7 +13,7 @@ maintainer="Derriick <derriick.ensiie@yahoo.com>"
 license="MIT"
 homepage="https://github.com/swaywm/swayidle"
 distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=54db72028f7cc7688205c9498872c04848d48caa1bd2c0209dd533d4855b13fb
+checksum=0ea92d4e063606ca476034e1a2291cf540f3e8e344728380d155e124738528b3
 
 post_install() {
 	vlicense LICENSE
