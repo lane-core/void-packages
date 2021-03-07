@@ -1,0 +1,74 @@
+From e5a598298afbdc1eda785c40dd74cf7d56abb453 Mon Sep 17 00:00:00 2001
+From: Aleksei Bavshin <alebastr89@gmail.com>
+Date: Fri, 15 Jan 2021 19:28:45 -0800
+Subject: [PATCH] deps: update nix and other dependencies
+
+`fork` is now marked as unsafe (nix-rust/nix#1030)
+---
+ agreety/Cargo.toml              | 4 ++--
+ greetd/Cargo.toml               | 4 ++--
+ greetd/src/session/interface.rs | 2 +-
+ greetd/src/session/worker.rs    | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/agreety/Cargo.toml b/agreety/Cargo.toml
+index b29428a..e56f8d3 100644
+--- a/agreety/Cargo.toml
++++ b/agreety/Cargo.toml
+@@ -10,7 +10,7 @@ repository = "https://git.sr.ht/~kennylevinsen/greetd/"
+ [dependencies]
+ greetd_ipc = { path = "../greetd_ipc", features = ["sync-codec"]}
+ inish = { path = "../inish"}
+-rpassword = "4.0"
++rpassword = "5.0"
+ getopts = "0.2"
+ enquote = "1.0.3"
+-nix = "0.17"
+\ No newline at end of file
++nix = "0.19"
+\ No newline at end of file
+diff --git a/greetd/Cargo.toml b/greetd/Cargo.toml
+index abf842a..a35b0ee 100644
+--- a/greetd/Cargo.toml
++++ b/greetd/Cargo.toml
+@@ -11,9 +11,9 @@ repository = "https://git.sr.ht/~kennylevinsen/greetd/"
+ debug = []
+ 
+ [dependencies]
+-nix = "0.17"
++nix = "0.19"
+ pam-sys = "0.5.6"
+-users = "0.9.1"
++users = "0.11.0"
+ serde = { version = "1.0", features = ["derive"] }
+ serde_json = "1.0"
+ greetd_ipc = { path = "../greetd_ipc", features = ["tokio-codec"] }
+diff --git a/greetd/src/session/interface.rs b/greetd/src/session/interface.rs
+index 7614de0..805f07a 100644
+--- a/greetd/src/session/interface.rs
++++ b/greetd/src/session/interface.rs
+@@ -105,7 +105,7 @@ impl Session {
+         let cur_exe = std::env::current_exe()?;
+         let bin = CString::new(cur_exe.to_str().expect("unable to get current exe name"))?;
+ 
+-        let child = match fork().map_err(|e| format!("unable to fork: {}", e))? {
++        let child = match unsafe { fork() }.map_err(|e| format!("unable to fork: {}", e))? {
+             ForkResult::Parent { child, .. } => child,
+             ForkResult::Child => {
+                 execv(
+diff --git a/greetd/src/session/worker.rs b/greetd/src/session/worker.rs
+index 8b87ac8..f968968 100644
+--- a/greetd/src/session/worker.rs
++++ b/greetd/src/session/worker.rs
+@@ -225,7 +225,7 @@ fn worker(sock: &UnixDatagram) -> Result<(), Error> {
+     // PAM is weird and gets upset if you exec from the process that opened
+     // the session, registering it automatically as a log-out. Thus, we must
+     // exec in a new child.
+-    let child = match fork().map_err(|e| format!("unable to fork: {}", e))? {
++    let child = match unsafe { fork() }.map_err(|e| format!("unable to fork: {}", e))? {
+         ForkResult::Parent { child, .. } => child,
+         ForkResult::Child => {
+             // It is important that we do *not* return from here by
+-- 
+2.30.1
+

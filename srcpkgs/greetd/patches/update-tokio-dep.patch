@@ -1,0 +1,151 @@
+From eef821c68b522b742e126753cf5b19680b667214 Mon Sep 17 00:00:00 2001
+From: Aleksei Bavshin <alebastr89@gmail.com>
+Date: Fri, 15 Jan 2021 19:28:44 -0800
+Subject: [PATCH] deps: update tokio to 1.0
+
+---
+ fakegreet/Cargo.toml  |  2 +-
+ fakegreet/src/main.rs | 10 +++++-----
+ greetd/Cargo.toml     |  2 +-
+ greetd/src/context.rs |  4 ++--
+ greetd/src/main.rs    |  2 +-
+ greetd/src/server.rs  |  2 +-
+ greetd_ipc/Cargo.toml |  2 +-
+ 7 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/fakegreet/Cargo.toml b/fakegreet/Cargo.toml
+index 6325823..cb5bc5c 100644
+--- a/fakegreet/Cargo.toml
++++ b/fakegreet/Cargo.toml
+@@ -10,5 +10,5 @@ repository = "https://git.sr.ht/~kennylevinsen/greetd/"
+ [dependencies]
+ serde = { version = "1.0", features = ["derive"] }
+ greetd_ipc = { path = "../greetd_ipc", features = ["tokio-codec"] }
+-tokio = { version = "0.2", features = ["process"] }
++tokio = { version = "1.0", features = ["process"] }
+ thiserror = "1.0"
+diff --git a/fakegreet/src/main.rs b/fakegreet/src/main.rs
+index a8f400a..0a23c77 100644
+--- a/fakegreet/src/main.rs
++++ b/fakegreet/src/main.rs
+@@ -6,7 +6,7 @@ use tokio::{
+     net::{UnixListener, UnixStream},
+     process::Command,
+     task,
+-    time::delay_for,
++    time::sleep,
+ };
+ 
+ use crate::error::Error;
+@@ -82,7 +82,7 @@ impl Context {
+                 || s.password != Some("password".to_string())
+                 || response != Some("9".to_string())
+             {
+-                delay_for(Duration::from_millis(2000)).await;
++                sleep(Duration::from_millis(2000)).await;
+                 return Err(Error::AuthError("nope".to_string()));
+             }
+             s.ok = true;
+@@ -94,7 +94,7 @@ impl Context {
+         if !self.inner.borrow().ok {
+             return Err(Error::Error("not yet dammit".to_string()));
+         }
+-        delay_for(Duration::from_millis(5000)).await;
++        sleep(Duration::from_millis(5000)).await;
+         Ok(())
+     }
+ 
+@@ -151,7 +151,7 @@ pub async fn server() -> Result<(), Error> {
+     std::env::set_var("GREETD_SOCK", path);
+ 
+     let _ = std::fs::remove_file(path);
+-    let mut listener =
++    let listener =
+         UnixListener::bind(path).map_err(|e| format!("unable to open listener: {}", e))?;
+ 
+     let arg = env::args().nth(1).expect("need argument");
+@@ -174,7 +174,7 @@ pub async fn server() -> Result<(), Error> {
+     }
+ }
+ 
+-#[tokio::main]
++#[tokio::main(flavor = "current_thread")]
+ async fn main() {
+     let res = task::LocalSet::new()
+         .run_until(async move { server().await })
+diff --git a/greetd/Cargo.toml b/greetd/Cargo.toml
+index af2b0d9..abf842a 100644
+--- a/greetd/Cargo.toml
++++ b/greetd/Cargo.toml
+@@ -19,7 +19,7 @@ serde_json = "1.0"
+ greetd_ipc = { path = "../greetd_ipc", features = ["tokio-codec"] }
+ inish = { path = "../inish" }
+ libc = "0.2"
+-tokio = { version = "0.2", features = ["net", "sync", "macros", "signal", "rt-util", "io-util", "time"] }
++tokio = { version = "1.0", features = ["net", "sync", "macros", "signal", "rt", "io-util", "time"] }
+ getopts = "0.2"
+ thiserror = "1.0"
+ async-trait = "0.1"
+diff --git a/greetd/src/context.rs b/greetd/src/context.rs
+index a12f9e1..0d7fe97 100644
+--- a/greetd/src/context.rs
++++ b/greetd/src/context.rs
+@@ -4,7 +4,7 @@ use nix::{
+     sys::wait::{waitpid, WaitPidFlag, WaitStatus},
+     unistd::alarm,
+ };
+-use tokio::{sync::RwLock, time::delay_for};
++use tokio::{sync::RwLock, time::sleep};
+ 
+ use crate::{
+     error::Error,
+@@ -341,7 +341,7 @@ impl Context {
+                                 return Err("greeter exited without creating a session".into());
+                             }
+                             if sesion_length < Duration::from_secs(1) {
+-                                delay_for(Duration::from_secs(1)).await;
++                                sleep(Duration::from_secs(1)).await;
+                             }
+                             inner.current = Some(SessionChildSet {
+                                 child: self.start_greeter().await?,
+diff --git a/greetd/src/main.rs b/greetd/src/main.rs
+index aecfa7d..b88c6dc 100644
+--- a/greetd/src/main.rs
++++ b/greetd/src/main.rs
+@@ -29,7 +29,7 @@ async fn session_worker_main(config: config::Config) -> Result<(), Error> {
+     worker::main(&sock)
+ }
+ 
+-#[tokio::main]
++#[tokio::main(flavor = "current_thread")]
+ async fn main() {
+     let config = match config::read_config() {
+         Ok(config) => config,
+diff --git a/greetd/src/server.rs b/greetd/src/server.rs
+index b094ced..9ad1a4f 100644
+--- a/greetd/src/server.rs
++++ b/greetd/src/server.rs
+@@ -211,7 +211,7 @@ pub async fn main(config: Config) -> Result<(), Error> {
+     let uid = Uid::from_raw(u.uid());
+     let gid = Gid::from_raw(u.primary_group_id());
+ 
+-    let mut listener = Listener::create(uid, gid)?;
++    let listener = Listener::create(uid, gid)?;
+ 
+     let term_mode = get_tty(&config)?;
+ 
+diff --git a/greetd_ipc/Cargo.toml b/greetd_ipc/Cargo.toml
+index e25265b..0f11817 100644
+--- a/greetd_ipc/Cargo.toml
++++ b/greetd_ipc/Cargo.toml
+@@ -20,6 +20,6 @@ tokio-codec = ["codec", "tokio", "async-trait"]
+ [dependencies]
+ serde = { version = "1.0", features = ["derive"] }
+ serde_json = "1.0"
+-tokio = { version = "0.2", features = ["io-util"], optional = true }
++tokio = { version = "1.0", features = ["io-util"], optional = true }
+ async-trait = { version = "0.1", optional = true }
+ thiserror = { version = "1.0", optional = true }
+-- 
+2.30.1
+

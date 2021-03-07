@@ -1,2 +1,2 @@
 #!/bin/sh
-exec greetd
+exec greetd 2>&1
