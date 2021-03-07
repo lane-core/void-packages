@@ -1,14 +1,14 @@
 # Template file for 'linux5.4'
 pkgname=linux5.4
-version=5.4.98
-revision=1
+version=5.4.102
+revision=2
 wrksrc="linux-${version}"
 short_desc="Linux kernel and modules (${version%.*} series)"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version}.tar.xz"
-checksum=83a248d6fbe388f133769d736f36b754767abc9d66f1c034b537ad778fbd46b1
+checksum=fd697ce1c3f6024d4ae77d4eb5a1552199407b60cb8e90bc621e23cbce639aed
 python_version=3
 patch_args="-Np1"
 
@@ -20,7 +20,7 @@ preserve=yes
 
 archs="i686* x86_64* armv5tel* armv6l* armv7l* aarch64* ppc* mips*"
 hostmakedepends="tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
- libressl-devel perl uboot-mkimage cpio"
+ openssl-devel perl uboot-mkimage cpio"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"

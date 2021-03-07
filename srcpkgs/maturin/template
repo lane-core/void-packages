@@ -1,13 +1,13 @@
 # Template file for 'maturin'
 pkgname=maturin
-version=0.9.1
-revision=1
+version=0.9.4
+revision=2
 build_style=cargo
 # Disable the 'rustls' feature, which leads to bad platform compatibility
 # The list of enabled features should be reconciled with each new release
 configure_args="--no-default-features --features auditwheel,log,upload,human-panic"
 hostmakedepends="python3-setuptools python3-toml"
-makedepends="libressl-devel"
+makedepends="openssl-devel"
 depends="python3-toml"
 short_desc="Build and publish crates as python packages"
 maintainer="Andrew J. Hesford <ajh@sideband.org>"
@@ -16,7 +16,7 @@ homepage="https://github.com/PyO3/maturin"
 # bump platforms version if it changes in Cargo.lock
 distfiles="${homepage}/archive/v${version}.tar.gz
  https://github.com/RustSec/platforms-crate/archive/v1.1.0.tar.gz"
-checksum="e3e13ab6e7626698fe6e73f639ff899e71d485f4e5964381db9bc0ae03c9c2dd
+checksum="130d39cc6ecae9b1cb5602d262c1a8a8230c8ddb3496d2397c49e565c0fc731a
  2524984c2ef547bb54515828e4afad0e781a439d74cf0197cf168ec6c818594c"
 
 post_extract() {

@@ -1,14 +1,14 @@
 # Template file for 'linux5.10'
 pkgname=linux5.10
-version=5.10.17
-revision=1
+version=5.10.20
+revision=2
 wrksrc="linux-${version}"
 short_desc="Linux kernel and modules (${version%.*} series)"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version}.tar.xz"
-checksum=e84e623ce8bb2446ec026b62eafa3b18480aa6fb6ae9c86cd8f18651324d4814
+checksum=9be37146feba42be05137cf900a7d9012990b5a1d5e59bc0c8da1f86952930a3
 python_version=3
 patch_args="-Np1"
 
@@ -22,7 +22,7 @@ noshlibprovides=yes
 preserve=yes
 
 hostmakedepends="tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
- libressl-devel perl uboot-mkimage cpio pahole python3"
+ openssl-devel perl uboot-mkimage cpio pahole python3"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"

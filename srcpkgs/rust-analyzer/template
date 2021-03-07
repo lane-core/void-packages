@@ -1,7 +1,7 @@
 # Template file for 'rust-analyzer'
 pkgname=rust-analyzer
-version=2021.02.08
-revision=1
+version=2021.03.01
+revision=2
 _ver=${version//./-}
 wrksrc="${pkgname}-${_ver}"
 build_style=cargo
@@ -11,7 +11,7 @@ maintainer="Gabriel Sanches <gabriel@gsr.dev>"
 license="Apache-2.0, MIT"
 homepage="https://rust-analyzer.github.io/"
 distfiles="https://github.com/${pkgname}/${pkgname}/archive/${_ver}.tar.gz"
-checksum=f69633a368ecadba107ac38e041de29e37c1237ba742fe4a58c05dca69143cf5
+checksum=6893a1fc972297dddd48debf87a107b7dcf9f739e221e251e2ef86f469df365f
 
 export RUST_ANALYZER_REV=${_ver}
 

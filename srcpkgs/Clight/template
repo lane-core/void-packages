@@ -1,6 +1,6 @@
 # Template file for 'Clight'
 pkgname=Clight
-version=4.2
+version=4.4
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config"
@@ -12,11 +12,12 @@ maintainer="Dominic Monroe <monroef4@googlemail.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/FedeDP/Clight"
 distfiles="https://github.com/FedeDP/Clight/archive/${version}.tar.gz"
-checksum=fc3c4952c755bad5f4274f69f5cc17142abb51d88d7c615873e3058edc1c1137
+checksum=1371ac6f537cec4fc61581dbb6ceb143df08f20e24f884fa148068008864b054
 
 post_install() {
-	vcompletion Extra/_clight zsh
-	vcompletion Extra/clight bash
+	vcompletion Extra/completions/_clight zsh
+	vcompletion Extra/completions/clight bash
+	vcompletion Extra/completions/clight.fish fish
 
 	vinstall Extra/desktop/clight.desktop 644 usr/share/applications
 }
