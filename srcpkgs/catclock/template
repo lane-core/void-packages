@@ -1,0 +1,26 @@
+# Template file for 'catclock'
+pkgname=catclock
+_commit=13b0578416a0adcedcb7c17bb21223015c3e547a
+version=20180428
+revision=1
+wrksrc=${pkgname}-${_commit}
+build_style=gnu-makefile
+makedepends="plan9port which"
+short_desc="Port of plan9's catclock that builds under plan9port"
+maintainer="lane-brain <lane@mailbox.org>"
+license="MIT"
+homepage="https://github.com/q3k/catclock"
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=66f9096e0b8e7670130333ed29e02856e8d903a442bae9547f5e649b47dd2ec9
+
+do_build() {
+    make PLAN9=/usr/lib/plan9
+}
+
+do_install() {
+    vbin catclock
+}
+
+post_install() {
+    vlicense LICENSE
+}
