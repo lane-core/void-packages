@@ -1,7 +1,7 @@
 # Template file for 'wlroots'
 pkgname=wlroots
-_commit=73137ace84bcb3acd156446abcbcf65034ff1f40
-version=20210228
+_commit=46d2f80c381d02e6caf5cde1f91db39da2f50579
+version=20210307
 revision=1
 wrksrc=${pkgname}-${_commit} 
 build_style=meson
@@ -9,7 +9,7 @@ build_style=meson
 configure_args="-Dlogind=disabled -Dlibseat=enabled
  -Dxcb-errors=enabled -Dxcb-icccm=enabled -Dxwayland=enabled
  -Dx11-backend=enabled -Dexamples=false -Dwerror=false -Db_ndebug=false"
-hostmakedepends="pkg-config wayland-devel"
+hostmakedepends="pkg-config wayland-devel xorg-server-xwayland"
 _devel_depends="MesaLib-devel libseat-devel eudev-libudev-devel libdrm-devel
  libinput-devel libxkbcommon-devel pixman-devel wayland-devel wayland-protocols
  xcb-util-errors-devel xcb-util-wm-devel"
@@ -21,7 +21,7 @@ maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://github.com/swaywm/wlroots"
 distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=b719744e54a1c0f93cff5e53a5577f5581f1a963abcd5279fd2f136bc5815f4a
+checksum=3001f5b8b08900a16b13e8cbcb84b0e15028d040cd9e450352b2ce88f5984a55
 post_install() {
 	vlicense LICENSE
 }
