@@ -1,8 +1,8 @@
 # Template file for 'Waybar'
 pkgname=Waybar
-_commit=69a366dced9dcc25e119cab32dd70649d9e634de
-version=20210124
-_date_commit=26fc2bd372419591b8cc05fb763d59eb08f34185
+_commit=cb1c7ea12cdda26983463e7e3ab0cc0d08f674ff
+version=20210223
+_date_commit=811be52e1c0a8dd0425f2b05205b9493f9f86279
 _date_version=3.0.0
 revision=1
 create_wrksrc=yes
@@ -31,10 +31,10 @@ homepage="https://github.com/Alexays/Waybar"
 changelog="https://github.com/Alexays/Waybar/releases"
 # date library URLs and checksums taken from subprojects/date.wrap
 distfiles="https://github.com/Alexays/Waybar/archive/${_commit}.tar.gz
- https://github.com/HowardHinnant/date/archive/v${_date_version}.tar.gz
+ https://github.com/HowardHinnant/date/archive/${_date_commit}.tar.gz
  https://github.com/mesonbuild/hinnant-date/releases/download/${_date_version}-1/hinnant-date.zip"
-checksum="4500a102087e7bd9cb0e1e12d4f040bda408b0691bcde3960501c5b9b7ff0805
- 87bba2eaf0ebc7ec539e5e62fc317cb80671a337c1fb1b84cb9e4d42c6dbebe3
+checksum="8caa7a4fa05411a793300a98a4bbd9000b1249afbb2e4d90cae7940a3493889d
+ 98b6e960865797eb9e69a39b60f986808f71dd0c8fd131a02e5bcb9ec76efaa3
  6ccaf70732d8bdbd1b6d5fdf3e1b935c23bf269bda12fdfd0e561276f63432fe"
 
 build_options="libnl pulseaudio dbusmenugtk mpd sndio"
