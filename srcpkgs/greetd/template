@@ -20,6 +20,7 @@ changelog="https://git.sr.ht/~kennylevinsen/greetd/log"
 homepage="https://git.sr.ht/~kennylevinsen/greetd"
 distfiles="${homepage}/archive/${version}.tar.gz"
 checksum=5229b7f00be40187de9df6240fc3b1f4012dd5e4777bb8661016cc7c2c105df7
+patch_args="-Np1"
 
 post_build() {
     #cd man
@@ -36,7 +37,7 @@ do_install() {
     # Install man pages
     for n in 1 5 7; do
         vmkdir usr/share/man/man$n
-        for i in man/*-$n.roff; do
+        for i in *-$n.roff; do
             vinstall $i 755 usr/share/man/man$n ${i%-*}.$n
         done
     done
