@@ -1,19 +1,18 @@
 # Template file for 'i3status-rust'
 pkgname=i3status-rust
-_commit=205b257991bee762f2f226ed7067ce50f32d887a
-version=20210204
+version=0.14.7
 revision=1
-wrksrc=${pkgname}-${_commit}
+wrksrc=${pkgname}-${version}
 build_style=cargo
-hostmakedepends="pkg-config"
-makedepends="dbus-devel pulseaudio-devel libressl-devel"
+hostmakedepends="pkg-config rustup"
+makedepends="dbus-devel pulseaudio-devel openssl-devel"
 short_desc="Replacement for i3status, written in Rust"
 maintainer="Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license="GPL-3.0-only"
 homepage="https://github.com/greshake/i3status-rust"
 changelog="https://raw.githubusercontent.com/greshake/i3status-rust/master/NEWS.md"
-distfiles="https://github.com/greshake/i3status-rust/archive/${_commit}.tar.gz"
-checksum=664b5dbe8714722b080cedb92fcd59db2e21e9f79eba7c5055b14604b0773fc0
+distfiles="https://github.com/greshake/i3status-rust/archive/v${version}.tar.gz"
+checksum=4169f003d5d21cb010be4edbdbb5bc09ed4823240d0a5ea8efe23c28f2413bbd
 
 post_install() {
 	# Install example as per the man page's location
