@@ -1,14 +1,14 @@
 # Template file for 'emacs-nativecomp'
 # pinned to git master
 pkgname=emacs-nativecomp
-_commit=90539a40a86f9942cf252bc6bb86a0e67dff0c7b
+_commit=592fabdc7f8d9c52c931843a153fdac67a302c30
 _repo="https://github.com/flatwhatson/emacs"
-version=20210225
+version=20210310
 revision=1
 wrksrc="emacs-${_commit}"
 build_style=gnu-configure
 configure_args="--with-file-notification=inotify --with-modules
- --with-x-toolkit=gtk3 --with-xwidgets --with-nativecomp
+ --with-x-toolkit=gtk3 --with-xwidgets --with-native-compilation
  $(vopt_with gconf) $(vopt_with m17n m17n-flt) $(vopt_with gmp libgmp)
  $(vopt_with jpeg) $(vopt_with tiff) $(vopt_with gif) $(vopt_with png)
  $(vopt_with xpm) $(vopt_with svg rsvg) $(vopt_with imagemagick)
@@ -17,7 +17,7 @@ configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with pgtk) $(vopt_with dbus)"
 hostmakedepends="pkg-config tar automake texinfo git"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
- dbus-devel acl-devel libgccjit libmagick-devel git libmagick $(vopt_if gconf GConf-devel)
+ dbus-devel acl-devel libgccjit libmagick-devel git ImageMagick $(vopt_if gconf GConf-devel)
  $(vopt_if gsettings gsettings-desktop-schemas-devel) $(vopt_if jpeg libjpeg-turbo-devel)
  $(vopt_if tiff tiff-devel) $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel)
  $(vopt_if xpm libXpm-devel) $(vopt_if svg librsvg-devel) $(vopt_if gnutls gnutls-devel)
@@ -31,7 +31,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="${_repo}/archive/${_commit}.tar.gz"
-checksum=63b5e8cf6c03d99790a9ab96be2c019567406a3a0261ca4bdc9eeb0ee3d4a853
+checksum=f8c27eaf63fe9da542e7a0aeb2bbd5200555199505a0a71b905fc257676f89a9
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
@@ -40,9 +40,9 @@ nopie=yes
 
 # Package build options
 build_options="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
- json harfbuzz cairo gmp fastboot lto pgtk dbus m17n dbus"
+ json harfbuzz cairo gmp fastboot lto pgtk dbus m17n"
 build_options_default="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
- json harfbuzz cairo gmp fastboot lto pgtk dbus m17n dbus"
+ json harfbuzz cairo gmp fastboot lto pgtk dbus m17n"
 desc_option_lto="Enable Link Time Optimization for build"
 desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
