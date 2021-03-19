@@ -1,9 +1,9 @@
 # Template file for 'emacs-nativecomp'
 # pinned to git master
 pkgname=emacs-nativecomp
-_commit=592fabdc7f8d9c52c931843a153fdac67a302c30
+_commit=64425ee0d82632c71839aa615256e9a438e1d62a
 _repo="https://github.com/flatwhatson/emacs"
-version=20210310
+version=20210316
 revision=1
 wrksrc="emacs-${_commit}"
 build_style=gnu-configure
@@ -17,7 +17,7 @@ configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with pgtk) $(vopt_with dbus)"
 hostmakedepends="pkg-config tar automake texinfo git"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
- dbus-devel acl-devel libgccjit libmagick-devel git ImageMagick $(vopt_if gconf GConf-devel)
+ dbus-devel acl-devel libgccjit libmagick-devel git $(vopt_if gconf GConf-devel)
  $(vopt_if gsettings gsettings-desktop-schemas-devel) $(vopt_if jpeg libjpeg-turbo-devel)
  $(vopt_if tiff tiff-devel) $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel)
  $(vopt_if xpm libXpm-devel) $(vopt_if svg librsvg-devel) $(vopt_if gnutls gnutls-devel)
@@ -25,13 +25,13 @@ makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  $(vopt_if sound alsa-lib-devel) $(vopt_if m17n m17n-lib-devel)
  $(vopt_if json jansson-devel) $(vopt_if harfbuzz harfbuzz-devel)
  $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)"
-depends="emacs-common-${version}_${revision} libgccjit"
+depends="emacs-common-${version}_${revision} libgccjit $(vopt_if imagemagick ImageMagick)"
 short_desc="GNU Emacs editor Native-comp/Pure-GTK experimental branch"
 maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
-distfiles="${_repo}/archive/${_commit}.tar.gz"
-checksum=f8c27eaf63fe9da542e7a0aeb2bbd5200555199505a0a71b905fc257676f89a9
+distfiles="${_repo}/archive/${_commit}.tar.gz>emacs-${_commit}.tar.gz"
+checksum=9346e76fc17ba9126c27573cce3d169f663850562ed81de914f09b8eb580e2ca
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
