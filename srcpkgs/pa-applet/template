@@ -1,8 +1,8 @@
 # Template file for 'pa-applet'
 pkgname=pa-applet
 version=0.0.0.20140304
-revision=2
-_commit=33b413b83234d457b9512219cf4c1020eb99a3de
+revision=3
+_commit=3b4f8b3f0d0b12dcba2a78d8f2a0b06f1d377bd2
 wrksrc="$pkgname-$_commit"
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
@@ -12,7 +12,7 @@ maintainer="Alexander Mamay <alexander@mamay.su>"
 license="BSD-2-Clause"
 homepage="https://github.com/fernandotcl/pa-applet"
 distfiles="$homepage/archive/$_commit.tar.gz"
-checksum=db30c04a6954e1d138c6bc80739dae80d667a0af151b015db503e48fb30b0b7a
+checksum=528fb7803c176b125e5372ce404c9653d05a0daf373780b59b6b0fadba4023bb
 
 pre_configure() {
 	sed -i -e 's| -Werror||' src/Makefile.am
