@@ -1,8 +1,8 @@
 # Template file for 'sway-git'
 # pinned to git master
 pkgname=sway
-_commit=d358aab8d9dd6121533326423759394ca804a05a
-version=20210301
+_commit=6059c744f8b24ef3321eb7896991112366896e26
+version=20210317
 revision=1
 wrksrc=${pkgname}-${_commit}
 build_style=meson
@@ -18,7 +18,7 @@ maintainer="Olaf Mersmann <olafm@p-value.net>"
 license="MIT"
 homepage="https://github.com/swaywm/sway"
 distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=b3b2ccd4c6cb6066a73b831c6948da2766d8f0ca1baf611d834a263f9530aa1c
+checksum=d4f5045a6b9b11b319e609cb984e699d9651ea22060d84eb6bf68bdb16f7d098
 
 post_patch() {
 	vsed -e 's/werror=true/werror=false/g' -i meson.build
