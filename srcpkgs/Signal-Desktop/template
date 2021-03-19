@@ -1,26 +1,42 @@
 # Template file for 'Signal-Desktop'
 pkgname=Signal-Desktop
-version=1.39.5
+version=1.40.1
 revision=1
 # Due to electron
 # 32-bit is not supported https://github.com/signalapp/Signal-Desktop/issues/1661
 archs="x86_64"
-hostmakedepends="git nodejs python tar yarn"
-depends="libnotify libappindicator"
+hostmakedepends="git git-lfs nodejs python tar yarn"
+depends="gtk+3 libnotify libappindicator libvips"
 short_desc="Signal Private Messenger for Linux"
 maintainer="Julio Galvan <juliogalvan@protonmail.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/signalapp/Signal-Desktop"
 distfiles="https://github.com/signalapp/Signal-Desktop/archive/v${version}.tar.gz"
-checksum=f9f55c0195579b43712bf370b753337432eda4bcf89809d1c8f3deb0b4ee4400
+checksum=55026ab46d1ef58f20aacf5d9980955f054a07c7d83d977197937de938bdf445
 nostrip_files="signal-desktop"
 
 pre_build() {
+	# git-lfs hook needs to be installed for one of the dependencies
+	git lfs install
+	
 	vsed -e 's/"node": "/&>=/' -i package.json
+	# Select node-gyp versions with python3 support
+	vsed -e 's/"node-gyp": "5.0.3"/"node-gyp": "6.1.0"/' -i package.json
+	# https://github.com/sass/node-sass/pull/2841
+	# https://github.com/sass/node-sass/issues/2716
+	vsed -er 's/("resolutions": \{)/"resolutions": {"node-sass\/node-gyp": "^6.0.0",/' -i package.json
+
+	yarn install --ignore-engines
+
+	# Have SQLCipher dynamically link from OpenSSL
+	# See https://github.com/signalapp/Signal-Desktop/issues/2634
+	patch --forward --strip=1 --input="${FILESDIR}/openssl-linking.patch"
+
+	# We can't read the release date from git so we use SOURCE_DATE_EPOCH instead
+	patch --forward --strip=1 --input="${FILESDIR}/expire-from-source-date-epoch.patch"
 }
 
 do_build() {
-	yarn install --ignore-engines
 	yarn grunt
 	yarn build-release --dir
 }

@@ -90,7 +90,6 @@ elif [ $origin_sha = $template_sha ]; then
 else
     echo "$1: origin HEAD is currently set to $origin_sha committed on $origin_sha_date\n"
     echo "Origin HEAD is newer than $template_sha, updating template."
-    echo "$template_date: $template_sha" >> $(dirname $template)/.pinlog
 fi
 
 # Make the edits

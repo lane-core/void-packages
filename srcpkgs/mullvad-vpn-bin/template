@@ -1,6 +1,6 @@
 # Template file for 'bitwig-studio'
 pkgname=mullvad-vpn-bin
-version=2021.2
+version=2021.3
 revision=1
 archs="x86_64"
 depends="atk cairo gdk-pixbuf glib gtk+3 pango" # libappindicator is required for gnome menubar icon
@@ -10,7 +10,7 @@ license="GPL-3.0-or-later"
 homepage="https://mullvad.net"
 _file="MullvadVPN-${version}_amd64.deb"
 distfiles="https://mullvad.net/media/app/${_file}"
-checksum=9cd64ad7531c92243ecfc34380373b689eb2ad7588d613cebcc664ac6c030e05
+checksum=
 nostrip=yes
 restricted=no
 

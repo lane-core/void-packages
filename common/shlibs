@@ -1449,7 +1449,7 @@ libgpaste.so.13 libgpaste-3.38.2_1
 libthreadutil.so.6 libupnp-1.6.18_1
 libupnp.so.17 libupnp-1.14.0_1
 libixml.so.11 libupnp-1.14.0_1
-libupnpp.so.9 libupnpp-0.18.0_1
+libupnpp.so.11 libupnpp-0.21.0_1
 libgeocode-glib.so.0 geocode-glib-3.10.0_1
 libzeitgeist-2.0.so.0 libzeitgeist2-0.9.14_1
 libpotrace.so.0 libpotrace-1.11_1
@@ -2567,7 +2567,7 @@ libhwloc.so.15 libhwloc-2.0.4_1
 libnetfilter_cttimeout.so.1 libnetfilter_cttimeout-1.0.0_1
 libnetfilter_cthelper.so.0 libnetfilter_cthelper-1.0.0_1
 libnetfilter_queue.so.1 libnetfilter_queue-1.0.2_1
-libfilezilla.so.11 libfilezilla-0.26.0_1
+libfilezilla.so.12 libfilezilla-0.27.1_1
 libtommath.so.1 libtommath-1.0_1
 libKF5ItemViews.so.5 kitemviews-5.26.0_1
 libunicorn.so.1 unicorn-1.0_1
@@ -3549,7 +3549,7 @@ libgaminggear.so.0 libgaminggear-0.15.1_1
 libgaminggearfx.so.0 libgaminggear-0.15.1_1
 libgaminggearwidget.so.0 libgaminggear-0.15.1_1
 libopkg.so.1 libopkg-0.4.4_2
-libkodiplatform.so.18.0 kodi-platform-17.1.0_1
+libkodiplatform.so.19.0 kodi-platform-20180302_1
 libQMatrixClient.so.0.5.3 libqmatrixclient-0.5.3.2_1
 libipset.so.13 libipset-7.9_1
 libmp3splt.so.0 libmp3splt-0.9.2_1
@@ -3971,3 +3971,4 @@ libwayland-client++.so.0 libwaylandpp-0.2.8_1
 libwayland-cursor++.so.0 libwaylandpp-0.2.8_1
 libwayland-egl++.so.0 libwaylandpp-0.2.8_1
 libwayland-client-extra++.so.0 libwaylandpp-0.2.8_1
+libspdlog.so.1 libspdlog-1.8.2_2
