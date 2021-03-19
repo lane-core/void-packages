@@ -1,9 +1,8 @@
 # Template file for 'Waybar'
 pkgname=Waybar
-_commit=cb1c7ea12cdda26983463e7e3ab0cc0d08f674ff
-version=20210223
-_date_commit=811be52e1c0a8dd0425f2b05205b9493f9f86279
-_date_version=3.0.0
+_commit=b1dd62078fe9a008e1e344fe7db4cf0aa5318d46
+version=20210315
+_date_version=3.0.0-1
 revision=1
 create_wrksrc=yes
 build_wrksrc=${pkgname}-${_commit}
@@ -31,11 +30,11 @@ homepage="https://github.com/Alexays/Waybar"
 changelog="https://github.com/Alexays/Waybar/releases"
 # date library URLs and checksums taken from subprojects/date.wrap
 distfiles="https://github.com/Alexays/Waybar/archive/${_commit}.tar.gz
- https://github.com/HowardHinnant/date/archive/${_date_commit}.tar.gz
- https://github.com/mesonbuild/hinnant-date/releases/download/${_date_version}-1/hinnant-date.zip"
-checksum="8caa7a4fa05411a793300a98a4bbd9000b1249afbb2e4d90cae7940a3493889d
- 98b6e960865797eb9e69a39b60f986808f71dd0c8fd131a02e5bcb9ec76efaa3
- 6ccaf70732d8bdbd1b6d5fdf3e1b935c23bf269bda12fdfd0e561276f63432fe"
+ https://github.com/HowardHinnant/date/archive/master.tar.gz
+ https://github.com/mesonbuild/hinnant-date/archive/${_date_version}.tar.gz"
+checksum="5d8082c9cbced36d196d1a6fb9f6f3ca7597f128fc76cb8b51ae697d01bc9a4d
+ f060c07f7e3fcd87bd52bbbfb14d24bc9fb4bac518d09ee2040f38820370cf33
+ f2aa492b59893f69367228bf802cbb0a07c4d52fac2185dfd8ebb5d16295d893"
 
 build_options="libnl pulseaudio dbusmenugtk mpd sndio"
 build_options_default="libnl pulseaudio dbusmenugtk mpd sndio"
@@ -45,7 +44,7 @@ desc_option_dbusmenugtk="Enable support for tray"
 desc_option_mpd="Enable support for MPD"
 
 post_extract() {
-	mv date-${_date_version} ${build_wrksrc}/subprojects/
+	mv date-master ${build_wrksrc}/subprojects/
 }
 
 post_install() {
