@@ -1,7 +1,7 @@
 # Template file for 'rdumpfs'
 pkgname=rdumpfs
 version=0.1
-revision=4
+revision=5
 depends="rsync bash"
 short_desc="A rsync-based dump file system backup tool"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
@@ -9,6 +9,7 @@ license="Public Domain"
 homepage="https://github.com/leahneukirchen/rdumpfs"
 distfiles="https://github.com/leahneukirchen/rdumpfs/archive/v${version}.tar.gz"
 checksum=c8c590eae705aedbc386d78e9cd040fb611c39b6948fb218c8559d1fb3147c26
+patch_args="-Np1"
 
 do_install() {
 	vbin rdumpfs

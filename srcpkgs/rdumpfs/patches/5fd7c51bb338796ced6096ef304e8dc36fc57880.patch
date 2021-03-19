@@ -1,0 +1,23 @@
+From 5fd7c51bb338796ced6096ef304e8dc36fc57880 Mon Sep 17 00:00:00 2001
+From: Mom 'N Dad <MomDad@macmini.lan>
+Date: Mon, 14 Jan 2019 21:34:02 -0700
+Subject: [PATCH] match exactly 8 digits when looking for old dumps
+
+Closes: #2 [via git-merge-pr]
+---
+ rdumpfs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rdumpfs b/rdumpfs
+index 04c399b..54e3a07 100755
+--- a/rdumpfs
++++ b/rdumpfs
+@@ -28,7 +28,7 @@ src=("${@:1:$#-1}")
+ dst=${!#}
+ 
+ now=$(date +%Y%m%d)
+-dumps=($(rsync --no-h $dst/ | cut -c44- | grep '^[0-9]*$' | sort -nr))
++dumps=($(rsync --no-h $dst/ | cut -c44- | grep '^[0-9]\{8\}$' | sort -nr))
+ last=${dumps[0]}
+ 
+ : ${RDUMPFS_DEFAULT_ARGS:=-aHAX}

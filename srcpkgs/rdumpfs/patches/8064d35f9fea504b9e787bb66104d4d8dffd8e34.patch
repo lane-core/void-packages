@@ -1,0 +1,55 @@
+From 8064d35f9fea504b9e787bb66104d4d8dffd8e34 Mon Sep 17 00:00:00 2001
+From: Christoph Junghans <junghans@votca.org>
+Date: Wed, 26 Dec 2018 16:09:02 -0700
+Subject: [PATCH] add -j option for full backup using copy-dest
+
+Closes: #1 [via git-merge-pr]
+---
+ README  | 1 +
+ rdumpfs | 9 ++++++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/README b/README
+index ae73f41..2ee588e 100644
+--- a/README
++++ b/README
+@@ -44,6 +44,7 @@ on two days:
+ * Remote backup goes both ways: Remote systems can backup your files
+   ("pull"), or you can backup to remote systems ("push").
+ * Easily hackable script, in case your needs are different from mine.
++* Pass -j to do a full backup using copy-dest
+ 
+ == rsync options that may be useful together with rdumpfs
+ 
+diff --git a/rdumpfs b/rdumpfs
+index 41bf882..04c399b 100755
+--- a/rdumpfs
++++ b/rdumpfs
+@@ -18,8 +18,11 @@ fail() {
+ force=false
+ [[ "$1" = -f ]] && force=true && shift
+ 
++link_or_copy=link
++[[ "$1" = -j ]] && link_or_copy=copy && shift
++
+ (( $# < 2 )) && fail "too few arguments
+-Usage: rdumpfs [-f] [RSYNCOPT...] SRC [SRC...] DST"
++Usage: rdumpfs [-f] [-j] [RSYNCOPT...] SRC [SRC...] DST"
+ 
+ src=("${@:1:$#-1}")
+ dst=${!#}
+@@ -37,12 +40,12 @@ rsync_args+=(${VARIANT:+--filter='dir-merge /.rdumpfs.'$VARIANT})
+ if [[ -z "$last" ]]; then
+   $force || fail "no dump found, use -f on first dump."
+ else
+-  rsync_args+=(--link-dest=../$last)
++  rsync_args+=(--${link_or_copy}-dest=../$last)
+ fi
+ 
+ if [[ "$last" = "$now" ]]; then
+   $force || fail "dump $now exists, use -f to overwrite/update."
+-  [[ -n "${dumps[1]}" ]] && rsync_args+=(--link-dest=../${dumps[1]})
++  [[ -n "${dumps[1]}" ]] && rsync_args+=(--${link_or_copy}-dest=../${dumps[1]})
+   rsync_args+=(--delete-delay --delete-excluded)
+ fi
+ 
