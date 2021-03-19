@@ -9,9 +9,9 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version%.*}.tar.xz
- https://github.com/xanmod/linux/releases/download/5.11.4-xanmod1-cacule/patch-${version}-xanmod${_xanmod}-cacule.xz"
+ https://github.com/xanmod/linux/releases/download/${version}-xanmod${_xanmod}-cacule/patch-${version}-xanmod${_xanmod}-cacule.xz"
 checksum="04f07b54f0d40adfab02ee6cbd2a942c96728d87c1ef9e120d0cb9ba3fe067b4
- 57636cb49e9cd617946e2b24a8f77fa9c36e72b2f91f8ad6132f2a7765982085"
+ 0d30509f3faaa0e5bf8034920ea537b87ab40649914b0d61b30299c151c30779"
 skip_extraction="patch-${version}-xanmod${_xanmod}-cacule.xz"
 python_version=3
 patch_args="-Np1"
