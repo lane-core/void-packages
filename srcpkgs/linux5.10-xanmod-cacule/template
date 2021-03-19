@@ -27,7 +27,6 @@ preserve=yes
 hostmakedepends="tar xz zstd bc elfutils-devel flex gmp-devel kmod ncurses libmpc-devel
  libressl-devel ncurses-devel libelf perl uboot-mkimage cpio pahole python3 git"
 
-_kernver=${version}-xanmod${_xanmod}-cacule_${revision}
 
 triggers="kernel-hooks"
 kernel_hooks_version="${_kernver}"
