@@ -1,7 +1,6 @@
 # Template file for 'foot'
 pkgname=foot
-_commit=e8a8d122f053f1bc2c46952f16d81a64699ea1cd
-version=20210304
+version=1.7.1
 revision=1
 wrksrc=${pkgname}
 build_style=meson
@@ -15,8 +14,8 @@ maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://codeberg.org/dnkl/foot"
 changelog="https://codeberg.org/dnkl/foot/src/branch/master/CHANGELOG.md"
-distfiles="${homepage}/archive/${_commit}.tar.gz"
-checksum=898b9e6b0a8b0b57401e381de66505f9f1b6b7edb6f9982c2e6f4be18e230db3
+distfiles="${homepage}/archive/${version}.tar.gz"
+checksum=44a97d36dae6c9989aa68d2d69731679aa1f3e0c4ecc721cf79a80f5bdfdbc5f
 
 post_install() {
 	rm -f ${DESTDIR}/usr/share/doc/foot/LICENSE

@@ -1,6 +1,6 @@
 # Template file for 'python3-pikepdf'
 pkgname=python3-pikepdf
-version=2.9.0
+version=2.11.0
 revision=1
 wrksrc="pikepdf-${version}"
 build_style=python3-module
@@ -13,7 +13,7 @@ maintainer="Philipp David <pd@3b.pm>"
 license="MPL-2.0"
 homepage="https://github.com/pikepdf/pikepdf"
 distfiles="${PYPI_SITE}/p/pikepdf/pikepdf-${version}.tar.gz"
-checksum=a9dbd2bb52fcdecb066c99cacf96f0ebb40edee50d8885502a5a22d7f723a8b7
+checksum=53bf432be00fcb2f2a56c44b64c1b75e4c8f9fe0dcc97721319c53939fed8047
 
 pre_build() {
 	vsed -i "s/__version__.*/__version__ = '${version}'/g" setup.py

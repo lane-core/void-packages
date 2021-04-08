@@ -19,6 +19,7 @@ license="MIT"
 homepage="https://github.com/swaywm/sway"
 distfiles="${homepage}/archive/${_commit}.tar.gz"
 checksum=d4f5045a6b9b11b319e609cb984e699d9651ea22060d84eb6bf68bdb16f7d098
+patch_args="-Np1"
 
 post_patch() {
 	vsed -e 's/werror=true/werror=false/g' -i meson.build
