@@ -1,6 +1,6 @@
 # Template file for 'auto-cpufreq'
 pkgname=auto-cpufreq
-version=1.6.2
+version=1.6.3
 revision=1
 wrksrc=${pkgname}-${version}
 build_style=python3-module
