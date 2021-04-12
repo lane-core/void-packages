@@ -11,3 +11,4 @@ etc/virtual
 etc/xbps.d/custom
 .xbps-checkvers*.plist
 .stash
+lane*
