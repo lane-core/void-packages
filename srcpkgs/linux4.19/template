@@ -1,6 +1,6 @@
 # Template file for 'linux4.19'
 pkgname=linux4.19
-version=4.19.186
+version=4.19.188
 revision=1
 wrksrc="linux-${version}"
 short_desc="Linux kernel and modules (${version%.*} series)"
@@ -8,7 +8,7 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=d8c5d7844214510e85ceb9f5236f27f63fc03535a143f3aaa0c1677a8f92e631
+checksum=b09cf1f026b1260bae6480d98c471958eff3ad64b65e59e64a6852f678050077
 python_version=2 #unverified
 patch_args="-Np1"
 
@@ -327,5 +327,6 @@ linux4.19-dbg_package() {
 	short_desc+=" - debugging symbols"
 	pkg_install() {
 		vmove usr/lib/debug
+		vmove "boot/System.map-${_kernver}"
 	}
 }
