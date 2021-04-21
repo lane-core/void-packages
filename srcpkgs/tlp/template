@@ -1,7 +1,7 @@
 # Template file for 'tlp'
 pkgname=tlp
-_commit=a5601ea772a40605aacd538a15db12f4f04b5208
-version=20210201
+_commit=971a9a502fdb3f4e4e44700cb39ff12046cca4c9
+version=20210419
 revision=1
 wrksrc="TLP-${_commit}"
 depends="hdparm bash iw util-linux ethtool perl"
@@ -12,7 +12,7 @@ homepage="https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.h
 _repo="https://github.com/linrunner/TLP"
 changelog="https://github.com/linrunner/TLP/blob/${_commit}/changelog"
 distfiles="${_repo}/archive/${_commit}.tar.gz"
-checksum=ad50a69b71ba50266d556c59bcb512e04f1ba688a5f68d744d1b8c08856f010b
+checksum=4743d8b7c3e086029a23da558ab3424a079482f4516e099cb5af90a13fcd6b3b
 
 conflicts="laptop-mode>=0"
 conf_files="/etc/tlp.conf /etc/tlp.d/*.conf"
