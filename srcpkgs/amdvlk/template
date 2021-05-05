@@ -1,11 +1,11 @@
 # Template file for 'amdvlk'
 pkgname=amdvlk
-version=2021.Q1.4
+version=2021.Q2.2
 revision=1
-_llpc_commit=2692228d80d8be2221641b719eb7135f52bc34aa
-_xgl_commit=e5c5ad454049892ed803b0adcc15ef6fb27ec50e
-_pal_commit=575d41ff01c856d9566168d65b31e4b49db4734b
-_llvm_project_commit=90d06712ff54e242b7bd225321e4fc8629292d46
+_llpc_commit=28c4e99487ebe0a8b5801f56b876df6b33903554
+_xgl_commit=f1467f0dfd3dccd643214574ebfbe456a55d03bd
+_pal_commit=0168557a0715bf47a55ffe9858276cde1e74cc1d
+_llvm_project_commit=d2e97f4879565c9292f9177debbc7c65ead6ab84
 _spvgen_commit=59823e6c3557cb7f3fae4a9f2760ad3f6b694997
 _MetroHash_commit=3c566dd9cda44ca7fd97659e0b53ac953f9037d2
 _CWPack_commit=7387247eb9889ddcabbc1053b9c2052e253b088e
@@ -18,7 +18,7 @@ configure_args="-DBUILD_WAYLAND_SUPPORT=ON
  -DXGL_CWPACK_PATH=../../cwpack
  -DLLVM_PARALLEL_LINK_JOBS=2"
 hostmakedepends="pkg-config python3 perl"
-makedepends="libxml2-devel xorg-server-devel libXrandr-devel libffi-devel"
+makedepends="libxml2-devel xorg-server-devel libXrandr-devel libffi-devel wayland-devel"
 depends="vulkan-loader"
 short_desc="AMD Open Source Driver For Vulkan"
 maintainer="John <me@johnnynator.dev>"
@@ -32,11 +32,11 @@ distfiles="https://github.com/GPUOpen-Drivers/AMDVLK/archive/v-${version}.tar.gz
  https://github.com/GPUOpen-Drivers/spvgen/archive/${_spvgen_commit}.tar.gz
  https://github.com/GPUOpen-Drivers/MetroHash/archive/${_MetroHash_commit}.tar.gz
  https://github.com/GPUOpen-Drivers/CWPack/archive/${_CWPack_commit}.tar.gz"
-checksum="c88b946a0dd8d9442e798ce3a182b6f23ffab0b96e9967292ad6ba84c74d9273
- 1e043aee70e5690bc5934a2352a19c182e5d27c59ac9870089d979ce59c125cc
- 571fdf549864eea95e716149bbc54d6906ac74d5d5811c46047b4483256590e6
- 42e048a5ea32fb44f26ad96b538754bbffdcd9f20a019bacd1efd2302a3502ac
- e7e9a943486fb16426fb5584a992a227a3e014142bdc70e25ce18a7ccdb830f5
+checksum="fab8c7db5600d418178d470d19b5507f8bd6166a1fca05abc595f77b2052865e
+ 0a9eacee11c53af5f3fe39d367571e55da9d20bc97d6a2bd8ccd32655c13db7f
+ 09f8c905367b57a9932a3bc7b5d013045906a515f1c8d34eea37e11ea3f71d38
+ a6450459e839c5ccf546b26115f831dcdc76a7878f91fc589a35bf258474b3a2
+ e108164d5f06412fe8be56afb8f393def6e1a280f511f82061852af9be4dd9b6
  124e37608f2ef49a980c3fff9cc73bcb154c9724ee00397e0dee6cc8cf1b4244
  cc8ff538fede25fe023984b3fde27f09b000bdc49793534794cd1d2bf881750a
  186060fbcf87165224ba7df0e1858b66ebc42cf190c481aef1df8d89ebab7abd"

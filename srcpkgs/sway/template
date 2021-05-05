@@ -2,7 +2,7 @@
 # pinned to git master
 pkgname=sway
 version=1.6
-revision=1
+revision=2
 build_style=meson
 configure_args="-Dwerror=false -Db_ndebug=false"
 conf_files="/etc/sway/config"
