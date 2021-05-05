@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-mv /var/log/greetd /var/log/greetd.old

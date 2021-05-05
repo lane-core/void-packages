@@ -1,3 +1,2 @@
 #!/bin/sh
-exec 2>&1
-exec greetd || exec ../agetty-tty1/run
+exec greetd

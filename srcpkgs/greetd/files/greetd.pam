@@ -8,5 +8,3 @@ password   include      system-local-login
 session    optional     pam_keyinit.so force revoke
 session    include      system-local-login
 -session   optional     pam_gnome_keyring.so auto_start
-
-
