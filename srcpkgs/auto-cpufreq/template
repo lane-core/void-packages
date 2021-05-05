@@ -1,6 +1,6 @@
 # Template file for 'auto-cpufreq'
 pkgname=auto-cpufreq
-version=1.6.3
+version=1.6.4
 revision=1
 wrksrc=${pkgname}-${version}
 build_style=python3-module
@@ -11,7 +11,7 @@ maintainer="Lane Biocini <lane@mailbox.org>"
 license="LGPL-3.0-or-later"
 homepage="https://github.com/AdnanHodzic/auto-cpufreq"
 distfiles="https://github.com/AdnanHodzic/auto-cpufreq/archive/v${version}.tar.gz"
-checksum=9793b20809459109eebfe8fc13b96a96820a75dacd6ec1a26ca1d0fbbab6a497
+checksum=74fa682bb8332fdced7504eacb092a1b696a6b496b8ceb889ef4825dd2e9accd
 
 pre_install() {
 	vsed -i 's/usr\/local/usr/g' auto_cpufreq/core.py
