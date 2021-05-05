@@ -1,16 +1,16 @@
 # Template file for 'rocksndiamonds'
 pkgname=rocksndiamonds
-version=4.2.3.0
+version=4.2.3.1
 revision=1
 build_style=gnu-makefile
 hostmakedepends="pkg-config"
 makedepends="SDL2_image-devel SDL2_mixer-devel SDL2_net-devel"
 short_desc="Arcade style game"
-maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-only"
 homepage="http://www.artsoft.org/rocksndiamonds"
 distfiles="http://www.artsoft.org/RELEASES/unix/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=d931216d1dc52d98565dc178881b8e29b992293c043223889d67cd3e6fcf718c
+checksum=58c1a63c147b7e6a2294d461cb65e6162e8493ec144a4d7b405544f48c432dca
 replaces="rocksndiamonds-data>=0"
 
 do_build() {

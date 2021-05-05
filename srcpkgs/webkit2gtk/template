@@ -1,22 +1,16 @@
 # Template file for 'webkit2gtk'
 # ping q66 before touching this
 pkgname=webkit2gtk
-version=2.30.5
-revision=1
+version=2.32.0
+revision=3
 wrksrc="webkitgtk-${version}"
 build_style=cmake
 build_helper="gir"
 configure_args="-DPORT=GTK -DUSE_LD_GOLD=OFF
- -DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG
- -DCMAKE_CXX_FLAGS_DEBUG=-DNDEBUG
- -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=-DNDEBUG
- -DCMAKE_C_FLAGS_RELEASE=-DNDEBUG
- -DCMAKE_C_FLAGS_DEBUG=-DNDEBUG
- -DCMAKE_C_FLAGS_RELWITHDEBINFO=-DNDEBUG
  -DCMAKE_LINKER=${XBPS_CROSS_TRIPLET}-gcc
  -DRUBY_VERSION=2.7
- -DUSE_SYSTEMD=OFF
- -DENABLE_GTKDOC=OFF -DUSE_GSTREAMER_GL=OFF -DUSE_WPE_RENDERER=OFF
+ -DUSE_SYSTEMD=OFF -DUSE_WOFF2=ON
+ -DENABLE_GTKDOC=OFF -DUSE_GSTREAMER_GL=OFF -DUSE_WPE_RENDERER=ON
  -DENABLE_MINIBROWSER=$(vopt_if minibrowser ON OFF)
  -DENABLE_JIT=$(vopt_if jit ON OFF)
  -DENABLE_C_LOOP=$(vopt_if jit OFF ON)
@@ -35,14 +29,15 @@ makedepends="at-spi2-core-devel libjpeg-turbo-devel libpng-devel
  dbus-glib-devel libwebp-devel gtk+-devel gtk+3-devel libgudev-devel
  libsecret-devel ruby-devel geoclue2-devel libnotify-devel hyphen-devel
  woff2-devel freetype-devel libopenjpeg2-devel libatomic-devel
- qt5-devel $(vopt_if x11 libXt-devel)
+ qt5-devel libmanette-devel libwpe-devel wpebackend-fdo-devel
+ $(vopt_if x11 libXt-devel)
  $(vopt_if wayland 'MesaLib-devel libxkbcommon-devel wayland-devel wayland-protocols')"
 short_desc="GTK+3 port of the WebKit2 browser engine"
 maintainer="q66 <daniel@octaforge.org>"
 license="LGPL-2.1-or-later, BSD-2-Clause"
 homepage="https://webkitgtk.org/"
 distfiles="${homepage}/releases/webkitgtk-${version}.tar.xz"
-checksum=7d0dab08e3c5ae07bec80b2822ef42e952765d5724cac86eb23999bfed5a7f1f
+checksum=9d7df4dae9ada2394257565acc2a68ace9308c4c61c3fcc00111dc1f11076bf0
 
 build_options="gir wayland x11 bubblewrap jit sampling_profiler minibrowser"
 build_options_default="gir wayland x11 bubblewrap minibrowser"
@@ -52,8 +47,7 @@ desc_option_jit="JavaScript JIT (Only some architectures)"
 desc_option_sampling_profiler="Sampling profiler support (JIT + glibc only)"
 desc_option_minibrowser="Build the minibrowser"
 
-# on musl this is not defined and webkit uses it, so define it
-export CFLAGS="-D__WORDSIZE=${XBPS_TARGET_WORDSIZE}"
+export CFLAGS="-DNDEBUG"
 export CXXFLAGS="$CFLAGS"
 
 # WebKitCCache.cmake set this variable

@@ -1,6 +1,6 @@
 # Template file for 'glib'
 pkgname=glib
-version=2.66.6
+version=2.68.1
 revision=1
 build_style=meson
 # static version is necessary for qemu-user-static;
@@ -9,14 +9,14 @@ configure_args="-Dfam=false -Dman=true -Dselinux=disabled
  $(vopt_bool gtk_doc gtk_doc) --default-library=both -Db_lto=false"
 hostmakedepends="gettext pkg-config libxslt docbook-xsl $(vopt_if gtk_doc gtk-doc)"
 makedepends="zlib-devel pcre-devel libffi-devel dbus-devel elfutils-devel libmount-devel"
-checkdepends="desktop-file-utils shared-mime-info tzdata dbus"
+checkdepends="desktop-file-utils shared-mime-info tzdata dbus python3-pytest"
 short_desc="GNU library of C routines"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://wiki.gnome.org/Projects/GLib"
 changelog="https://gitlab.gnome.org/GNOME/glib/raw/master/NEWS"
 distfiles="${GNOME_SITE}/glib/${version%.*}/glib-${version}.tar.xz"
-checksum=80fff9c63d2725834328071c42003c311f77f91caf2285195c587c62f5638329
+checksum=241654b96bd36b88aaa12814efc4843b578e55d47440103727959ac346944333
 
 build_options="gtk_doc"
 desc_option_gtk_doc="Build GTK API docs"

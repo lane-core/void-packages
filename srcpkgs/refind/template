@@ -1,6 +1,6 @@
 # Template file for 'refind'
 pkgname=refind
-version=0.13.0
+version=0.13.2
 revision=1
 archs="x86_64* i686* aarch64*"
 makedepends="gnu-efi-libs"
@@ -10,7 +10,7 @@ maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="GPL-3.0-only, BSD-3-Clause, BSD-2-Clause, GPL-2.0-only, LGPL-2.1-only"
 homepage="https://sourceforge.net/projects/refind/"
 distfiles="${SOURCEFORGE_SITE}/refind/refind-src-${version}.tar.gz"
-checksum=c5d888f079f58ba5596782c1259e38100674de3398c3b579b6fc0f1738a33b7e
+checksum=dd58944854a42df5a2a943f15e5dcfd995808f28580df96ad39d68fb1e48c970
 python_version=2
 conf_files="/etc/default/refind-kernel-hook.conf"
 

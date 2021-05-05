@@ -1,15 +1,20 @@
 # Template file for 'revive'
 pkgname=revive
-version=1.0.3
+version=1.0.6
 revision=1
 build_style=go
+go_ldflags="-X main.version=$version -X main.builtBy=xbps"
 go_import_path="github.com/mgechev/revive"
 short_desc="Drop-in replacement for golint"
 maintainer="Paper <paper@tilde.institute>"
 license="MIT"
 homepage="https://revive.run/"
 distfiles="https://github.com/mgechev/revive/archive/v$version.tar.gz"
-checksum=3f829c35dcc8b94bb78c706c2a35bb1f5c77e83128614aa3867fe2952d0ce936
+checksum=6b504886cf3577329beb7a593b8037601350eed011d64da269ad476f6bfdb35b
+
+do_check() {
+	go test -v ./...
+}
 
 post_install() {
 	vdoc RULES_DESCRIPTIONS.md

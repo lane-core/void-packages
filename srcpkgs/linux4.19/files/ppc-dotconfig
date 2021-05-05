@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 4.19.169 Kernel Configuration
+# Linux/powerpc 4.19.189 Kernel Configuration
 #
 
 #
@@ -2099,7 +2099,7 @@ CONFIG_ADB=y
 CONFIG_ADB_CUDA=y
 CONFIG_ADB_PMU=y
 CONFIG_ADB_PMU_LED=y
-CONFIG_ADB_PMU_LED_DISK=y
+# CONFIG_ADB_PMU_LED_DISK is not set
 CONFIG_PMAC_APM_EMU=m
 CONFIG_PMAC_MEDIABAY=y
 CONFIG_PMAC_BACKLIGHT=y
@@ -5599,7 +5599,6 @@ CONFIG_SPEAKUP_SYNTH_DUMMY=m
 # CONFIG_KS7010 is not set
 # CONFIG_GREYBUS is not set
 # CONFIG_PI433 is not set
-# CONFIG_MTK_MMC is not set
 
 #
 # Gasket devices

@@ -1,6 +1,6 @@
 # Template file for 'linux5.4'
 pkgname=linux5.4
-version=5.4.99
+version=5.4.114
 revision=1
 wrksrc="linux-${version}"
 short_desc="Linux kernel and modules (${version%.*} series)"
@@ -8,7 +8,7 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version}.tar.xz"
-checksum=5bdad12c69253d30d836dd51e0b2a9a04a6749cc6b4b2412561a1efcb1351a27
+checksum=be98f087cb58f23bc5edb8ee80a4794a569d48049d75b1a8eaef9f80fede9557
 python_version=3
 patch_args="-Np1"
 
@@ -20,7 +20,7 @@ preserve=yes
 
 archs="i686* x86_64* armv5tel* armv6l* armv7l* aarch64* ppc* mips*"
 hostmakedepends="tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
- libressl-devel perl uboot-mkimage cpio"
+ openssl-devel perl uboot-mkimage cpio"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"
@@ -335,5 +335,6 @@ linux5.4-dbg_package() {
 	short_desc+=" - debugging symbols"
 	pkg_install() {
 		vmove usr/lib/debug
+		vmove "boot/System.map-${_kernver}"
 	}
 }

@@ -1,5 +1,5 @@
 # Template file for 'google-chrome'
-_chromeVersion=88.0.4324.182
+_chromeVersion=90.0.4430.93
 _chromeRevision=1
 _channel=stable
 
@@ -22,7 +22,7 @@ _chromeUrl="${_baseUrl}/${_filename}"
 _licenseUrl="https://www.google.com/intl/en/chrome/terms/"
 
 distfiles="$_chromeUrl"
-checksum=ab00e9412f5f20e30c7db5dc987473248f4adf9ebf2c3f928ef62e1ffb104fe6
+checksum=86bedf3e385dcc819fa7863b28445c403090fb20b45a8b0f063199ed72662eee
 
 do_extract() {
 	mkdir -p ${DESTDIR}

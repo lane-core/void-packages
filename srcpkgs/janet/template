@@ -1,6 +1,6 @@
 # Template file for 'janet'
 pkgname=janet
-version=1.15.2
+version=1.15.5
 revision=1
 build_style=meson
 configure_args="-Db_lto=false"  # breaks jpm
@@ -9,7 +9,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="MIT"
 homepage="https://janet-lang.org/"
 distfiles="https://github.com/janet-lang/janet/archive/v${version}.tar.gz"
-checksum=9d08e24c1beaf01231fde469a097ae04c51673be37ab25ca6fef82324a8f7ee9
+checksum=7f90dbad2d7049847034182240d61b491411544ed82b110c5778dabd9eea84ca
 
 post_install() {
 	vlicense LICENSE

@@ -1,6 +1,6 @@
 # Template file for 'linux5.11'
 pkgname=linux5.11
-version=5.11.1
+version=5.11.18
 revision=1
 wrksrc="linux-${version%.*}"
 short_desc="Linux kernel and modules (${version%.*} series)"
@@ -10,14 +10,13 @@ homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version%.*}.tar.xz
  https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-${version}.xz"
 checksum="04f07b54f0d40adfab02ee6cbd2a942c96728d87c1ef9e120d0cb9ba3fe067b4
- 8808ee2c7e904f2fb3c830b41c8bbc2b2ad37638ee95fdfde68167f0be35dd3f"
+ 352795f98bb046cfe0fbdf9ed91a50886ad01f05c4496a241e3f182e3784001a"
 skip_extraction="patch-${version}.xz"
 python_version=3
 patch_args="-Np1"
 
 # XXX Restrict archs until a proper <arch>-dotconfig is available in FILESDIR.
-# XXX Add ppc back only if page poisoning is fixed
-archs="x86_64* i686* aarch64*"
+archs="x86_64* i686* aarch64* ppc*"
 
 nodebug=yes  # -dbg package is generated below manually
 nostrip=yes
@@ -26,7 +25,7 @@ noshlibprovides=yes
 preserve=yes
 
 hostmakedepends="tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
- libressl-devel perl uboot-mkimage cpio pahole python3"
+ openssl-devel perl uboot-mkimage cpio pahole python3"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"
@@ -53,9 +52,6 @@ export KBUILD_BUILD_HOST=voidlinux
 if [ "$CROSS_BUILD" ]; then
 	_cross="CROSS_COMPILE=${XBPS_CROSS_TRIPLET}-"
 fi
-if [ "${_patchver}" ]; then
-	_version="EXTRAVERSION=${_patchver}"
-fi
 
 pre_patch() {
 	xzcat $XBPS_SRCDISTDIR/$pkgname-$version/patch-${version}.xz | patch -Np1
@@ -74,7 +70,7 @@ do_configure() {
 		aarch64*) arch=arm64;;
 		ppc64le*) arch=powerpc; subarch=ppc64le;;
 		ppc64*) arch=powerpc; subarch=ppc64;;
-		ppc*) arch=powerpc;;
+		ppc*) arch=powerpc; subarch=ppc;;
 		mips*) arch=mips;;
 	esac
 
@@ -86,13 +82,6 @@ do_configure() {
 		msg_normal "Detected a .config file for your arch, using it.\n"
 		cp -f ${FILESDIR}/${subarch:-$arch}-dotconfig .config
 		make ${makejobs} ARCH=$arch ${_cross} oldconfig
-	elif [ -f ${FILESDIR}/${XBPS_TARGET_MACHINE%%-musl}-dotconfig ]; then
-		msg_normal "Detected a .config file for your cpu family, using it.\n"
-		cp -f ${FILESDIR}/${XBPS_TARGET_MACHINE%%-musl}-dotconfig .config
-		make ${makejobs} ARCH=$arch ${_cross} oldconfig
-	else
-		msg_normal "Defaulting to 'allmodconfig'.\n"
-		make ${makejobs} ARCH=$arch ${_cross} allmodconfig
 	fi
 	# Always use our revision to CONFIG_LOCALVERSION to match our pkg version.
 	sed -i -e "s|^\(CONFIG_LOCALVERSION=\).*|\1\"_${revision}\"|" .config
@@ -110,8 +99,8 @@ do_build() {
 		mips*) _args="uImage modules dtbs"; arch=mips;;
 	esac
 	export LDFLAGS=
-	make ARCH=$arch ${_version} ${_cross} ${makejobs} prepare
-	make ARCH=$arch ${_version} ${_cross} ${makejobs} ${_args}
+	make ARCH=$arch ${_cross} ${makejobs} prepare
+	make ARCH=$arch ${_cross} ${makejobs} ${_args}
 }
 
 do_install() {
@@ -126,7 +115,7 @@ do_install() {
 		mips*) arch=mips;;
 	esac
 
-	# Run depmod after compressing modules.
+	# Run depmod after compressing modules - makes depmod.sh a noop
 	sed -i '2iexit 0' scripts/depmod.sh
 
 	# Install kernel, firmware and modules
@@ -336,5 +325,6 @@ linux5.11-dbg_package() {
 	short_desc+=" - debugging symbols"
 	pkg_install() {
 		vmove usr/lib/debug
+		vmove "boot/System.map-${_kernver}"
 	}
 }

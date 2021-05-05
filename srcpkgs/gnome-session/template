@@ -1,6 +1,6 @@
 # Template file for 'gnome-session'
 pkgname=gnome-session
-version=3.38.0
+version=40.0
 revision=1
 build_style=meson
 configure_args="-Dsystemd_journal=false -Dsystemd_session=disable"
@@ -15,7 +15,7 @@ maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://gitlab.gnome.org/GNOME/gnome-session"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=7bcc0eb2cdba4b3f6d1b459b3a30873b7bb65b383c1f6a5f63c3e3b5c7943d67
+checksum=80de1c59c6e4fc275ac439eede0654fdf41ac9deded6dd5e0d9d76a117ab1a89
 
 post_install() {
 	rm -rf ${DESTDIR}/tmp

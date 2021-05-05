@@ -76,17 +76,19 @@ packages for XBPS, the `Void Linux` native packaging system.
 <a id="Introduction"></a>
 ## Introduction
 
-The `void-packages` repository contains all `source` packages that are the
-recipes to download, compile and build binary packages for `Void`.
-Those `source` package files are called `templates`.
+The `void-packages` repository contains all the
+recipes to download, compile and build binary packages for Void Linux.
+These `source` package files are called `templates`.
 
-The `template files` are `GNU bash` shell scripts that must define some required/optional
-`variables` and `functions` that are processed by `xbps-src` (the package builder)
-to generate the resulting binary packages.
+The `template` files are shell scripts that define `variables` and `functions`
+to be processed by `xbps-src`, the package builder, to generate binary packages.
+The shell used by `xbps-src` is GNU bash; `xbps-src` doesn't aim to be
+compatible with POSIX `sh`.
 
-By convention, all templates start with a comment briefly explaining what they
-are. In addition, pkgname and version can't have any characters in them that
-would require them to be quoted, so they are not quoted.
+By convention, all templates start with a comment saying that it is a
+`template file` for a certain package. Most of the lines should be kept under 80
+columns; variables that list many values can be split into new lines, with the
+continuation in the next line indented by one space.
 
 A simple `template` example is as follows:
 
@@ -146,6 +148,11 @@ fonts).
 Browser forks, including those based on Chromium and Firefox, are generally not
 accepted. Such forks require heavy patching, maintenance and hours of build time.
 
+Software need to be used in version announced by authors as ready to use by
+the general public - usually called releases. Betas, arbitrary VCS revisions,
+templates using tip of development branch taken at build time and releases
+created by the package maintainer won't be accepted.
+
 <a id="buildphase"></a>
 ### Package build phases
 
@@ -169,9 +176,8 @@ can be used to perform other operations before configuring the package.
 - `check` This optional phase checks the result of the `build` phase by running the testsuite provided by the package.
 If the default `do_check` function provided by the build style doesn't do anything, the template should set
 `make_check_target` and/or `make_check_args` appropriately or define its own `do_check` function. If tests take too long
-or can't run in all environments, they should be run only if `XBPS_CHECK_PKGS` is `full`, which means they should either
-be under a `[ "$XBPS_CHECK_PKGS" = full ]` conditional (especially useful with custom `do_check`) or `make_check=extended`
-should be set in the template.
+or can't run in all environments, `make_check` should be set to fitting value or
+`do_check` should be customized to limit testsuite unless `XBPS_CHECK_PKGS` is `full`.
 
 - `install` This phase installs the `package files` into the package destdir `<masterdir>/destdir/<pkgname>-<version>`,
 via `make install` or any other compatible method.
@@ -442,10 +448,9 @@ Multiple licenses should be separated by commas, Example: `GPL-3.0-or-later, cus
   Note: `MIT`, `BSD`, `ISC` and custom licenses
   require the license file to be supplied with the binary package.
 
-- `maintainer` A string in the form of `name <user@domain>`.  The
-  email for this field must be a valid email that you can be reached
-  at.  Packages using `users.noreply.github.com` emails will not be
-  accepted.
+- `maintainer` A string in the form of `name <user@domain>`.  The email for this field
+must be a valid email that you can be reached at. Packages using
+`users.noreply.github.com` emails will not be accepted.
 
 - `pkgname` A string with the package name, matching `srcpkgs/<pkgname>`.
 
@@ -456,7 +461,12 @@ the generated `binary packages` have been modified.
 - `short_desc` A string with a brief description for this package. Max 72 chars.
 
 - `version` A string with the package version. Must not contain dashes or underscore
-and at least one digit is required. Shell's variable substition usage is not allowed.
+and at least one digit is required. Using bash's pattern substitution and prefix and
+suffix matching isn't supported, since this field needs to be parsed by
+`xbps-checkvers(1)`. Using variables in this field should be avoided.
+
+Neither `pkgname` or `version` should contain special characters which make it
+necessary to quote them, so they shouldn't be quoted in the template.
 
 <a id="optional_vars"></a>
 #### Optional variables
@@ -595,10 +605,15 @@ patches to the package sources during `do_patch()`. Patches are stored in
 - `disable_parallel_build` If set the package won't be built in parallel
 and `XBPS_MAKEJOBS` has no effect.
 
-- `make_check` Sets the cases in which the `check` phase is run. Can be `yes` (the default) to run if
-`XBPS_CHECK_PKGS` is set, `extended` to run if `XBPS_CHECK_PKGS` is `full` and `no` to never run.
+- `make_check` Sets the cases in which the `check` phase is run.
 This option should usually be accompanied by a comment explaining why it was set, especially when
 set to `no`.
+Allowed values:
+  - `yes` (the default) to run if `XBPS_CHECK_PKGS` is set.
+  - `extended` to run if `XBPS_CHECK_PKGS` is `full`.
+  - `ci-skip` to run locally if `XBPS_CHECK_PKGS` is set, but not as part of pull request checks.
+  - `no` to never run.
+
 
 - `keep_libtool_archives` If enabled the `GNU Libtool` archives won't be removed. By default those
 files are always removed automatically.
@@ -971,9 +986,9 @@ via `make_install_target`.
 via `configure_args`, the meson command can be overridden by `meson_cmd` and the location of
 the out of source build by `meson_builddir`
 
-- `void-cross` For cross-toolchain packages used to build Void systems. You will need to
-specify `cross_triplet` (corresponds to the target triplet specified in the cross profile
-for the target arch). Optionally, `cross_gcc_skip_go` can be specified. Individual subproject
+- `void-cross` For cross-toolchain packages used to build Void systems. There are no
+mandatory variables (target triplet is inferred), but you can specify some optional
+ones - `cross_gcc_skip_go` can be specified to skip `gccgo`, individual subproject
 configure arguments can be specified via `cross_*_configure_args` where `*` is `binutils`,
 `gcc_bootstrap` (early gcc), `gcc` (final gcc), `glibc` (or `musl`), `configure_args` is
 additionally passed to both early and final `gcc`. You can also specify custom `CFLAGS`

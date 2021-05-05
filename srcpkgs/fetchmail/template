@@ -1,11 +1,11 @@
 # Template file for 'fetchmail'
 pkgname=fetchmail
-version=6.4.16
+version=6.4.18
 revision=1
 build_style=gnu-configure
 configure_args="--with-ssl=${XBPS_CROSS_BASE}/usr"
 hostmakedepends="python3"
-makedepends="libressl-devel"
+makedepends="openssl-devel"
 depends="fetchmailconf"
 short_desc="Remote-mail retrieval utility"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
@@ -13,7 +13,7 @@ license="GPL-2.0-only"
 homepage="http://fetchmail.sourceforge.net/"
 changelog="https://gitlab.com/fetchmail/fetchmail/-/raw/legacy_64/NEWS"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=044b9a0ac03afbae7744979defe3e2e32e39141bca68fd0c8deda2ed40884fb9
+checksum=302dc9bcdc6927dedf375d2baaead2347557faa70d98b1da83f2409fa6fb259f
 
 post_install() {
 	vsed -i -e 's,/usr/bin/python ,/usr/bin/python3 ,' "${DESTDIR}/usr/bin/fetchmailconf"

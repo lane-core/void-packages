@@ -1,20 +1,20 @@
 # Template file for 'erlang'
 pkgname=erlang
-version=23.2.5
+version=23.3.2
 revision=1
 create_wrksrc=yes
 build_wrksrc="otp-OTP-${version}"
 build_style=gnu-configure
 make_install_target="install install-docs"
 hostmakedepends="autoconf libxslt perl tar"
-makedepends="libressl-devel ncurses-devel unixodbc-devel zlib-devel"
+makedepends="openssl-devel ncurses-devel unixodbc-devel zlib-devel"
 short_desc="Concurrent functional programming language developed by Ericsson"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Apache-2.0"
 homepage="http://www.erlang.org/"
 changelog="https://github.com/erlang/otp/releases"
 distfiles="https://github.com/erlang/otp/archive/OTP-${version}.tar.gz"
-checksum=00587a60bc97a26060265b201f69dd7059ddd04506f6502e8e78c5f00e1b1db7
+checksum=02443dd42023d0eb73f73dc05f4d3ded7bc4ab59d348041a37a045ba1581b48b
 subpackages="erlang-doc"
 
 if [ -z "$CROSS_BUILD" ]; then
@@ -24,7 +24,7 @@ if [ -z "$CROSS_BUILD" ]; then
 fi
 
 case "$XBPS_TARGET_MACHINE" in
-	*-musl) configure_args+=" --disable-hipe" ;;
+	ppc64*|*-musl) configure_args+=" --disable-hipe" ;;
 esac
 
 pre_configure() {

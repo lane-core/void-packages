@@ -1,6 +1,6 @@
 # Template file for 'git-annex'
 pkgname=git-annex
-version=8.20210127
+version=8.20210330
 revision=1
 build_style=haskell-stack
 makedepends="curl file-devel gnupg2 gnutls-devel gsasl-devel libxml2-devel
@@ -12,7 +12,7 @@ maintainer="Evan Deaubl <evan@deaubl.name>"
 license="AGPL-3.0-or-later, MIT, BSD-2-Clause, GPL-3.0-or-later, custom:Expat, custom:MIT-twitter, GPL-2.0-only, custom:icon-license"
 homepage="http://git-annex.branchable.com"
 distfiles="https://hackage.haskell.org/package/${pkgname}-${version}/${pkgname}-${version}.tar.gz"
-checksum=636f439420f28a92a8250b9f8b422567e439315f3f2d23cb0bea3b0a0e5755c3
+checksum=17109144b2aadfab79fa0e193df3e0c02fd80f738a5ed6eccb0d11692bedb01d
 nopie_files="/usr/bin/git-annex"
 nocross=yes
 

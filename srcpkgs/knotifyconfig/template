@@ -1,6 +1,6 @@
 # Template file for 'knotifyconfig'
 pkgname=knotifyconfig
-version=5.79.0
+version=5.81.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -12,7 +12,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/knotifyconfig"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=2d111a6b80dab8cfce710440824cd528d2d1ee5194a5d1e467e620e45649cd30
+checksum=7a49ef1a4416b17082cc9d56e7ee01264999289cdcf06bd2d1a08717ce492d77
 
 knotifyconfig-devel_package() {
 	short_desc+=" - development"

@@ -1,19 +1,19 @@
 # Template file for 'umurmur'
 pkgname=umurmur
-version=0.2.19
+version=0.2.20
 revision=1
 build_style=gnu-configure
 configure_args="--enable-shmapi --with-ssl=openssl"
 conf_files="/etc/umurmur/umurmur.conf"
 hostmakedepends="automake libtool"
-makedepends="libconfig-devel libressl-devel protobuf-c-devel"
+makedepends="libconfig-devel openssl-devel protobuf-c-devel"
 short_desc="Minimalistic Mumble server"
 maintainer="Duncaen <duncaen@voidlinux.org>"
 license="BSD-3-clause"
 homepage="http://umurmur.net/"
 changelog="https://github.com/umurmur/umurmur/raw/master/ChangeLog"
 distfiles="https://github.com/umurmur/umurmur/archive/${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=338053160bc48e48850061cdfc19cf1b2bb66e56877c04cd6de7831b468646b6
+checksum=b7b2978c3197aef0a6531f1cf0ee1aebb32a55ad8bda43064ce3a944edbcac83
 
 system_accounts="umurmur"
 umurmur_homedir="/var/lib/umurmur"

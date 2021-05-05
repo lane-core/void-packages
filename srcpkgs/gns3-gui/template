@@ -1,6 +1,6 @@
 # Template file for 'gns3-gui'
 pkgname=gns3-gui
-version=2.2.18
+version=2.2.20
 revision=1
 build_style=python3-module
 hostmakedepends="python3-setuptools"
@@ -13,12 +13,11 @@ maintainer="Tim Sandquist <tim.sandquist@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://gns3.com"
 distfiles="https://github.com/GNS3/${pkgname}/archive/v${version}.tar.gz"
-checksum=@02c339cd8f53b7315697f5f6402ce7a15b4d669df93fc45b5691c1e9b2ba7b45
+checksum=@6a5cc45f2a1d7ec8634b33b812013df6635b4c3994f58bf0f55efc41d0a096d0
 
 post_patch() {
 	# relax requirements
-	vsed -e 's|jsonschema.*|jsonschema>=2.6.0|' \
-		-e 's|psutil.*|psutil>=5.6.7|' -i requirements.txt
+	vsed -e 's|jsonschema.*|jsonschema>=2.6.0|' -i requirements.txt
 }
 
 do_check() {

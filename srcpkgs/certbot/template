@@ -1,6 +1,6 @@
 # Template file for 'certbot'
 pkgname=certbot
-version=1.12.0
+version=1.14.0
 revision=1
 build_style=python3-module
 hostmakedepends="python3-setuptools"
@@ -14,8 +14,4 @@ maintainer="Alex Childs <misuchiru03+void@gmail.com>"
 license="Apache-2.0"
 homepage="https://certbot.eff.org/"
 distfiles="${PYPI_SITE}/c/certbot/certbot-${version}.tar.gz"
-checksum=5ee738773479bcb7794e43fedd2415acc0969b75bdd2a21f451e3bff9d99df59
-
-do_check() {
-	python3 -m pytest
-}
+checksum=959ea90c6bb8dca38eab9772722cb940972ef6afcd5f15deef08b3c3636841eb
