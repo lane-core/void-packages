@@ -1,27 +1,25 @@
 # Template file for 'mako'
 pkgname=mako
-_commit=e5b5d56aaaf8390c97a17c208f950803538e7294
-version=20210311
+version=1.5
 revision=1
 wrksrc=${pkgname}-${_commit}
 build_style=meson
-configure_args="-Dzsh-completions=true -Dapparmor=true -Dwerror=false"
+configure_args="-Dzsh-completions=true -Dwerror=false"
 hostmakedepends="pkg-config scdoc wayland-devel wayland-protocols"
 makedepends="wayland-devel wayland-protocols pango-devel cairo-devel
- elogind-devel gdk-pixbuf-devel"
+ basu-devel gdk-pixbuf-devel"
 short_desc="Lightweight Wayland notification daemon"
 maintainer="Emerson Ferreira <me@skrps.me>"
 license="MIT"
 homepage="https://mako-project.org/"
-_repo="https://github.com/emersion/mako"
-distfiles="${_repo}/archive/${_commit}.tar.gz"
-checksum=e02ad4629edc1b6de0b569b16430ee2571e8b2a3190a905e206c824cb31de72b
+distfiles="https://github.com/emersion/${pkgname}/archive/v${version}.tar.gz"
+checksum=d79998aa4c68de82155080a58ad5783b40d81f50553a0a5d633553ece4f7439d
 
 conf_files="/etc/apparmor.d/local/fr.emersion.Mako"
 
 post_install() {
 	vlicense LICENSE
-
+	vinstall contrib/apparmor/fr.emersion.Mako 644 etc/apparmor.d
 	vmkdir etc/apparmor.d/local
 	touch ${DESTDIR}/etc/apparmor.d/local/fr.emersion.Mako
 }

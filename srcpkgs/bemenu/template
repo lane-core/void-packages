@@ -1,7 +1,6 @@
 # Template file for 'bemenu'
 pkgname=bemenu
-_commit=e74224a40633e6a03d19f0b0844cca08792e6a31
-version=20210205
+version=0.6.1
 revision=1
 wrksrc="${pkgname}-${_commit}"
 build_style=gnu-makefile
@@ -14,8 +13,8 @@ short_desc="Dynamic menu library and client program inspired by dmenu"
 maintainer="Issam Maghni <me@concati.me>"
 license="GPL-3.0-or-later, LGPL-3.0-or-later"
 homepage="https://github.com/Cloudef/bemenu"
-distfiles="https://github.com/Cloudef/bemenu/archive/${_commit}.tar.gz"
-checksum=e82310e512b230b1d304f720db3f77ebe159850bdb8450d192929a80c6a4d3d0
+distfiles="https://github.com/Cloudef/bemenu/archive/${version}.tar.gz"
+checksum=d083c7cfc9ca0bd497149333dc41f65b5be10f3f5fa6a4b9c73a199a352f4225
 
 bemenu-devel_package() {
 	depends="bemenu-${version}_${revision}"
