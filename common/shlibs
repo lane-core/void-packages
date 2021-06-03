@@ -1452,6 +1452,7 @@ libvlc_pulse.so.0 libvlc-3.0.2_1
 libvlc_xcb_events.so.0 libvlc-3.0.2_1
 libcmocka.so.0 cmocka-1.1.1_1
 libbtrfs.so.0 libbtrfs-3.12_1
+libreiserfscore.so.0 reiserfsprogs-3.6.27_3
 libbtrfsutil.so.1 libbtrfsutil-5.4_1
 libecore_audio.so.1 efl-1.25.1_2
 libecore_con.so.1 efl-1.25.1_2
@@ -3865,7 +3866,7 @@ libcaribou.so.0 libcaribou-0.4.21_3
 libtinyclipboard.so.1 tinyclipboard-16.01_1
 libcbor.so.0.8 libcbor-0.8.0_1
 libfido2.so.1 libfido2-1.6.0_2
-libjanet.so.1.15 janet-1.15.1_1
+libjanet.so.1.16 janet-1.16.0_1
 libOpenImageDenoise.so.1 openimagedenoise-1.3.0_1
 libcbang0.so cbang-1.6.0_3
 libblosc.so.1 c-blosc-1.17.1_1
