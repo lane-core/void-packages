@@ -1,6 +1,6 @@
 # Template file for 'linux4.19'
 pkgname=linux4.19
-version=4.19.192
+version=4.19.195
 revision=1
 wrksrc="linux-${version}"
 short_desc="Linux kernel and modules (${version%.*} series)"
@@ -8,9 +8,8 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=074dcda77c7c413dece370b3cf8713997d909a8c06724c910ae23cc9c96f0099
+checksum=5510a556d9bc45b20c96b9630803d02e7991c852c7161b1988b4f3da6af12d0b
 python_version=3
-patch_args="-Np1"
 
 nodebug=yes  # -dbg package is generated below manually
 nostrip=yes
