@@ -31,7 +31,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="${_repo}/archive/${_commit}.tar.gz>emacs-${_commit}.tar.gz"
-checksum=c424bab90b3c1008ac62e153fb0d0fd0a54cf6dd47dedc334e287e183e98be2b
+checksum=586b63554cb50f14af67f8f827ce1c5b74ede7b3d3e9ff81a3c53632403896e8
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
