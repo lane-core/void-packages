@@ -1,6 +1,6 @@
 # Template file for 'fcft'
 pkgname=fcft
-version=2.4.1
+version=2.4.4
 revision=1
 wrksrc=$pkgname
 build_style=meson
@@ -13,7 +13,7 @@ maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://codeberg.org/dnkl/fcft"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=7041892d79ca18cfc0c800169caf02cfe6aefd4822cf2d89b2e610108e95a63c
+checksum=dabf5d83bf464c493fdd3a0baa69dc549ba08633299f0197d20707ae875a59ce
 
 build_options="harfbuzz"
 build_options_default="harfbuzz"
