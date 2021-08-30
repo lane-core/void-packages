@@ -1,20 +1,18 @@
-# Template file for 'gcc'
-# Revbump libtool when updating gcc, since it hardcodes some internal compiler paths
-# which use the version number.
+# Template file for 'libgccjit'
+_majorver=10
+_minorver=${_majorver}.2
+_patchver=${_minorver}.1
+_gmp_version=6.2.0
+_mpfr_version=4.1.0
+_mpc_version=1.1.0
+_isl_version=0.21
 
 pkgname=libgccjit
 # we are using a 10-stable git snapshot alpine is using in order
 # to get regression fixes not yet incorporate into a stable release
 # it should be possible to switch back to stable with 10.3 or 11
-version=10.2.1pre1
-revision=3
-_patchver="${version%pre*}"
-_minorver="${_patchver%.*}"
-_majorver="${_minorver%.*}"
-_gmp_version=6.2.0
-_mpfr_version=4.1.0
-_mpc_version=1.1.0
-_isl_version=0.21
+version=${_patchver}pre1
+revision=1
 wrksrc=gcc-${version/pre/_pre}
 short_desc="Just-In-Time Compilation library for GCC"
 maintainer="Lane Biocini <lane@mailbox.org>"
@@ -47,18 +45,21 @@ post_extract() {
 	mv ${XBPS_BUILDDIR}/isl-${_isl_version} ${wrksrc}/isl
 }
 
-pre_configure() {
+post_patch() {
+	# Apply musl patches
+	case "$XBPS_TARGET_MACHINE" in
+		*-musl)
+			patch -p0 -i ${FILESDIR}/libgnarl-musl.patch
+			patch -p0 -i ${FILESDIR}/libssp-musl.patch
+			patch -p1 -i ${FILESDIR}/libgccjit-musl.patch
+			;;
+	esac
+
 	# _FORTIFY_SOURCE needs an optimization level.
-	sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" {gcc,libiberty}/configure
+	vsed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" {gcc,libiberty}/configure
 
 	# Do not run fixincludes
-	sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
-
-	if [ "$XBPS_TARGET_LIBC" = musl ]; then
-		patch -p1 -i ${FILESDIR}/libgnarl-musl.patch
-		patch -p1 -i ${FILESDIR}/libssp-musl.patch
-		patch -p1 -i ${FILESDIR}/gccgo-musl.patch
-	fi
+	vsed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
 }
 
 do_configure() {
@@ -153,30 +154,23 @@ do_configure() {
 	_args+=" --prefix=/usr"
 	_args+=" --mandir=/usr/share/man"
 	_args+=" --infodir=/usr/share/info"
+	_args+=" --with-bugurl='https://github.com/jashandeep-sohi/libgccjit-pkg/issues'" \
 	_args+=" --libexecdir=/usr/lib${XBPS_TARGET_WORDSIZE}"
 	_args+=" --libdir=/usr/lib${XBPS_TARGET_WORDSIZE}"
-	_args+=" --enable-threads=posix"
-	_args+=" --enable-__cxa_atexit"
-	_args+=" --disable-multilib"
 	_args+=" --with-system-zlib"
-	_args+=" --enable-shared"
-	_args+=" --enable-lto"
-	_args+=" --enable-plugins"
-	_args+=" --enable-linker-build-id"
-	_args+=" --disable-werror"
-	_args+=" --disable-nls"
-	_args+=" --enable-default-pie"
-	_args+=" --enable-default-ssp"
-	_args+=" --enable-checking=release"
-	_args+=" --disable-libstdcxx-pch"
-	_args+=" --with-isl"
 	_args+=" --with-linker-hash-style=$_hash"
-	_args+=" --disable-sjlj-exceptions"
-	_args+=" --disable-target-libiberty"
-	
-	# libgccjit compilcation specific
+	_args+=" --enable-linker-build-id"
+	_args+=" --enable-threads=posix"
+	_args+=" --enable-lto"
+	_args+=" --enable-shared"
 	_args+=" --enable-host-shared"
+	_args+=" --enable-checking=release"
+	_args+=" --enable-plugins"
+	_args+=" --enable-default-ssp"
+	_args+=" --enable-default-pie"
+	_args+=" --disable-multilib"
 	_args+=" --disable-bootstrap"
+	_args+=" --enable-__cxa_atexit"
 	_args+=" --disable-libquadmath"
 	_args+=" --disable-libquadmath-support"
 	_args+=" --disable-libgomp"
@@ -184,7 +178,11 @@ do_configure() {
 	_args+=" --disable-libada"
 	_args+=" --disable-libvtv"
 	_args+=" --disable-libsanitizer"
-	_args+=" --with-bugurl='https://github.com/jashandeep-sohi/libgccjit-pkg/issues'"
+	_args+=" --disable-werror"
+	_args+=" --disable-nls"
+	_args+=" --disable-libstdcxx-pch"
+	_args+=" --disable-sjlj-exceptions"
+	_args+=" --disable-target-libiberty"
 
 	mkdir -p build
 	cd build
