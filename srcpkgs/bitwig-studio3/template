@@ -10,14 +10,15 @@ license="custom:bitwig"
 homepage="https://bitwig.com/"
 _file="bitwig-studio-${version}.deb"
 distfiles="https://downloads.bitwig.com/stable/${version}/${_file}"
-checksum=ca10802a56cb8f2072c244986356aa6d41859401c12d1f20f313c322aa142199
+checksum=705f2054f8ccd0a51c28e5b4f6e15c729e3f9736d49997019153b0aff03ff18c
 nostrip=yes
 restricted=yes
 repository=nonfree
+replaces="bitwig-studio>=0"
 
 do_extract() {
 	mkdir -p ${DESTDIR}
-	ar x ${XBPS_SRCDISTDIR}/bitwig-studio-${version}/${_file}
+	ar x ${XBPS_SRCDISTDIR}/bitwig-studio3-${version}/${_file}
 }
 
 do_install() {
