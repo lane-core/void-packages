@@ -74,7 +74,7 @@ libpanelw.so.6 ncurses-libs-5.8_1 ignore
 libmenuw.so.6 ncurses-libs-5.8_1 ignore
 libobjc.so.4 libobjc-4.7.3_12
 libgomp.so.1 libgomp-4.4.0_1
-libgps.so.25 gpsd-3.20_1
+libgps.so.29 gpsd-3.23_1
 libmagic.so.1 libmagic-5.12_1
 libbluetooth.so.3 libbluetooth-4.58_1
 libwmf-0.2.so.7 libwmf-0.2.8.4_1
@@ -424,7 +424,7 @@ libdca.so.0 libdca-0.0.5_1
 libmpeg2.so.0 libmpeg2-0.5.1_1
 libmpeg2convert.so.0 libmpeg2-0.5.1_1
 libmng.so.2 libmng-2.0.2_1
-libQgpsmm.so.25 gpsd-qt-3.20_1
+libQgpsmm.so.29 gpsd-qt-3.23_1
 libsysfs.so.2 libsysfs-2.1.0_1
 libsensors.so.5 libsensors-3.5.0_1
 libcap-ng.so.0 libcap-ng-0.6.2_1
@@ -726,8 +726,8 @@ libasyncns.so.0 libasyncns-0.8_1
 libpulse.so.0 libpulseaudio-14.2_2
 libpulse-mainloop-glib.so.0 libpulseaudio-14.2_2
 libpulse-simple.so.0 libpulseaudio-14.2_2
-libpulsecommon-14.2.so libpulseaudio-14.2_2
-libpulsecore-14.2.so libpulseaudio-14.2_2
+libpulsecommon-15.0.so libpulseaudio-15.0_1
+libpulsecore-15.0.so libpulseaudio-15.0_1
 libprojectM.so.3 projectM-3.1.7_2
 liborc-0.4.so.0 orc-0.4.11_1
 liborc-test-0.4.so.0 orc-0.4.11_1
@@ -1155,6 +1155,7 @@ libtomcrypt.so.1 libtomcrypt-1.18.0_1
 libHX.so.28 libHX-3.14_1
 libxkbcommon.so.0 libxkbcommon-0.2.0_1
 libxkbcommon-x11.so.0 libxkbcommon-x11-0.4.2_1
+libxkbregistry.so.0 libxkbregistry-1.3.0_3
 libgee-0.8.so.2 libgee08-0.8.2_1
 libnettle.so.8 nettle-3.6_1
 libhogweed.so.6 nettle-3.6_1
@@ -1580,6 +1581,9 @@ libfreerdp-codec.so.1.0 libfreerdp-2.2.0_3
 libfreerdp-gdi.so.1.0 libfreerdp-2.2.0_3
 libfreerdp-cache.so.1.0 libfreerdp-2.2.0_3
 libuwac0.so.0 libfreerdp-2.2.0_3
+libfreerdp-server2.so.2 libfreerdp-server-2.4.0_1
+libfreerdp-shadow-subsystem2.so.2 libfreerdp-server-2.4.0_1
+libfreerdp-shadow2.so.2 libfreerdp-server-2.4.0_1
 libcppunit-1.15.so.1 libcppunit-1.15.1_1
 libcalc.so.2.12.7.1 libcalc-2.12.7.1_1
 libcustcalc.so.2.12.7.1 libcalc-2.12.7.1_1
@@ -1957,7 +1961,7 @@ libQt5TextToSpeech.so.5 qt5-speech-5.15.2_3
 libQt5Bodymovin.so.5 qt5-lottie-5.15.2_3
 libQt5WebKit.so.5 qt5-webkit-5.6.0_1
 libQt5WebKitWidgets.so.5 qt5-webkit-5.6.0_1
-libx265.so.192 x265-3.4_1
+libx265.so.199 x265-3.5_1
 libQt5Xdg.so.3 libqtxdg-3.1.0_1
 libQt5XdgIconLoader.so.3 libqtxdg-3.1.0_1
 libqwt.so.6 qwt-6.1.3_1
@@ -2424,7 +2428,7 @@ libgflags_nothreads.so.2.2 gflags-2.1.2_1
 libswmhack.so.0.0 spectrwm-2.7.2_1
 libchardet.so.1 libchardet-1.0.4_1
 libcollectdclient.so.1 libcollectdclient-5.12.0_3
-libpinktrace_0.9.so.9 pinktrace-0.9.1_1
+libpinktrace_1.0.so.100 pinktrace-1.0.0_1
 libsyd_1.0.so.0 sydbox-1.0.2_1
 libcsync.so.0 csync-0.50.0_1
 libcalligrasheetsodf.so.17 calligra-sheets-3.2.0_1
@@ -2588,7 +2592,7 @@ libhwloc.so.15 libhwloc-2.0.4_1
 libnetfilter_cttimeout.so.1 libnetfilter_cttimeout-1.0.0_1
 libnetfilter_cthelper.so.0 libnetfilter_cthelper-1.0.0_1
 libnetfilter_queue.so.1 libnetfilter_queue-1.0.2_1
-libfilezilla.so.15 libfilezilla-0.30.0_1
+libfilezilla.so.16 libfilezilla-0.31.1_1
 libtommath.so.1 libtommath-1.0_1
 libKF5ItemViews.so.5 kitemviews-5.26.0_1
 libunicorn.so.1 unicorn-1.0_1
@@ -3177,7 +3181,7 @@ libgloox.so.17 gloox-1.0.20_1
 libgsmsd.so.8 gammu-smsd-1.39.0_1
 libGammu.so.8 gammu-1.39.0_1
 libz3.so z3-4.6.0_2
-libngspice.so.0 ngspice-27_2
+libngspice.so.0 ngspice-35_1
 libvulkan.so.1 vulkan-loader-1.0.57.0_1
 libembb_mtapi_cpp.so embb-1.0.0_3
 libembb_mtapi_c.so embb-1.0.0_3
@@ -3498,7 +3502,7 @@ libcotp.so.12 libcotp-1.2.1_1
 libunarr.so.1 libunarr-1.0.1_1
 libretro-gtk-1.so.0 retro-gtk-1.0.0_1
 libmanette-0.2.so.0 libmanette-0.2.1_1
-libfmt.so.7 fmt-7.0.3_1
+libfmt.so.8 fmt-8.0.1_1
 libelementary-calendar.so.0 libio.elementary.calendar-4.2.3_1
 libolm.so.3 olm-3.0.0_1
 libtls.so.20 libtls-3.2.4_1
@@ -3563,6 +3567,7 @@ libgaminggear.so.0 libgaminggear-0.15.1_1
 libgaminggearfx.so.0 libgaminggear-0.15.1_1
 libgaminggearwidget.so.0 libgaminggear-0.15.1_1
 libopkg.so.1 libopkg-0.4.4_2
+libpkgconf.so.3 libpkgconf-1.8.0_1
 libkodiplatform.so.19.0 kodi-platform-20180302_1
 libQuotient.so.0.6 libQuotient-0.6.6_1
 libipset.so.13 libipset-7.9_1
@@ -3658,7 +3663,7 @@ libknot.so.12 libknot-3.1.0_1
 libdnssec.so.8 libknot-3.0.0_1
 libzscanner.so.4 libknot-3.1.0_1
 libkres.so.9 knot-resolver-4.0.0_1
-libnsl.so.2 libnsl-1.2.0_1
+libnsl.so.3 libnsl-2.0.0_1
 libbcc.so.0 bcc-0.10.0_1
 libbcc_bpf.so.0 bcc-0.10.0_1
 libde265.so.0 libde265-1.0.3_1
@@ -3857,7 +3862,7 @@ libcaribou.so.0 libcaribou-0.4.21_3
 libtinyclipboard.so.1 tinyclipboard-16.01_1
 libcbor.so.0.8 libcbor-0.8.0_1
 libfido2.so.1 libfido2-1.6.0_2
-libjanet.so.1.16 janet-1.16.0_1
+libjanet.so.1.17 janet-1.17.0_1
 libOpenImageDenoise.so.1 openimagedenoise-1.3.0_1
 libcbang0.so cbang-1.6.0_3
 libblosc.so.1 c-blosc-1.17.1_1
@@ -3982,8 +3987,14 @@ libsimavr.so.1 simavr-1.6_2
 libsimavrparts.so.1 simavr-1.6_2
 libsword-1.8.1.so libsword-1.8.1_6
 libpari-gmp.so.7 pari-2.13.0_1
+libpari-gmp-tls.so.7 pari-2.13.2_1
 libtree-sitter.so.0 tree-sitter-0.19.0_1
 libgtkdatabox.so.1 gtkdatabox3-1.0.0_1
+libgf2x.so.3 gf2x-1.3.0_1
+libntl.so.44 ntl-11.5.1_1
+libflint.so.16 flintlib-2.8.0_1
+libarb.so.2 arb-2.20.0_1
+libec.so.8 eclib-20210625_1
 libwayland-client++.so.0 libwaylandpp-0.2.8_1
 libwayland-cursor++.so.0 libwaylandpp-0.2.8_1
 libwayland-egl++.so.0 libwaylandpp-0.2.8_1
@@ -3992,6 +4003,7 @@ libspdlog.so.1 libspdlog-1.8.2_2
 libmd.so.0 libmd-1.0.3_1
 libldacBT_abr.so.2 ldacBT-2.0.2.3_1
 libldacBT_enc.so.2 ldacBT-2.0.2.3_1
+libfreeaptx.so.0 libfreeaptx-0.1.1_1
 libgumbo.so.1 gumbo-parser-0.10.1_2
 libmariadb.so.3 libmariadbclient-10.5.9_1
 libmariadbd.so.19 libmariadbclient-10.5.9_1
@@ -4005,3 +4017,4 @@ liblhasa.so.0 lhasa-0.3.1_2
 libmt32emu.so.2 libmt32emu-2.5.1_1
 libqrtr-glib.so.0 libqrtr-glib-1.0.0_1
 libstemmer.so.2 libstemmer-2.1.0_1
+libdecor-0.so.0 libdecor-0.1.0_1
