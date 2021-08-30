@@ -1,9 +1,9 @@
 # Template file for 'emacs-nativecomp'
 # pinned to git master
 pkgname=emacs-nativecomp
-_commit=5d59c8b201b731c6a595a0fb5452af764087ff66
+_commit=92bc69eb785df1f2e3fe8379d3010106a2d0d02d
 _repo="https://github.com/flatwhatson/emacs"
-version=20210521
+version=20210808
 revision=1
 wrksrc="emacs-${_commit}"
 build_style=gnu-configure
@@ -16,8 +16,10 @@ configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo)
  $(vopt_with pgtk) $(vopt_with dbus)"
 hostmakedepends="pkg-config tar automake texinfo git"
-makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
- dbus-devel acl-devel libgccjit libmagick-devel git $(vopt_if gconf GConf-devel)
+# Removed webkit2gtk-devel
+
+makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel  dbus-devel acl-devel libgccjit 
+ libmagick-devel git $(vopt_if gconf GConf-devel)
  $(vopt_if gsettings gsettings-desktop-schemas-devel) $(vopt_if jpeg libjpeg-turbo-devel)
  $(vopt_if tiff tiff-devel) $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel)
  $(vopt_if xpm libXpm-devel) $(vopt_if svg librsvg-devel) $(vopt_if gnutls gnutls-devel)
@@ -31,7 +33,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="${_repo}/archive/${_commit}.tar.gz>emacs-${_commit}.tar.gz"
-checksum=586b63554cb50f14af67f8f827ce1c5b74ede7b3d3e9ff81a3c53632403896e8
+checksum=5ce19c88dc2ad2a730c5f5536297af79b9f23f8d7a48d55c7b083775acc56e52
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
@@ -42,7 +44,7 @@ nopie=yes
 build_options="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
  json harfbuzz cairo gmp fastboot lto pgtk dbus m17n"
 build_options_default="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
- json harfbuzz cairo gmp fastboot lto pgtk dbus m17n"
+ json cairo gmp fastboot lto pgtk dbus m17n"
 desc_option_lto="Enable Link Time Optimization for build"
 desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
