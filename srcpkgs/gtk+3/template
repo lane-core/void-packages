@@ -2,7 +2,7 @@
 # Revbump gtk-layer-shell when updating, otherwise it presents a warning message
 pkgname=gtk+3
 version=3.24.29
-revision=1
+revision=2
 wrksrc="gtk+-${version}"
 build_style=gnu-configure
 build_helper="gir"
