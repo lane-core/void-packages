@@ -1,9 +1,9 @@
 # Template file for 'emacs-nativecomp'
 # pinned to git master
 pkgname=emacs-nativecomp
-_commit=7b62cfcb0452d295f4bfb11826271321fe2572d1
+_commit=08bb4f5301e01181ca71e9fbd0a65218fc39b46d
 _repo="https://github.com/flatwhatson/emacs"
-version=20210907
+version=20210920
 revision=1
 wrksrc="emacs-${_commit}"
 build_style=gnu-configure
@@ -32,7 +32,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="${_repo}/archive/${_commit}.tar.gz>emacs-${_commit}.tar.gz"
-checksum=6fd37006b8eb655de38a35cd8d50c8139e6d950bcbc9e1eb36b5629cda1f26f0
+checksum=bb8c2096dee2eccd239f30930f38360e154fa2bf1ef97eec3462f80ed2cfbeb5
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
@@ -41,7 +41,7 @@ nopie=yes
 
 # Package build options
 build_options="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
- json harfbuzz cairo gmp fastboot lto pgtk dbus m17n harfbuzz"
+ json harfbuzz cairo gmp fastboot lto pgtk dbus m17n"
 build_options_default="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
  json cairo gmp fastboot lto pgtk dbus m17n harfbuzz"
 desc_option_lto="Enable Link Time Optimization for build"
