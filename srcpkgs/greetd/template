@@ -1,6 +1,6 @@
 # Template file for 'greetd'
 pkgname=greetd
-version=0.7.0
+version=0.8.0
 revision=1
 wrksrc=${pkgname}-${version}
 build_style=cargo
@@ -19,7 +19,7 @@ license="GPL-3.0-or-later"
 changelog="https://git.sr.ht/~kennylevinsen/greetd/log"
 homepage="https://git.sr.ht/~kennylevinsen/greetd"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=5229b7f00be40187de9df6240fc3b1f4012dd5e4777bb8661016cc7c2c105df7
+checksum=47a73709df60f04b63fc50cfc409e47a451a9620777638f527b9d9333256035f
 patch_args="-Np1"
 
 post_build() {
