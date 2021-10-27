@@ -1,12 +1,12 @@
 # Template file for 'gnome-keyring'
 pkgname=gnome-keyring
 version=40.0
-revision=2
+revision=3
 build_style=gnu-configure
 configure_args="--with-pam-dir=/usr/lib/security --disable-schemas-compile"
 hostmakedepends="autoconf docbook-xsl glib-devel intltool libtasn1-tools libxslt
  openssh pkg-config"
-makedepends="gcr-devel libcap-devel libcap-ng-devel libtasn1-devel pam-devel"
+makedepends="gcr-devel libtasn1-devel pam-devel"
 depends="dconf gcr"
 checkdepends="dbus xvfb-run"
 short_desc="GNOME password and secret manager"

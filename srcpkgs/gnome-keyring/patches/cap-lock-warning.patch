@@ -1,0 +1,102 @@
+From 4d443aeaeda7c716871c0600b6f9219794fea284 Mon Sep 17 00:00:00 2001
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 1 Feb 2021 15:50:33 +0000
+Subject: [PATCH] daemon: Don't warn about CAP_IPC_LOCK if RLIMIT_MEMLOCK is
+ enough
+
+If a distribution has set user processes' RLIMIT_MEMLOCK to be high
+enough, then there is no reason why gnome-keyring really needs to be
+setuid or have elevated filesystem capabilities. Silence the warning
+about insufficient capabilities in this case.
+
+In particular, giving gnome-keyring elevated capabilities is practically
+problematic because there is a desire to harden libraries like GLib and
+libdbus against processes that (inadvisably) use those libraries while
+they have genuinely abusable elevated capabilities, without first
+sanitizing the execution environment to protect themselves against
+being invoked by a malicious parent process. The mechanisms used to do
+this cannot distinguish between genuinely abusable elevated capabilities,
+like CAP_SYS_ADMIN, and elevated capabilities that are merely a
+denial-of-service vector, like CAP_IPC_LOCK - so they will tend to err
+on the side of caution and prevent gnome-keyring from accessing
+environment variables that it needs to do its job, such as
+DBUS_SESSION_BUS_ADDRESS and XDG_RUNTIME_DIR.
+
+Also, if a sysadmin is concerned about users carrying out a
+denial-of-service via locking abusive amounts of memory, they should
+be equally concerned about whether gnome-keyring can be induced to
+execute arbitrary code with CAP_IPC_LOCK (which it probably can, because
+it relies on desktop services like dbus-daemon and systemd --user that
+are under the unprivileged user's control).
+
+Signed-off-by: Simon McVittie <smcv@debian.org>
+---
+ daemon/gkd-capability.c | 33 +++++++++++++++++++++++++++++++--
+ 1 file changed, 31 insertions(+), 2 deletions(-)
+
+diff --git a/daemon/gkd-capability.c b/daemon/gkd-capability.c
+index 6eb7ed75..0d775de2 100644
+--- a/daemon/gkd-capability.c
++++ b/daemon/gkd-capability.c
+@@ -30,6 +30,8 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <sys/resource.h>
++#include <sys/time.h>
+ 
+ #ifdef HAVE_LIBCAPNG
+ 
+@@ -49,6 +51,33 @@ early_warning (const char *warn_string)
+ 		fprintf (stderr, "gnome-keyring-daemon: %s\n", warn_string);
+ }
+ 
++/* This is arbitrary. Empirically, 256K seems to be enough. */
++#define ENOUGH_LOCKED_MEMORY_BYTES (256 * 1024)
++
++static void
++check_memlock (const char *message_if_not)
++{
++	struct rlimit rlim = {};
++
++	if (getrlimit (RLIMIT_MEMLOCK, &rlim) == 0) {
++		if (rlim.rlim_cur == RLIM_INFINITY ||
++		    rlim.rlim_cur >= ENOUGH_LOCKED_MEMORY_BYTES) {
++			/* this seems like enough, no need for a warning */
++			return;
++		}
++
++		rlim.rlim_cur = rlim.rlim_max;
++
++		if ((rlim.rlim_cur == RLIM_INFINITY ||
++		     rlim.rlim_cur >= ENOUGH_LOCKED_MEMORY_BYTES) &&
++		    setrlimit (RLIMIT_MEMLOCK, &rlim) == 0) {
++			return;
++		}
++	}
++
++	early_warning (message_if_not);
++}
++
+ #endif /* HAVE_LIPCAPNG */
+ 
+ /*
+@@ -87,13 +116,13 @@ gkd_capability_obtain_capability_and_drop_privileges (void)
+ 			early_error ("error getting process capabilities", 0);
+ 			break;
+ 		case CAPNG_NONE:
+-			early_warning ("no process capabilities, insecure memory might get used");
++			check_memlock ("no process capabilities, insecure memory might get used");
+ 			break;
+ 		case CAPNG_PARTIAL: { /* File system based capabilities */
+ 			capng_select_t set = CAPNG_SELECT_CAPS;
+ 			if (!capng_have_capability (CAPNG_EFFECTIVE,
+ 							    CAP_IPC_LOCK)) {
+-				early_warning ("insufficient process capabilities, insecure memory might get used");
++				check_memlock ("insufficient process capabilities, insecure memory might get used");
+ 			}
+ 
+ 			/* If we don't have CAP_SETPCAP, we can't update the
+-- 
+GitLab
+
