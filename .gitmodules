@@ -13,6 +13,3 @@
 [submodule "lane/lib/dotbot/dotbot.git"]
 	path = lane/lib/dotbot/dotbot.git
 	url = https://github.com/anishathalye/dotbot
-[submodule "srcpkgs/brave-bin"]
-	path = srcpkgs/brave-bin
-	url = https://gitlab.com/ElPresidentePoole/brave-bin
