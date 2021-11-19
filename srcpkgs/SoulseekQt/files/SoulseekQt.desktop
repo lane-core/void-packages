@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=SoulSeekQT
+Comment=Soulseek music-sharing client
+Exec=/usr/bin/SoulseekQt
+Icon=soulseek
+Terminal=false
+Type=Application
+Categories=Network;P2P;Application
+StartupWMClass=soulseekqt.AppImage
