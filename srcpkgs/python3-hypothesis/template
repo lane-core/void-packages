@@ -1,6 +1,6 @@
 # Template file for 'python3-hypothesis'
 pkgname=python3-hypothesis
-version=6.24.0
+version=6.28.0
 revision=1
 wrksrc="hypothesis-hypothesis-python-${version}"
 build_wrksrc=hypothesis-python
@@ -15,7 +15,7 @@ license="MPL-2.0"
 homepage="https://hypothesis.works/"
 changelog="https://hypothesis.readthedocs.io/en/latest/changes.html"
 distfiles="https://github.com/HypothesisWorks/hypothesis/archive/hypothesis-python-${version}.tar.gz"
-checksum=da6ec0437786b16662c7d68dcdccfaf75cebf980aa0f03429f96424962f851cb
+checksum=34a4e30f9a0a88bb48c2faf6d78512fb7978e03e152026e00210245b20356d70
 
 do_check() {
 	# Manually run the tests that tox considers part of the "full" suite,

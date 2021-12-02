@@ -420,7 +420,7 @@ libField3D.so.1.7 Field3D-1.7.3_1
 libMAC.so.6 libMAC-5.28_1
 libmad.so.0 libmad-0.15.1b_1
 libmatroska.so.7 libmatroska-1.6.0_1
-libmatrix_client.so.0.5.1 mtxclient-0.5.1_1
+libmatrix_client.so.0.6.0 mtxclient-0.6.0_1
 libebml.so.5 libebml-1.4.0_1
 libdvdread.so.8 libdvdread-6.1.1_1
 libdvdnav.so.4 libdvdnav-4.1.3_1
@@ -1597,8 +1597,8 @@ libfreerdp-server2.so.2 libfreerdp-server-2.4.0_1
 libfreerdp-shadow-subsystem2.so.2 libfreerdp-server-2.4.0_1
 libfreerdp-shadow2.so.2 libfreerdp-server-2.4.0_1
 libcppunit-1.15.so.1 libcppunit-1.15.1_1
-libcalc.so.2.12.7.1 libcalc-2.12.7.1_1
-libcustcalc.so.2.12.7.1 libcalc-2.12.7.1_1
+libcalc.so.2.14.0.8 libcalc-2.14.0.8_1
+libcustcalc.so.2.14.0.8 libcalc-2.14.0.8_1
 libOgreMain.so.1.12.9 libogre-1.12.9_1
 libOgreBites.so.1.12.9 libogre-1.12.9_1
 libOgreOverlay.so.1.12.9 libogre-1.12.9_1
@@ -2425,6 +2425,7 @@ libunibilium.so.4 unibilium-2.0.0_1
 libtermkey.so.1 libtermkey-0.17_1
 libicu4lua.so.0 icu4lua-0.2B_1
 libKF5I18n.so.5 ki18n-5.26.0_1
+libKF5I18nLocaleData.so.5 ki18n-5.88.0_1
 libglog.so.0 glog-0.3.4_1
 libzita-convolver.so.4 zita-convolver-4.0.3_1
 libzita-alsa-pcmi.so.0 zita-alsa-pcmi-0.2.0_1
@@ -2714,7 +2715,7 @@ libR.so R-4.0.2_1
 libmarkdown.so.2 discount-2.2.0_3
 libkeystone.so.0 keystone-0.9_1
 libmate-slab.so.0 libmate-control-center-1.14.0_2
-libuev.so.2 libuev-2.0.0_1
+libuev.so.3 libuev-2.4.0_1
 liburcu-bp.so.6 liburcu-0.10.0_1
 liburcu-cds.so.6 liburcu-0.10.0_1
 liburcu-common.so.6 liburcu-0.10.0_1
@@ -3228,11 +3229,11 @@ libaacs.so.0 libaacs-0.9.0_1
 libttfautohint.so.1 ttfautohint-1.8.1_1
 libcob.so.4 gnucobol-libs-2.2_1
 libkrfbprivate.so.5.0 krfb-17.08.1_1
-libarcan_shmif.so.0.13 arcan-0.6.0_1
-libarcan_shmif_ext.so.0.13 arcan-0.6.0_1
-libarcan_shmif_server.so.0.13 arcan-0.6.0_1
-libarcan_tui.so.0.13 arcan-0.6.0_1
-libarcan_a12.so.0.1 arcan-0.6.0_1
+libarcan_shmif.so.0.14 arcan-0.6.1_1
+libarcan_shmif_ext.so.0.14 arcan-0.6.1_1
+libarcan_shmif_server.so.0.14 arcan-0.6.1_1
+libarcan_tui.so.0.14 arcan-0.6.1_1
+libarcan_a12.so.0.1 arcan-0.6.1_1
 liblwipv6.so.2 lwipv6-1.5a_1
 libpipewire-0.2.so.1 libpipewire0.2-0.2.7_1
 libpipewire-0.3.so.0 libpipewire-0.3.6_1
@@ -4026,6 +4027,7 @@ libarb.so.2 arb-2.20.0_1
 libec.so.8 eclib-20210625_1
 libsymmetrica.so.2 symmetrica-3.0.1_1
 libLfunction.so lcalc-1.23_2
+liblrcalc.so.1 lrcalc-1.2_1
 libwayland-client++.so.0 libwaylandpp-0.2.8_1
 libwayland-cursor++.so.0 libwaylandpp-0.2.8_1
 libwayland-egl++.so.0 libwaylandpp-0.2.8_1
@@ -4040,6 +4042,7 @@ libmariadb.so.3 libmariadbclient-10.5.9_1
 libmariadbd.so.19 libmariadbclient-10.5.9_1
 libinstpatch-1.0.so.2 libinstpatch-1.1.6_1
 libbasu.so.0 basu-0.2.0_1
+libhomfly.so.0 libhomfly-1.02r6_1
 libXcomp.so.3 nx-libs-3.5.99.24_1
 libXcompshad.so.3 nx-libs-3.5.99.24_1
 libNX_X11.so.6 nx-libs-3.5.99.24_1
@@ -4047,6 +4050,7 @@ librnnoise.so.0 rnnoise-0.4.1_1
 liblhasa.so.0 lhasa-0.3.1_2
 libmt32emu.so.2 libmt32emu-2.5.1_1
 libqrtr-glib.so.0 libqrtr-glib-1.0.0_1
+libbraiding.so.0 libbraiding-1.1_1
 libstemmer.so.2 libstemmer-2.1.0_1
 libdecor-0.so.0 libdecor-0.1.0_1
 libavif.so.13 libavif-0.9.3_1
@@ -4056,10 +4060,15 @@ libcholmod.so.3 SuiteSparse-5.10.1_1
 libumfpack.so.5 SuiteSparse-5.10.1_1
 libecl.so.21.2 ecl-21.2.1_1
 libecm.so.1 ecm-7.0.4_3
+libcliquer.so.1 cliquer-1.22_1
 libSingular-4.2.1.so singular-4.2.1_1
 libfactory-4.2.1.so singular-4.2.1_1
 libpolys-4.2.1.so singular-4.2.1_1
 libomalloc-0.9.6.so singular-4.2.1_1
 libsingular_resources-4.2.1.so singular-4.2.1_1
+libbrial.so.3 brial-1.2.10_1
+libbrial_groebner.so.3 brial-1.2.10_1
 libm4ri-0.0.20200125.so m4ri-20200125_1
 libm4rie-0.0.20200125.so m4rie-20200125_1
+libptytty.so.0 libptytty-2.0_1
+libcoeurl.so.0 coeurl-0.1.0_1
