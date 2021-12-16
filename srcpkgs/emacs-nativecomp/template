@@ -1,9 +1,9 @@
 # Template file for 'emacs-nativecomp'
 # pinned to git master
 pkgname=emacs-nativecomp
-_commit=1c90a48717e3af64b586d0be1e09e11c96ce8899
+_commit=336a549a8e740ad6c7b4a175b1a7dfeb6867111e
 _repo="https://github.com/flatwhatson/emacs"
-version=20211024
+version=20211122
 revision=1
 wrksrc="emacs-${_commit}"
 build_style=gnu-configure
@@ -32,7 +32,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="${_repo}/archive/${_commit}.tar.gz>emacs-${_commit}.tar.gz"
-checksum=bc589aaa67c822e8de6037e71014404b43adfc57bd0e30f1ffc5978f811fe757
+checksum=b46816286d1f739b41371744c72620f1c6e0c99d88a0fd22494fbc98c54317f9
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
