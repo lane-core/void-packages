@@ -1,0 +1,43 @@
+# Template file for 'helix'
+pkgname=helix
+version=0.6.0
+revision=1
+wrksrc=${pkgname}-${version}
+#build_style=cargo
+hostmakedepends="pkg-config git glibc-devel libgcc-devel curl"
+depends=""
+short_desc="Post-modern text editor"
+maintainer="lane-brain <lane@mailbox.org>"
+license="MPL-2.0"
+homepage="https://helix-editor.com"
+distfiles=""
+checksum=badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadb
+
+do_fetch() {
+	git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix ${wrksrc}
+}
+
+pre_build() {
+	# Installing Rust Nightly Toolchain
+    curl https://sh.rustup.rs -sSf | sh -s -- --no-modify-path --profile minimal --default-toolchain nightly -y
+    source /tmp/.cargo/env
+
+	cd ${wrksrc}
+	
+	sed -i '1s/^/cargo-features = \[\"edition2021\"\]\n/' Cargo.toml
+	cargo fetch --locked
+}
+
+do_build() {
+	cd ${wrksrc}
+	cargo build --frozen --release
+}
+
+do_install() {
+	cd ${wrksrc}
+	vmkdir usr/lib/helix
+	vcopy runtime usr/lib/helix
+	vinstall target/release/hx 0755 usr/lib/helix
+	vbin ${FILESDIR}/helix.sh hx
+	vdoc README.md
+}
