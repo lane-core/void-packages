@@ -1,9 +1,9 @@
 # Template file for 'sbcl'
 pkgname=sbcl
 version=2.2.0
-revision=1
+revision=2
 archs="i686 x86_64* armv7l aarch64 ppc64le*"
-hostmakedepends="iana-etc"
+hostmakedepends="iana-etc texinfo"
 makedepends="zlib-devel"
 conf_files="/etc/sbclrc"
 short_desc="Steel Bank Common Lisp"
@@ -43,11 +43,13 @@ ppc*|*-musl)
 esac
 
 do_build() {
+	printf '"%s.void.%s"\n' "$version" "$revision" >version.lisp-expr
 	export CFLAGS+=" -D_GNU_SOURCE -fno-omit-frame-pointer -DSBCL_HOME=/usr/lib/sbcl"
 	export LINKFLAGS="$LDFLAGS"
 	bash make.sh \
 		"$_bootstrap_lisp" \
 		--without-sb-test --with-sb-core-compression --prefix=/usr
+	make -C ./doc/manual info
 }
 
 do_install() {
