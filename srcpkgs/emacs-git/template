@@ -42,7 +42,7 @@ nopie=yes
 build_options="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
  json harfbuzz cairo gmp fastboot lto pgtk dbus m17n"
 build_options_default="gconf gsettings jpeg tiff gif png xpm svg xml imagemagick gnutls sound 
- json cairo gmp fastboot lto pgtk dbus m17n harfbuzz"
+ json cairo gmp lto pgtk dbus m17n harfbuzz"
 desc_option_lto="Enable Link Time Optimization for build"
 desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
