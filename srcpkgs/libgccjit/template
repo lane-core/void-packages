@@ -7,7 +7,7 @@ pkgname=libgccjit
 # to get regression fixes not yet incorporate into a stable release
 # it should be possible to switch back to stable with 10.3 or 11
 version=10.2.1pre1
-revision=3
+revision=1
 _patchver="${version%pre*}"
 _minorver="${_patchver%.*}"
 _majorver="${_minorver%.*}"
