@@ -14,3 +14,4 @@ etc/xbps.d/custom
 .xbps-checkvers*.plist
 .stash
 lane*
+x86_64-dotconfig-custom
