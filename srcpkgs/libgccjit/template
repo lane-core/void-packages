@@ -1,4 +1,4 @@
-# Template file for 'gcc'
+# Template file for 'libgccjit'
 # Revbump libtool when updating gcc, since it hardcodes some internal compiler paths
 # which use the version number.
 
@@ -173,7 +173,7 @@ do_configure() {
 	_args+=" --with-linker-hash-style=$_hash"
 	_args+=" --disable-sjlj-exceptions"
 	_args+=" --disable-target-libiberty"
-	
+
 	# libgccjit compilcation specific
 	_args+=" --enable-host-shared"
 	_args+=" --disable-bootstrap"
