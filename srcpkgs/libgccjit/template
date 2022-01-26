@@ -1,4 +1,4 @@
-# Template file for 'gcc'
+# Template file for 'libgccjit'
 # Revbump libtool when updating gcc, since it hardcodes some internal compiler paths
 # which use the version number.
 
@@ -7,7 +7,7 @@ pkgname=libgccjit
 # to get regression fixes not yet incorporate into a stable release
 # it should be possible to switch back to stable with 10.3 or 11
 version=10.2.1pre1
-revision=3
+revision=1
 _patchver="${version%pre*}"
 _minorver="${_patchver%.*}"
 _majorver="${_minorver%.*}"
@@ -173,7 +173,7 @@ do_configure() {
 	_args+=" --with-linker-hash-style=$_hash"
 	_args+=" --disable-sjlj-exceptions"
 	_args+=" --disable-target-libiberty"
-	
+
 	# libgccjit compilcation specific
 	_args+=" --enable-host-shared"
 	_args+=" --disable-bootstrap"
