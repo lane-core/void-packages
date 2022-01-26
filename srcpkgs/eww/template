@@ -1,0 +1,49 @@
+# Template file for 'eww'
+pkgname=eww
+version=20211219
+_commit=106106ade31e7cc669f2ae53f24191cd0a683c39
+revision=0
+archs="x86_64"
+wrksrc=${pkgname}-${_commit}
+hostmakedepends="curl pkg-config glibc-devel libgcc-devel"
+makedepends="gtk+3-devel gtk-layer-shell-devel pango-devel gdk-pixbuf-devel cairo-devel glib-devel"
+depends=""
+short_desc="ElKowars wacky widgets"
+maintainer="lane-brain <lane@mailbox.org>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/elkowar/eww"
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=a7121e8afd8dd521072efbe67e6d0197975f90d4c09ffc3d6613f6253dca1e4f
+
+do_configure() {
+	# Installing Rust Nightly Toolchain
+    curl https://sh.rustup.rs -sSf | sh -s -- --no-modify-path --profile minimal --default-toolchain nightly -y
+    source /tmp/.cargo/env
+
+	cd ${wrksrc}
+	
+	sed -i '1s/^/cargo-features = \[\"edition2021\"\]\n/' Cargo.toml
+	cargo fetch --locked
+}
+
+pre_build() {
+    source /tmp/.cargo/env
+}
+
+do_build() {
+	cd ${wrksrc}
+	cargo +nightly build --release --no-default-features --features=wayland
+}
+
+do_install() {
+	cd ${wrksrc}
+	vmkdir usr/share/eww/examples
+	vcopy examples/eww-bar usr/share/eww/examples
+	vbin target/release/eww
+
+	cd docs/src
+
+	for f in *.md; do
+		vdoc $f
+	done
+}
