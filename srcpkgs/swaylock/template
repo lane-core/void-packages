@@ -1,9 +1,7 @@
 # Template file for 'swaylock'
 pkgname=swaylock
-_commit=235b925df7e1bb82d98f1ac8c02e8f85d0a54ee9
-version=20201015
+version=1.5
 revision=1
-wrksrc=${pkgname}-${_commit}
 build_style=meson
 conf_files="/etc/pam.d/swaylock"
 hostmakedepends="pkg-config wayland-devel scdoc git"
@@ -12,9 +10,9 @@ makedepends="wayland-protocols cairo-devel gdk-pixbuf-devel pam-devel
 short_desc="Screen locker for Wayland"
 maintainer="Derriick <derriick.ensiie@yahoo.com>"
 license="MIT"
-homepage="https://github.com/swaywm/swaylock"
-distfiles="https://github.com/swaywm/${pkgname}/archive/${_commit}.tar.gz"
-checksum=33953ace3e8ae9167f7a3a7a8b545e7822496d16819886e76148c7f54f0ad11d
+homepage="https://swaywm.org"
+distfiles="https://github.com/swaywm/${pkgname}/archive/${version}.tar.gz"
+checksum=37b9c70e5698e8872b0b964a7454ecdb0f1a9e06b686eecf2b6c54f7f64a3f42
 
 post_install() {
 	vlicense LICENSE
