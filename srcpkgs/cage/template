@@ -1,7 +1,9 @@
 # Template file for 'cage'
 pkgname=cage
-version=0.1.4
+version=20220114
+_commit=f71844ab54dbb3192d8c2f0a1db84d50e18536d9
 revision=1
+wrksrc=${pkgname}-${_commit}
 build_style=meson
 configure_args="$(vopt_bool xwayland xwayland)"
 hostmakedepends="pkg-config wayland-devel scdoc"
@@ -11,8 +13,8 @@ short_desc="Kiosk compositor for Wayland"
 maintainer="Illia Shestakov <ishestakov@airmail.cc>"
 license="MIT"
 homepage="https://www.hjdskes.nl/projects/cage/"
-distfiles="https://github.com/Hjdskes/cage/archive/v${version}.tar.gz"
-checksum=dfe27fb0c7d43db72d6c82f01e2736580a0791a23ba69d7b56285d08af98ad90
+distfiles="https://github.com/Hjdskes/cage/archive/${_commit}.tar.gz"
+checksum=5163589f32a4f2fe60530940345ea3f3e56938d06d6c3fc6e9cc5aca5af4f5fd
 
 build_options="xwayland"
 build_options_default="xwayland"
