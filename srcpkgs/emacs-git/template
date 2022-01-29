@@ -1,5 +1,4 @@
-# Template file for 'emacs-nativecomp'
-# pinned to git master
+# Template file for 'emacs-git'
 pkgname=emacs-git
 _commit=1476b0d7a61ca5244eed81161c31d794fbd1e571
 version=20220119
