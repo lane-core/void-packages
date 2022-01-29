@@ -1,24 +1,29 @@
 # Template file for 'wlroots'
 pkgname=wlroots
-version=0.14.1
+version=0.15.0
 revision=1
 build_style=meson
 # Follow upstream packaging recommendations:
 # https://github.com/swaywm/wlroots/wiki/Packaging-recommendations
 configure_args="--auto-features=enabled -Dexamples=false -Dwerror=false -Db_ndebug=false"
 hostmakedepends="pkg-config wayland-devel"
-_devel_depends="libgbm-devel libglvnd-devel libseat-devel eudev-libudev-devel libdrm-devel
+_devel_depends="libglvnd-devel libseat-devel eudev-libudev-devel libdrm-devel
  libinput-devel libxkbcommon-devel pixman-devel wayland-devel wayland-protocols
- xcb-util-errors-devel xcb-util-wm-devel xcb-util-renderutil-devel"
+ xcb-util-errors-devel xcb-util-wm-devel xcb-util-renderutil-devel" # libgbm-devel 
 makedepends="${_devel_depends}
  libxcb-devel xcb-util-cursor-devel xcb-util-devel xcb-util-image-devel
  xcb-util-keysyms-devel xcb-util-xrm-devel xorg-server-xwayland"
 short_desc="Modular Wayland compositor library"
 maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
-homepage="https://github.com/swaywm/wlroots"
-distfiles="https://github.com/swaywm/wlroots/archive/${version}.tar.gz"
-checksum=448a83d579ac280357c8a4e902b9477bacbab81cc4d9c140e443642d458869db
+homepage="https://gitlab.freedesktop.org/wlroots/wlroots"
+distfiles="https://gitlab.freedesktop.org/wlroots/wlroots/-/archive/${version}/wlroots-${version}.tar.bz2"
+checksum=fcb9e9dbbb112f5c527c1c4155994fd97b6b1eb3950316e186e3c293e7a07fc4
+
+do_build() {
+	meson build/
+	ninja -C build/
+}
 
 post_install() {
 	vlicense LICENSE
