@@ -1,20 +1,14 @@
 # Template file for 'dwm'
 pkgname=dwm
-_commit=5fb40363996ff1b59b74654b910290fbe94a59cf
-version=20200214
+version=6.3
 revision=1
-wrksrc=dwm-HiDPI-${_commit}
 makedepends="libXinerama-devel libXft-devel freetype-devel"
 short_desc="Dynamic window manager for X"
 maintainer="Nathan Owens <ndowens04@gmail.com>"
 license="MIT"
 homepage="http://dwm.suckless.org"
-_hidpifork="https://github.com/abdalazizrashid/dwm-HiDPI"
-distfiles="$(vopt_if hidpi ${_hidpifork}/archive/${_commit}.tar.gz https://dl.suckless.org/dwm/dwm-${version}.tar.gz)"
-checksum=$(vopt_if hidpi c4b9443f8dfb8237fb4fd1fd20d39e692421ea086328d17d24e7afc31845adab 97902e2e007aaeaa3c6e3bed1f81785b817b7413947f1db1d3b62b8da4cd110e)
-
-build_options="hidpi"
-build_options_default="hidpi"
+distfiles="https://dl.suckless.org/dwm/dwm-${version}.tar.gz"
+checksum=badaa028529b1fba1fd7f9a84f3b64f31190466c858011b53e2f7b70c6a3078d
 
 do_build() {
 	[ -e ${FILESDIR}/config.h ] && cp ${FILESDIR}/config.h config.h
