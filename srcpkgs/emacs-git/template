@@ -1,7 +1,7 @@
 # Template file for 'emacs-git'
 pkgname=emacs-git
-_commit=1476b0d7a61ca5244eed81161c31d794fbd1e571
-version=20220119
+_commit=cce477cad7ffffbfc1a21e9dd711b32f8e2b3ea3
+version=20220131
 revision=1
 wrksrc="emacs-${_commit}"
 build_style=gnu-configure
@@ -30,7 +30,7 @@ maintainer="lane-brain <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
-checksum=8a3934cce3ac67b1a0fd6929813321a22f98fd975e9c49c96bd73e21cc473970
+checksum=a95fe76d4a77e399314fc80d08c746c3817296bd65f5985742dc82a7cad0a146
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
