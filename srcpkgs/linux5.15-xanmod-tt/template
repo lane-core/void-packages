@@ -1,6 +1,6 @@
 # Template file for 'linux5.15-xanmod-tt'
 pkgname=linux5.15-xanmod-tt
-version=5.15.17
+version=5.15.19
 revision=1
 _xanmod=1
 wrksrc="linux-${version%.*}"
@@ -11,7 +11,7 @@ homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version%.*}.tar.xz
  https://github.com/xanmod/linux/releases/download/${version}-xanmod${_xanmod}-tt/patch-${version}-xanmod${_xanmod}-tt.xz"
 checksum="57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8
- 82396ba8728b0abd1046d2c8d7e8ddb15458af57eb0d26826c227973cb09d933"
+ cbd76cd18e71a08528c2dd413adfaa5a417f9f3dbd337d47ae495b875b1c907c"
 skip_extraction="patch-${version}-xanmod${_xanmod}-tt.xz"
 python_version=3
 patch_args="-Np1"
