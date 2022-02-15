@@ -38,8 +38,6 @@ desc_option_m17n="Enable support for m17n multilingual text processing"
 build_options_default="jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp"
 
 pre_configure() {
-	./autogen.sh
-
 	# Just configuring in different directories results in
 	# spurious emacs rebuilds with incompatible build numbers.
 	mkdir -p nox
@@ -51,17 +49,21 @@ pre_configure() {
 
 do_configure() {
 	cd $wrksrc/nox
+	./autogen.sh
 	./configure --without-x $(vopt_with dbus) ${configure_args}
 
 	cd $wrksrc/x11
+	./autogen.sh
 	./configure --with-x-toolkit=athena --without-toolkit-scroll-bars \
 		$(vopt_with dbus) --without-gconf --without-gsettings \
 		${configure_args}
 
 	cd $wrksrc/gtk2
+	./autogen.sh
 	./configure --with-x-toolkit=gtk2 ${configure_args}
 
 	cd $wrksrc/gtk3
+	./autogen.sh
 	./configure --with-x-toolkit=gtk3 --with-xwidgets ${configure_args}
 }
 
