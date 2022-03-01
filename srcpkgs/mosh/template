@@ -1,22 +1,19 @@
 # Template file for 'mosh'
 pkgname=mosh
-version=20211210
-_commit=378dfa6aa5778cf168646ada7f52b6f4a8ec8e41
-revision=1
-wrksrc=${pkgname}-${_commit}
+version=1.3.2
+revision=24
 build_style=gnu-configure
-hostmakedepends="pkg-config protobuf autoconf automake"
+hostmakedepends="pkg-config protobuf"
 makedepends="ncurses-devel protobuf-devel libutempter-devel openssl-devel"
 depends="perl-IO-Tty"
 short_desc="Mobile shell, remote terminal application that allows roaming"
 maintainer="Nathan Owens <ndowens04@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://mosh.org/"
-distfiles="https://github.com/mobile-shell/mosh/archive/${_commit}.tar.gz"
-checksum=5bc84e82ee7bbcd9b9de56401c063e0a04f30f34dacc81fef7a7a0afd85ae79b
+distfiles="https://mosh.org/mosh-${version}.tar.gz"
+checksum=da600573dfa827d88ce114e0fed30210689381bbdcff543c931e4d6a2e851216
 
 pre_configure() {
-	./autogen.sh
 	# make local.test always succeed. It fails due to missing X server in chroot.
 	printf "%s\n" "#!/bin/sh" ":" > src/tests/local.test
 }

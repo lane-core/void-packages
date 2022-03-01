@@ -1,14 +1,11 @@
 # Template file for 'wcal'
-# pinned to git master
 pkgname=wcal
-_commit=4af0a6383861090d45e12316cc3ae52cb2871ef4
-version=20201212
+version=0.1
 revision=1
 build_style=gnu-makefile
-wrksrc=${pkgname}-${_commit}
 short_desc="ISO weekly calendar"
-maintainer="lane-brain <lane@mailbox.org>"
-license="CC0-1.0"
-homepage="https://github.com/leahneukirchen/${pkgname}"
-distfiles="${homepage}/archive/${_commit}.tar.gz>${pkgname}-${_commit}.tar.gz"
-checksum=9d370c73432eef2658a0156e1305450b275ac4ec9363d18778c8cfc6cee6aa16
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="Public Domain"
+homepage="https://github.com/leahneukirchen/wcal"
+distfiles="https://github.com/leahneukirchen/wcal/archive/v${version}.tar.gz"
+checksum=cb6917475acb5ec417edeec43c26692e29d6df313f60b8193352214c0811cf33
