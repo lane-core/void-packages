@@ -1,15 +1,14 @@
 # Template file for 'emacs'
 pkgname=emacs
-version=28.0.91
+version=27.2
 revision=1
 build_style=gnu-configure
 configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with jpeg) $(vopt_with tiff) $(vopt_with gif) $(vopt_with png)
  $(vopt_with xpm) $(vopt_with svg rsvg) $(vopt_with imagemagick)
  $(vopt_with xml xml2) $(vopt_with gnutls) $(vopt_with sound) $(vopt_with m17n m17n-flt)
- $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)
- $(vopt_with nativecomp native-compilation)"
-hostmakedepends="pkg-config tar autoconf texinfo"
+ $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)"
+hostmakedepends="pkg-config tar"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  dbus-devel acl-devel
  $(vopt_if jpeg libjpeg-turbo-devel) $(vopt_if tiff tiff-devel)
@@ -18,20 +17,19 @@ makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  $(vopt_if xml libxml2-devel) $(vopt_if gnutls gnutls-devel)
  $(vopt_if sound alsa-lib-devel) $(vopt_if m17n m17n-lib-devel)
  $(vopt_if json jansson-devel) $(vopt_if harfbuzz harfbuzz-devel)
- $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)
- $(vopt_if nativecomp libgccjit)"
-depends="emacs-common-${version}_${revision} $(vopt_if nativecomp libgccjit)"
+ $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)"
+depends="emacs-common-${version}_${revision}"
 short_desc="GNU Emacs editor"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
-distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${version}.tar.gz"
-checksum=9414937561d568f3ebac33202f18b98da79b9270184ee0ba6695e2dd17ea1eb7
+distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
+checksum=b4a7cc4e78e63f378624e0919215b910af5bb2a0afc819fad298272e9f40c1b9
 nocross=yes
 nopie=yes
 
 # Package build options
-build_options="jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus json harfbuzz cairo gmp nativecomp"
+build_options="jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus json harfbuzz cairo gmp"
 desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
 desc_option_m17n="Enable support for m17n multilingual text processing"
@@ -49,29 +47,21 @@ pre_configure() {
 
 do_configure() {
 	cd $wrksrc/nox
-	./autogen.sh
 	./configure --without-x $(vopt_with dbus) ${configure_args}
 
 	cd $wrksrc/x11
-	./autogen.sh
 	./configure --with-x-toolkit=athena --without-toolkit-scroll-bars \
 		$(vopt_with dbus) --without-gconf --without-gsettings \
 		${configure_args}
 
 	cd $wrksrc/gtk2
-	./autogen.sh
 	./configure --with-x-toolkit=gtk2 ${configure_args}
 
 	cd $wrksrc/gtk3
-	./autogen.sh
 	./configure --with-x-toolkit=gtk3 --with-xwidgets ${configure_args}
 }
 
 do_build() {
-	if [[ "$build_option_nativecomp" ]]; then
-        export NATIVE_FULL_AOT=1
-    fi
-
 	make ${makejobs} -C nox
 	make ${makejobs} -C x11
 	make ${makejobs} -C gtk2
