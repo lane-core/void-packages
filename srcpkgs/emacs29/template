@@ -1,0 +1,112 @@
+# Template file for 'emacs29'
+pkgname=emacs29
+version=20220301
+_commit=6b71b80fdcf32aed5191898e7339ffb9dcd29005
+revision=1
+wrksrc=emacs-${_commit}
+build_style=gnu-configure
+configure_args="--with-file-notification=inotify --with-modules
+ $(vopt_with jpeg) $(vopt_with tiff) $(vopt_with gif) $(vopt_with png)
+ $(vopt_with xpm) $(vopt_with svg rsvg) $(vopt_with imagemagick)
+ $(vopt_with xml xml2) $(vopt_with gnutls) $(vopt_with sound) $(vopt_with m17n m17n-flt)
+ $(vopt_with json) $(vopt_with harfbuzz) $(vopt_with cairo) $(vopt_with gmp libgmp)
+ $(vopt_with nativecomp native-compilation)"
+hostmakedepends="pkg-config tar autoconf texinfo git"
+makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
+ dbus-devel acl-devel
+ $(vopt_if jpeg libjpeg-turbo-devel) $(vopt_if tiff tiff-devel)
+ $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel) $(vopt_if xpm libXpm-devel)
+ $(vopt_if svg librsvg-devel) $(vopt_if imagemagick libmagick-devel)
+ $(vopt_if xml libxml2-devel) $(vopt_if gnutls gnutls-devel)
+ $(vopt_if sound alsa-lib-devel) $(vopt_if m17n m17n-lib-devel)
+ $(vopt_if json jansson-devel) $(vopt_if harfbuzz harfbuzz-devel)
+ $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)
+ $(vopt_if nativecomp libgccjit)"
+depends="emacs29-common-${version}_${revision} $(vopt_if nativecomp libgccjit)"
+short_desc="GNU Emacs editor"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-3.0-or-later"
+homepage="http://www.gnu.org/software/emacs/"
+distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
+checksum=9e9ca0aa70ab823541aa3d8fe69614da070834ff20a809deb02826fd573b1c6e
+provides="emacs-${version}_${revision}"
+replaces="emacs>=0"   
+
+nocross=yes
+nopie=yes
+
+# Package build options
+build_options="jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus json harfbuzz cairo gmp nativecomp x11 gtk2 gtk3"
+desc_option_xpm="Enable support for XPM images"
+desc_option_sound="Enable support for sound"
+desc_option_m17n="Enable support for m17n multilingual text processing"
+build_options_default="jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp"
+
+#post_extract() {
+#	#find . -type f -exec touch {} +
+#}
+
+pre_configure() {
+	build_types="$build_option_x11 $build_option_gtk2 $build_option_gtk3"
+	build_type_selected=0
+	for p in build_types; do
+		if [[ "$p" ]]; then
+			((++build_type_selected)) || true
+		fi
+	done
+
+	if [[ "$build_type_selected" -gt 1 ]]; then
+		msg_error "You must select only one build type in build options (e.g. x11, gtk2, gtk3)"
+	fi
+
+	./autogen.sh
+}
+
+do_configure() {
+	configure_args+=" $(vopt_with dbus)"
+
+	if [[ "$build_option_x11" ]]; then
+		configure_args+=" --with-x-toolkit=athena --without-toolkit-scroll-bars \
+		--without-gconf --without-gsettings"
+	elif [[ "$build_option_gtk2" ]]; then
+		configure_args+=" --with-x-toolkit=gtk2"
+	elif [[ "$build_option_gtk3" ]]; then
+		configure_args+=" --with-x-toolkit=gtk3 --with-pgtk --with-xwidgets"
+	else
+		configure_args+=" --without-x"
+	fi
+	
+	#find . -type f -exec touch {} +
+
+	./configure ${configure_args}
+}
+
+do_build() {
+	if [[ "$build_option_nativecomp" ]]; then
+        export NATIVE_FULL_AOT=1
+    fi
+
+	make ${makejobs}
+}
+
+do_install() {
+	make DESTDIR=$DESTDIR install
+	rm -f ${DESTDIR}/usr/bin/ctags
+	rm -f ${DESTDIR}/usr/lib/systemd/user/emacs.service
+	rm -f ${DESTDIR}/usr/share/man/man1/ctags.1*
+	rm -f ${DESTDIR}/usr/share/info/info.info
+	rm -rf ${DESTDIR}/usr/share/applications
+	rm -rf ${DESTDIR}/usr/share/icons
+}
+
+emacs29-common_package() {
+	short_desc+=" - common files"
+	provides="emacs-common-${version}_${revision}"
+	replaces="emacs-common>=0"
+	pkg_install() {
+		vmove usr/share/emacs
+		vmove usr/share/man
+		vmove usr/share/info
+		rm -f ${PKGDESTDIR}/usr/share/info/info.info.gz
+	}
+}
