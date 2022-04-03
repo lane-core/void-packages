@@ -1,0 +1,15 @@
+# Template file for 'CCScriptWriter'
+pkgname=CCScriptWriter
+version=1.2
+revision=1
+wrksrc="${pkgname}-f021880893f25c787814332b0a8102251bcb0141"
+build_style=python3-module
+hostmakedepends="python3-setuptools"
+makedepends="python3-devel"
+depends="python3"
+short_desc="Extracts the dialogue from EarthBound into CCScript"
+maintainer="Lane Biocini <lane@mailbox.org>"
+license="custom:CCScriptWriter"
+homepage="https://github.com/Lyrositor/CCScriptWriter"
+distfiles="${homepage}/archive/f021880893f25c787814332b0a8102251bcb0141.tar.gz"
+checksum=328341e1694d0ba8dc28825afaa01d18642181a32a1c3566520e734b30375e83
