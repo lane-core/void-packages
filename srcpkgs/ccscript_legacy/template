@@ -1,0 +1,15 @@
+# Template file for 'ccscript_legacy'
+pkgname=ccscript_legacy
+version=1.339
+revision=1
+wrksrc="${pkgname}-8b8882b72c1841675beb47e312b93068e17dc53c"
+build_style=python3-module
+hostmakedepends="python3-setuptools"
+makedepends="python3-devel"
+depends="python3"
+short_desc="CCScript Legacy Parser Library"
+maintainer="Alin Dobre <alin.dobre@outlook.com>"
+license="custom:ccscript_legacy"
+homepage="https://github.com/stochaztic/ccscript_legacy"
+distfiles="${homepage}/archive/8b8882b72c1841675beb47e312b93068e17dc53c.tar.gz"
+checksum=29937eab2d89240c3ef98db72256e04d6dc47f325256ccd360e5368e21253dbb
