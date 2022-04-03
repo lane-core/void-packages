@@ -1,0 +1,21 @@
+# Template file for 'CoilSnake'
+pkgname=CoilSnake
+version=4.1
+revision=1
+wrksrc="${pkgname}-${version}"
+build_style=python3-module
+hostmakedepends="python3-setuptools"
+makedepends="python3-devel libjpeg-turbo-devel libyaml-devel
+  zlib-devel tk-devel tcl-devel"
+depends="python3 libyaml python3-tkinter python3-Pillow libjpeg-turbo
+  CCScriptWriter ccscript_legacy"
+short_desc="Earthbound ROM hacking tools"
+maintainer="Lane Biocini"
+license="BSD-3-Clause"
+homepage="https://github.com/pk-hack/CoilSnake"
+distfiles="${homepage}/archive/refs/tags/${version}.tar.gz"
+checksum=c27c647abd4b2c5dbdb9a87124ec45758aa8bcce258d89f5ff163240ee880753
+
+post_install() {
+	vlicense LICENSE
+}
