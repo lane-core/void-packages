@@ -1,41 +1,42 @@
 # Template file for 'steinberg-vst-devel'
 
 pkgname=steinberg-vst-devel
-version=3.6.14
+version=3.7.4
 revision=1
-short_desc="Steinberg's VST SDK (version 3.6)"
+short_desc="Steinberg's VST SDK"
 homepage="https://www.steinberg.net/sdk_downloads/"
 hostmakedepends="unzip"
 maintainer="lane-brain <lane@mailbox.org>"
-_sdkarchive="vst-sdk_3.6.14_build-24_2019-11-29.zip"
+_sdkarchive="vst-sdk_3.7.4_build-25_2021-12-16.zip"
+_sdk2archive="vstsdk3610_11_06_2018_build_37.zip"
 distfiles="https://download.steinberg.net/sdk_downloads/${_sdkarchive}
-    https://www.steinberg.net/sdk_downloads/vstsdk367_03_03_2017_build_352.zip"
+    https://web.archive.org/web/20181016150224/https://download.steinberg.net/sdk_downloads/${_sdk2archive}"
 wrksrc=${pkgname}-${version}
 license="custom:Steinberg"
-checksum="1f61d847d4fbd570a2b3d3cc14210b4e7f808f87b641a44b146a07f708cb1552
-    5e8f1058177472f6dd3b5c1e7f8e0e76f37c5f751fed65936e04ff2441ce831a"
+checksum="49b0e46345af323ab84be9df065653b2a6531745dea6f3ac3fb47915df9f3a81
+ 3e5d1e03955636fa4174486882f75bbcbc318aab2a056ccadeb6bda61ec9d49c"
 repository=nonfree
 
 do_extract() {
-    mkdir current vst-sdk-367
+    mkdir current vst-sdk-3610
     
     cd current
     unzip ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_sdkarchive}
     
-    cd ../vst-sdk-367
-    unzip ${XBPS_SRCDISTDIR}/${pkgname}-${version}/vstsdk367_03_03_2017_build_352.zip
+    cd ../vst-sdk-3610
+    unzip ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_sdk2archive}
 }
 
 pre_install() {
     cd ${wrksrc}/current/VST_SDK
-    cp -r VST2_SDK/* VST3_SDK
+    cp -r vst2sdk/* vst3sdk
 }
 
 do_install() {
     # Install headers
-    echo "do_install: $PWD"
-    vst_sdk_path="${wrksrc}/current/VST_SDK/VST3_SDK"
-    vst_legacy_path="${wrksrc}/vst-sdk-367/VST_SDK"
+    msg_normal "do_install: $PWD"
+    vst_sdk_path="${wrksrc}/current/VST_SDK/vst3sdk"
+    vst_legacy_path="${wrksrc}/vst-sdk-3610/VST_SDK"
     header_path="usr/include/vst36"
 
     mkdir -p ${DESTDIR}/${header_path}
@@ -56,7 +57,8 @@ do_install() {
 }
 
 post_install() {
-    vlicense ${wrksrc}/current/VST_SDK/VST3_SDK/LICENSE.txt
-    vlicense ${wrksrc}/current/VST_SDK/VST3_SDK/VST3_License_Agreement.pdf
+    vlicense ${vst_sdk_path}/LICENSE.txt
+    vlicense ${vst_sdk_path}/VST3_License_Agreement.pdf
+	vlicense ${vst_legacy_path}/VST2_SDK/VST2_License_Agreement.pdf
 }
 
