@@ -1,20 +1,18 @@
 # Template file for 'iputils'
 pkgname=iputils
-version=20190709
-revision=3
-wrksrc="${pkgname}-s${version}"
+version=20211215
+revision=1
 build_style=meson
-configure_args="-DNO_SETCAP_OR_SUID=true -DUSE_IDN=false
- -DBUILD_TFTPD=false -DBUILD_NINFOD=false"
-hostmakedepends="pkg-config docbook2x docbook-xsl-ns"
-makedepends="libcap-devel libressl-devel"
+configure_args="-DNO_SETCAP_OR_SUID=true -DUSE_IDN=false -DBUILD_NINFOD=false"
+hostmakedepends="pkg-config docbook2x docbook-xsl-ns libcap-progs iproute2"
+makedepends="libcap-devel"
 depends="libcap-progs"
 short_desc="Useful utilities for Linux networking (including ping)"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="BSD-3-Clause, GPL-2.0-or-later"
 homepage="https://github.com/iputils/iputils"
-distfiles="https://github.com/iputils/iputils/archive/s${version}.tar.gz"
-checksum=a15720dd741d7538dd2645f9f516d193636ae4300ff7dbc8bfca757bf166490a
+distfiles="https://github.com/iputils/iputils/archive/${version}.tar.gz"
+checksum=b6f67fc705490673ff4471d006221b4a2f1b1180b929d9fefd771352621ccedf
 
 alternatives="
  ping:ping:/usr/bin/${pkgname}-ping

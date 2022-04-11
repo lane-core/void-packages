@@ -1,6 +1,6 @@
 # Template file for 'composer'
 pkgname=composer
-version=1.10.13
+version=2.2.4
 revision=1
 build_style=fetch
 depends="php"
@@ -8,9 +8,10 @@ short_desc="Dependency manager for PHP"
 maintainer="Felipe Nogueira <contato.fnog@gmail.com>"
 license="MIT"
 homepage="https://getcomposer.org/"
+changelog="https://raw.githubusercontent.com/composer/composer/main/CHANGELOG.md"
 distfiles="https://github.com/composer/composer/releases/download/${version}/composer.phar
- https://raw.githubusercontent.com/composer/composer/master/LICENSE"
-checksum="5ca7445cfd48dd27c5a84aa005a47b4d9fd91132313830609875df3a6973708f
+ https://raw.githubusercontent.com/composer/composer/main/LICENSE"
+checksum="ba04e246960d193237d5ed6542bd78456898e7787fafb586f500c6807af7458d
  7855ac293067aebe7e51afdd23b9dea54b8be24187dbecc9b9142581c37f596c"
 
 do_install() {

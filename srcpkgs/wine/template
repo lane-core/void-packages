@@ -1,34 +1,57 @@
 # Template file for 'wine'
 pkgname=wine
-version=6.0rc1
-wrksrc=wine-${version/r/-r}
+version=7.6
 revision=1
+_pkgver=${version/r/-r}
+create_wrksrc=yes
+build_wrksrc=wine-${_pkgver}
 build_style=gnu-configure
-configure_args="--bindir=/usr/libexec/wine"
+configure_args="--bindir=/usr/libexec/wine $(vopt_with xshm)"
 short_desc="Run Microsoft Windows applications"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="LGPL-2.1-or-later"
 homepage="http://www.winehq.org/"
-distfiles="https://dl.winehq.org/wine/source/${version%r*}/wine-${version/r/-r}.tar.xz"
-checksum=78ddc948f946c662779bd5943d91812740480021bc951cbcadeb102c38b53bc8
+distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${_pkgver}.tar.xz
+ https://github.com/wine-staging/wine-staging/archive/v${_pkgver}.tar.gz"
+checksum="eeab772f091328a3fb9db89aacab6be087c3d59c168ef2b41af5ec5010cf0328
+ bdd1a095b9c4cddce4663825e2ad331c5bf1ac8b2288b0b380a665d0ca987a23"
+
+build_options="mingw staging xshm"
+build_options_default="mingw xshm"
+desc_option_mingw="Use the MinGW cross compiler to build WinPE DLLs"
+desc_option_staging="Apply the wine-staging patchset"
+desc_option_xshm="Enable support for the X Shared Memory Extension"
 
 lib32mode=full
-archs="i686 x86_64*"
+archs="i686* x86_64*"
 
-hostmakedepends="pkg-config flex gettext"
-makedepends="gettext-devel lcms2-devel zlib-devel ncurses-devel
- glu-devel libSM-devel libXext-devel libX11-devel libXpm-devel
- libXinerama-devel libXcomposite-devel libXmu-devel libXxf86vm-devel
+patch_args="-Np1 --directory=${build_wrksrc}"
+
+_nopie=no
+if [ "$XBPS_TARGET_MACHINE" = i686-musl ]; then
+	# build system adds -fno-PIC for 32bit builds, which,
+	# coupled with our default pie toolchain, leads to textrels
+	# in the final binary; musl doesn't support those
+	_nopie=yes
+fi
+
+hostmakedepends="pkg-config flex gettext
+ $(vopt_if mingw "cross-${XBPS_TARGET_MACHINE%-musl}-w64-mingw32")
+ $(vopt_if staging 'autoconf')"
+makedepends="gettext-devel ncurses-devel glu-devel libSM-devel
+ libXext-devel libX11-devel libXpm-devel libXinerama-devel
+ libXcomposite-devel libXmu-devel libXxf86vm-devel
  libXcursor-devel libXrandr-devel libXdamage-devel libXi-devel
- libldap-devel alsa-lib-devel libgphoto2-devel libxml2-devel
- libxslt-devel glib-devel freetype-devel pulseaudio-devel
- mpg123-devel libgsm-devel libopenal-devel giflib-devel libpng-devel
+ libldap-devel alsa-lib-devel libgphoto2-devel glib-devel
+ freetype-devel pulseaudio-devel libopenal-devel giflib-devel
  v4l-utils-devel fontconfig-devel gnutls-devel dbus-devel sane-devel
- libpcap-devel cups-devel ocl-icd-devel vulkan-loader vkd3d-devel
- FAudio-devel gst-plugins-base1-devel"
+ libpcap-devel cups-devel ocl-icd-devel vulkan-loader gst-plugins-base1-devel
+ SDL2-devel"
 depends="libXi libXinerama libXcomposite libXcursor libOSMesa
  desktop-file-utils hicolor-icon-theme liberation-fonts-ttf
- gnutls wine-common>=${version}_${revision} libwine>=${version}_${revision}"
+ gnutls SDL2 wine-common>=${version}_${revision} libwine>=${version}_${revision}"
+# This testsuite might hang indefinitely
+make_check=extended
 
 case $XBPS_TARGET_MACHINE in
 	x86_64*) configure_args+=" --enable-win64 --libdir=/usr/lib"
@@ -46,6 +69,29 @@ fi
 
 _wine_libexec="/usr/libexec/wine"
 nopie_files="${_wine_libexec}/wine${_wine_suffix}"
+
+if [ "${_nopie}" = yes ]; then
+	nopie_files+=" ${_wine_libexec}/wineserver${_wineserver_suffix}"
+fi
+
+post_patch() {
+	if [ "${build_option_staging}" ]; then
+		"../wine-staging-${_pkgver}/patches/patchinstall.sh" --all
+	fi
+}
+
+pre_build() {
+	if [ "${_nopie}" = yes ]; then
+		make ${makejobs} LDFLAGS="$LDFLAGS -no-pie" \
+			tools/{widl/widl,winebuild/winebuild,winegcc/winegcc,wrc/wrc} \
+			loader/wine server/wineserver
+	fi
+}
+
+do_check() {
+	msg_warn "This testsuite might hang indefinitely\n"
+	make check
+}
 
 post_install() {
 	# Font aliasing settings for Win32 applications
@@ -73,7 +119,6 @@ libwine_package() {
 	short_desc+=" - Runtime library"
 	replaces="libwine-unstable>=0"
 	pkg_install() {
-		vmove "usr/lib/*.so.*"
 		vmove usr/lib/wine
 	}
 }
@@ -103,6 +148,9 @@ wine-common_package() {
 wine-tools_package() {
 	depends="wine-${version}_${revision}"
 	short_desc+=" - development tools"
+	if [ "${_nopie}" = yes ]; then
+		nopie=yes
+	fi
 	pkg_install() {
 		for file in widl winebuild winecpp winedump wineg++ winegcc winemaker wmc wrc function_grep.pl
 		do

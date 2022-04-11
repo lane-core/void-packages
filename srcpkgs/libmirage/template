@@ -1,6 +1,6 @@
 # Template file for 'libmirage'
 pkgname=libmirage
-version=3.2.4
+version=3.2.6
 revision=1
 build_style=cmake
 build_helper="gir"
@@ -11,8 +11,8 @@ short_desc="CD-ROM image access library written in C"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-or-later"
 homepage="http://cdemu.sourceforge.net"
-distfiles="${SOURCEFORGE_SITE}/cdemu/libmirage-${version}.tar.bz2"
-checksum=fc5b3b8acd40d63c6194fba65c841b906a8074e89b14a10bf76f35d1c371a355
+distfiles="${SOURCEFORGE_SITE}/cdemu/libmirage-${version}.tar.xz"
+checksum=257f4690c9195749ea936c4b44ada3e449b352dadaa107f31a1ed10f7b6df2a6
 
 build_options="gir"
 build_options_default="gir"

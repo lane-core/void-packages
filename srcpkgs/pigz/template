@@ -1,21 +1,17 @@
 # Template file for 'pigz'
 pkgname=pigz
-version=2.4
+version=2.7
 revision=1
+build_style=gnu-makefile
+make_check_target=test
 makedepends="zlib-devel"
-short_desc="A parallel implementation of gzip"
+short_desc="Parallel implementation of gzip"
 maintainer="Orphaned <orphan@voidlinux.org>"
-homepage="http://zlib.net/pigz/"
-license="zlib"
-distfiles="http://zlib.net/pigz/pigz-${version}.tar.gz"
-checksum=a4f816222a7b4269bd232680590b579ccc72591f1bb5adafcd7208ca77e14f73
+license="Zlib"
+homepage="https://zlib.net/pigz/"
+distfiles="https://zlib.net/pigz/pigz-${version}.tar.gz"
+checksum=b4c9e60344a08d5db37ca7ad00a5b2c76ccb9556354b722d56d55ca7e8b1c707
 
-post_extract() {
-	sed -i '/CC.*-o/{s/$(LDFLAGS)//; s/$/ $(LDFLAGS)/}' Makefile
-}
-do_build() {
-	make CC=$CC CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS -lz" ${makejobs}
-}
 do_install() {
 	vbin pigz
 	vman pigz.1

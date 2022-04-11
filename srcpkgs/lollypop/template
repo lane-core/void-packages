@@ -1,16 +1,17 @@
 # Template file for 'lollypop'
 pkgname=lollypop
-version=1.4.5
+version=1.4.30
 revision=1
 build_style=meson
-hostmakedepends="cmake git glib-devel gobject-introspection intltool itstool pkg-config"
-makedepends="gtk+3-devel libsoup-devel python3-gobject-devel python3-devel"
+hostmakedepends="glib-devel gobject-introspection intltool itstool pkg-config"
+makedepends="gtk+3-devel libsoup-devel python3-gobject-devel python3-devel
+ libhandy1-devel"
 depends="dconf gst-libav gst-plugins-good1 libnotify libsecret
- python3-dbus python3-gobject python3-pylast python3-youtube-dl
- python3-Pillow totem-pl-parser python3-BeautifulSoup4 libhandy1"
+ python3-Pillow totem-pl-parser python3-BeautifulSoup4 libhandy1
+ python3-gobject python3-pylast youtube-dl gnome-keyring"
 short_desc="Music player for GNOME"
-maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Lollypop"
-distfiles="https://adishatz.org/lollypop/${pkgname}-${version}.tar.xz"
-checksum=e543a9b18062389897dbc54412fc14010932c1cf15465ed2ba867a8268febf44
+distfiles="https://adishatz.org/lollypop/lollypop-${version}.tar.xz"
+checksum=393c3ed6431026b3214f380b7aa74ee31b054203855f7f5c928b1d25ad1b8ef5

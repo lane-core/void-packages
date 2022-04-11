@@ -1,6 +1,6 @@
 # Template file for 'plasma-thunderbolt'
 pkgname=plasma-thunderbolt
-version=5.20.4
+version=5.24.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules kcoreaddons kcmutils
@@ -12,7 +12,7 @@ maintainer="John <me@johnnynator.dev>"
 license="GPL-3.0-or-later"
 homepage="https://invent.kde.org/plasma/plasma-thunderbolt"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=7c37c66815242b5d1e208df3b4dbf4fe0d8542ac9aa352d06c548fc172348429
+checksum=52bec310386158c7f85cd6a8a7db5bedabdb8494f4c6818d8466aa33a6dba5df
 
 do_check() {
 	: # Requires running dbus and bolt services

@@ -1,6 +1,6 @@
 # Template file for 'font-unifont-bdf'
 pkgname=font-unifont-bdf
-version=13.0.04
+version=14.0.01
 revision=1
 create_wrksrc=yes
 depends="font-util"
@@ -9,7 +9,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="http://unifoundry.com/unifont/index.html"
 distfiles="http://unifoundry.com/pub/unifont/unifont-${version}/font-builds/unifont-${version}.bdf.gz"
-checksum=5319d51779aa23e206268e6e6de71bb67b983033468d2c815118aecf5f7d57c0
+checksum=391d194f6307fcd0915daafd360509a734e26f3e4013e63d47deb2530d59e66e
 font_dirs=/usr/share/fonts/misc
 
 do_install() {

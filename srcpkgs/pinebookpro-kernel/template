@@ -1,6 +1,6 @@
 # Template file for 'pinebookpro-kernel'
 pkgname=pinebookpro-kernel
-version=5.9.12
+version=5.10.46
 revision=1
 archs="aarch64*"
 wrksrc="linux-${version}"
@@ -9,8 +9,7 @@ maintainer="Renato Aguiar <renato@renatoaguiar.net>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version}.tar.xz"
-checksum=d97f56192e3474c9c8a44ca39957d51800a26497c9a13c9c5e8cc0f1f5b0d9bd
-patch_args="-Np1"
+checksum=569122a39c6b325befb9ac1c07da0c53e6363b3baacd82081d131b06c1dc1415
 python_version=3
 
 nodebug=yes  # -dbg package is generated below manually
@@ -20,7 +19,7 @@ noshlibprovides=yes
 preserve=yes
 
 hostmakedepends="tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
- libressl-devel perl uboot-mkimage cpio python3"
+ openssl-devel perl uboot-mkimage cpio python3"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"

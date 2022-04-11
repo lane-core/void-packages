@@ -1,17 +1,18 @@
 # Template file for 'libkscreen'
 pkgname=libkscreen
-version=5.20.4
+version=5.24.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="pkg-config extra-cmake-modules qt5-host-tools qt5-x11extras-devel"
+hostmakedepends="pkg-config extra-cmake-modules qt5-host-tools qt5-x11extras-devel
+ plasma-wayland-protocols qt5-wayland wayland-devel"
 makedepends="qt5-tools-devel qt5-x11extras-devel libXrandr-devel kwayland-devel"
 short_desc="KDE screen management software"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/plasma/libkscreen"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=ce1bd03a25b101793fa1472ac3fc696079e607a6f45330ea724845bda288d28d
+checksum=a6874f0f4066e16ea191341d4d7d73deaf304e117ab64306d311c862393de7a0
 
 libkscreen-devel_package() {
 	short_desc+=" - development"

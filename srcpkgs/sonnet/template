@@ -1,21 +1,22 @@
 # Template file for 'sonnet'
 pkgname=sonnet
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="kcoreaddons extra-cmake-modules"
-makedepends="qt5-devel qt5-tools-devel aspell-devel hunspell-devel"
+configure_args="-DBUILD_TESTING=ON"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools
+ qt5-tools-devel"
+makedepends="qt5-devel qt5-tools-devel aspell-devel hunspell-devel
+ qt5-declarative-devel"
 short_desc="KDE Multi-language spell checker"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/sonnet"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=cb6bacae27cfa3f8b3ce300b18efe16730783f143c4a7fccfa634f528262ef9b
+checksum=31fc1dda3db582337529922d38b6eac72b1551c4a0d86fb9307363e061d05722
 
 if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-tools-devel sonnet"
-	configure_args+=" -DPARSETRIGRAMS_EXECUTABLE=/usr/bin/parsetrigrams"
+	hostmakedepends+=" sonnet"
 fi
 
 sonnet-devel_package() {

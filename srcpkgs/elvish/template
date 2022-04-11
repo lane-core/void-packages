@@ -1,16 +1,20 @@
 # Template file for 'elvish'
 pkgname=elvish
-version=0.14.0
+version=0.17.0
 revision=1
 build_style=go
-go_import_path="github.com/elves/elvish"
+go_import_path="src.elv.sh/cmd/elvish"
 short_desc="Novel Unix shell"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="BSD-2-Clause"
 homepage="https://elv.sh/"
+changelog="https://elv.sh/blog/${version}-release-notes.html"
 distfiles="https://github.com/elves/elvish/archive/v${version}.tar.gz"
-checksum=36ed5e0318d75f7e7d616398e42477cfbd6fd2a1d1f108dee7941621cfb7378a
+checksum=0e255849723129d8c4dc24f67656e651b4e4b7566bc16009109ba76099681fa1
 register_shell="/bin/elvish"
+
+# fix: collect2: fatal error: cannot find 'ld'
+LDFLAGS="-fuse-ld=bfd"
 
 post_install() {
 	vlicense LICENSE

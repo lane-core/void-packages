@@ -1,16 +1,17 @@
 # Template file for 'libusb'
 pkgname=libusb
-version=1.0.23
-revision=1
+version=1.0.25
+revision=2
 build_style=gnu-configure
 hostmakedepends="pkg-config"
 makedepends="eudev-libudev-devel"
 short_desc="Library which allows userspace access to USB devices"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="skmpz <dem.procopiou@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="https://libusb.info"
+changelog="https://raw.githubusercontent.com/libusb/libusb/master/ChangeLog"
 distfiles="https://github.com/libusb/libusb/releases/download/v${version}/libusb-${version}.tar.bz2"
-checksum=db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d
+checksum=8a28ef197a797ebac2702f095e81975e2b02b2eeff2774fa909c78a74ef50849
 
 libusb-devel_package() {
 	short_desc+=" - development files"

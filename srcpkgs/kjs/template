@@ -1,9 +1,8 @@
 # Template file for 'kjs'
 pkgname=kjs
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules perl pkg-config"
 makedepends="qt5-devel qt5-script-devel qt5-declarative-devel kdoctools-devel"
 short_desc="KDE Javascript engine"
@@ -11,7 +10,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kjs"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/portingAids/${pkgname}-${version}.tar.xz"
-checksum=829eb1308b9b07cdd07b34d80eb5e3fcf5225fa4816da19bce886add600bb62a
+checksum=04072d527501c92f1e0144e9dcc114e108bfb5a2b50bed8a9b037474aaa6f118
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake kdoctools kjs"
@@ -19,13 +18,13 @@ fi
 
 pre_configure() {
 	if [ "$CROSS_BUILD" ]; then
-		sed -i -e "s,COMMAND \${ICEMAKER_EXECUTABLE} ,COMMAND /usr/lib/libexec/${pkgname}/icemaker ," src/kjs/CMakeLists.txt
+		sed -i -e "s,COMMAND \${ICEMAKER_EXECUTABLE} ,COMMAND /usr/libexec/${pkgname}/icemaker ," src/kjs/CMakeLists.txt
 	fi
 }
 
 post_install() {
 	# internal tool needed for cross-building
-	vinstall build/bin/icemaker 0755 usr/lib/libexec/${pkgname}
+	vinstall build/bin/icemaker 0755 usr/libexec/${pkgname}
 }
 
 kjs-devel_package() {

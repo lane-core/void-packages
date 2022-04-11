@@ -1,21 +1,26 @@
 # Template file for 'plasma-framework'
 pkgname=plasma-framework
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF
- -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
+configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 hostmakedepends="kcoreaddons extra-cmake-modules pkg-config
- kconfig python3 qt5-host-tools qt5-qmake gettext kdoctools"
+ kpackage kconfig python3 qt5-host-tools qt5-qmake gettext kdoctools"
 makedepends="kactivities5-devel kdeclarative-devel kdoctools-devel kwayland-devel
  kirigami2-devel"
 depends="qt5-quickcontrols qt5-graphicaleffects qt5-multimedia"
+checkdepends="mesa-dri"
 short_desc="Foundational libraries, components, and tools of the Plasma workspaces"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/plasma-framework"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5bea341bc7b22ffa6a78bf7475c25b138150314c96b3d5154d8bccc532be242a
+checksum=c6c2bc624564c74fd80bce170a1c763803d5207ef86108b5724fcba73c3506f7
+
+do_check() {
+	cd build
+	ctest -E 'plasma-configmodeltest|coronatest|plasma-sortfiltermodeltest|i18ndcheck|plasma-dialogstatetest|plasma-iconitemtest|plasma-themetest|dialognativetest'
+}
 
 plasma-framework-devel_package() {
 	short_desc+=" - development"

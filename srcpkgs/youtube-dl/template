@@ -1,19 +1,19 @@
 # Template file for 'youtube-dl'
 pkgname=youtube-dl
-version=2020.12.07
+version=2021.12.17
 revision=1
-wrksrc="${pkgname}"
+wrksrc="$pkgname"
 build_style=python3-module
 hostmakedepends="python3-setuptools"
-depends="python3-setuptools"
+depends="python3"
 checkdepends="flake8 python3-nose"
 short_desc="CLI program to download videos from YouTube and other sites"
-maintainer="Daniel Eyßer <daniel.eysser@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Unlicense"
 homepage="https://yt-dl.org"
 changelog="https://raw.githubusercontent.com/ytdl-org/youtube-dl/master/ChangeLog"
-distfiles="${homepage}/downloads/latest/${pkgname}-${version}.tar.gz"
-checksum=51672c19864d4e2e593e55a6aec32cb348cd5c915ce0121e53eb0296a6e27969
+distfiles="${homepage}/downloads/${version}/${pkgname}-${version}.tar.gz"
+checksum=9f3b99c8b778455165b4525f21505e86c7ff565f3ac319e19733d810194135df
 
 do_check() {
 	PYTHON=/usr/bin/python3 make offlinetest

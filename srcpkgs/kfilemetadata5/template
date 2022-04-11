@@ -1,10 +1,9 @@
 # Template file for 'kfilemetadata5'
 pkgname=kfilemetadata5
-version=5.76.0
+version=5.92.0
 revision=1
 wrksrc="${pkgname%5}-${version}"
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules pkg-config qt5-host-tools qt5-qmake
  gettext kcoreaddons python3"
 makedepends="karchive-devel ki18n-devel poppler-qt5-devel kcoreaddons-devel
@@ -14,7 +13,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kfilemetadata"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname%5}-${version}.tar.xz"
-checksum=fa24758c93ce3df9f8ced4310dc0bf58e129b08e50f254daafa025afc9213d68
+checksum=d624d3551094cf73d802b6e95bcd78577ce9eb1e9cbb9a8f340dcad066ea15ce
 
 kfilemetadata5-devel_package() {
 	short_desc+=" - development"

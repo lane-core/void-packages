@@ -69,7 +69,7 @@ $(grep -E '^XBPS_.*' "$XBPS_CONFIG_FILE")
 XBPS_MASTERDIR=/
 XBPS_CFLAGS="$XBPS_CFLAGS"
 XBPS_CXXFLAGS="$XBPS_CXXFLAGS"
-XBPS_FFLAGS="-fPIC -pipe"
+XBPS_FFLAGS="$XBPS_FFLAGS"
 XBPS_CPPFLAGS="$XBPS_CPPFLAGS"
 XBPS_LDFLAGS="$XBPS_LDFLAGS"
 XBPS_HOSTDIR=/host
@@ -106,14 +106,12 @@ chroot_prepare() {
         msg_error "Bootstrap not installed in $XBPS_MASTERDIR, can't continue.\n"
     fi
 
-    # Create some required files.
-    if [ -f /etc/localtime ]; then
-        cp -f /etc/localtime $XBPS_MASTERDIR/etc
-    elif [ -f /usr/share/zoneinfo/UTC ]; then
-        cp -f /usr/share/zoneinfo/UTC $XBPS_MASTERDIR/etc/localtime
-    fi
+    # Some software expects /etc/localtime to be a symbolic link it can read to
+    # determine the name of the time zone, so set up the expected link
+    # structure.
+    ln -sf ../usr/share/zoneinfo/UTC $XBPS_MASTERDIR/etc/localtime
 
-    for f in dev sys proc host boot; do
+    for f in dev sys tmp proc host boot; do
         [ ! -d $XBPS_MASTERDIR/$f ] && mkdir -p $XBPS_MASTERDIR/$f
     done
 
@@ -126,9 +124,6 @@ chroot_prepare() {
 
     # Copy /etc/hosts from base-files.
     cp -f $XBPS_SRCPKGDIR/base-files/files/hosts $XBPS_MASTERDIR/etc
-
-    mkdir -p $XBPS_MASTERDIR/etc/xbps.d
-    echo "syslog=false" >> $XBPS_MASTERDIR/etc/xbps.d/00-xbps-src.conf
 
     # Prepare default locale: en_US.UTF-8.
     if [ -s ${XBPS_MASTERDIR}/etc/default/libc-locales ]; then
@@ -180,6 +175,7 @@ chroot_handler() {
             SOURCE_DATE_EPOCH="$SOURCE_DATE_EPOCH" \
             XBPS_GIT_REVS="$XBPS_GIT_REVS" \
             XBPS_ALLOW_CHROOT_BREAKOUT="$XBPS_ALLOW_CHROOT_BREAKOUT" \
+            ${XBPS_ALT_REPOSITORY:+XBPS_ALT_REPOSITORY=$XBPS_ALT_REPOSITORY} \
             $XBPS_COMMONDIR/chroot-style/${XBPS_CHROOT_CMD:=uunshare}.sh \
             $XBPS_MASTERDIR $XBPS_DISTDIR "$XBPS_HOSTDIR" "$XBPS_CHROOT_CMD_ARGS" \
             /void-packages/xbps-src $XBPS_OPTIONS $action $pkg
@@ -241,33 +237,44 @@ chroot_sync_repodata() {
             $confdir/12-repository-local-multilib.conf
     fi
 
+    # mirror_sed is a sed script: nop by default
+    local mirror_sed
+    if [ -n "$XBPS_MIRROR" ]; then
+        # when XBPS_MIRROR is set, mirror_sed rewrites remote repos
+        mirror_sed="s|^repository=http.*/current|repository=${XBPS_MIRROR}|"
+    fi
+
     if [ "$XBPS_SKIP_REMOTEREPOS" ]; then
         rm -f $confdir/*remote*
     else
         if [ -s "${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_MACHINE}.conf" ]; then
             # If per-architecture base remote repo config exists, use that
-            install -Dm644 ${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_MACHINE}.conf \
-                $confdir/20-repository-remote.conf
+            sed -e "$mirror_sed" ${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_MACHINE}.conf \
+                > $confdir/20-repository-remote.conf
         else
             # Otherwise use generic base for musl or glibc
             local suffix=
             case "$XBPS_MACHINE" in
                 *-musl) suffix="-musl";;
             esac
-            install -Dm644 ${XBPS_DISTDIR}/etc/xbps.d/repos-remote${suffix}.conf \
-                $confdir/20-repository-remote.conf
+            sed -e "$mirror_sed" ${XBPS_DISTDIR}/etc/xbps.d/repos-remote${suffix}.conf \
+                > $confdir/20-repository-remote.conf
         fi
         # Install multilib conf for remote repos if it exists for the architecture
         if [ -s "${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_MACHINE}-multilib.conf" ]; then
-            install -Dm644 ${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_MACHINE}-multilib.conf \
-                $confdir/22-repository-remote-multilib.conf
+            sed -e "$mirror_sed" ${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_MACHINE}-multilib.conf \
+                > $confdir/22-repository-remote-multilib.conf
         fi
     fi
+
+    echo "syslog=false" > $confdir/00-xbps-src.conf
 
     # Copy host repos to the cross root.
     if [ -n "$XBPS_CROSS_BUILD" ]; then
         rm -rf $XBPS_MASTERDIR/$XBPS_CROSS_BASE/etc/xbps.d
         mkdir -p $XBPS_MASTERDIR/$XBPS_CROSS_BASE/etc/xbps.d
+        # Disable 00-repository-main.conf from share/xbps.d (part of xbps)
+        ln -s /dev/null $XBPS_MASTERDIR/$XBPS_CROSS_BASE/etc/xbps.d/00-repository-main.conf
         # copy xbps.d files from host for local repos
         cp ${XBPS_MASTERDIR}/etc/xbps.d/*local*.conf \
             $XBPS_MASTERDIR/$XBPS_CROSS_BASE/etc/xbps.d
@@ -276,17 +283,19 @@ chroot_sync_repodata() {
         else
             # Same general logic as above, just into cross root, and no multilib
             if [ -s "${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_TARGET_MACHINE}.conf" ]; then
-                install -Dm644 ${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_TARGET_MACHINE}.conf \
-                    $crossconfdir/20-repository-remote.conf
+                sed -e "$mirror_sed" ${XBPS_DISTDIR}/etc/xbps.d/repos-remote-${XBPS_TARGET_MACHINE}.conf \
+                    > $crossconfdir/20-repository-remote.conf
             else
                 local suffix=
                 case "$XBPS_TARGET_MACHINE" in
                     *-musl) suffix="-musl"
                 esac
-                install -Dm644 ${XBPS_DISTDIR}/etc/xbps.d/repos-remote${suffix}.conf \
-                    $crossconfdir/20-repository-remote.conf
+                sed -e "$mirror_sed" ${XBPS_DISTDIR}/etc/xbps.d/repos-remote${suffix}.conf \
+                    > $crossconfdir/20-repository-remote.conf
             fi
         fi
+
+        echo "syslog=false" > $crossconfdir/00-xbps-src.conf
     fi
 
 

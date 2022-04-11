@@ -1,9 +1,8 @@
 # Template file for 'kwidgetsaddons'
 pkgname=kwidgetsaddons
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel"
 short_desc="Large set of desktop widgets"
@@ -11,7 +10,12 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kwidgetsaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=ab7aa94bb1f63e5bea5cf461349c1add96fd608a73c5b7c9d374e6bf035fcac6
+checksum=d0e3558d6a7ed550f31d319e6b52d6ed61d693a1aa50e6dd4f430a1324111f2c
+
+do_check() {
+	cd build
+	ctest -E 'kwidgetsaddons-kcolumnresizertest'
+}
 
 kwidgetsaddons-devel_package() {
 	short_desc+=" - development"

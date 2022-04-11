@@ -1,6 +1,6 @@
 # Template file for 'aide'
 pkgname=aide
-version=0.16.2
+version=0.17.4
 revision=1
 build_style=gnu-configure
 configure_args="--with-mhash --with-posix-acl --with-prelink --with-xattr
@@ -15,7 +15,7 @@ maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://aide.github.io/"
 distfiles="https://github.com/aide/aide/releases/download/v${version}/aide-${version}.tar.gz"
-checksum=17f998ae6ae5afb9c83578e4953115ab8a2705efc50dee5c6461cef3f521b797
+checksum=c81505246f3ffc2e76036d43a77212ae82895b5881d9b9e25c1361b1a9b7a846
 
 post_configure() {
 	vsed -i config.h -e 's/cross/ino_t/g'

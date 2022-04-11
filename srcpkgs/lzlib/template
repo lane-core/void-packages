@@ -1,6 +1,6 @@
 # Template file for 'lzlib'
 pkgname=lzlib
-version=1.11
+version=1.13
 revision=1
 build_style=gnu-configure
 configure_args="--enable-shared --disable-static"
@@ -9,7 +9,7 @@ maintainer="bra1nwave <brainwave@openmailbox.org>"
 license="BSD-2-Clause"
 homepage="https://www.nongnu.org/lzip/lzlib"
 distfiles="${NONGNU_SITE}/lzip/lzlib/${pkgname}-${version}.tar.gz"
-checksum=6c5c5f8759d1ab7c4c3c53788ea2d9daad04aeddcf338226893f8ff134914d36
+checksum=a1ab58f3148ba4b2674e938438166042137a9275bed747306641acfddc9ffb80
 
 do_configure() {
 	./configure --prefix=/usr $configure_args CC="$CC" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"

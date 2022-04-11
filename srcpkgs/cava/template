@@ -1,6 +1,6 @@
 # Template file for 'cava'
 pkgname=cava
-version=0.7.3
+version=0.7.5
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool"
@@ -12,7 +12,7 @@ maintainer="skmpz <dem.procopiou@gmail.com>"
 license="MIT"
 homepage="https://github.com/karlstav/cava"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=6363347ef4c74770767d9aa2fb5d65ad4c2aedf1d23bdaac50fc8e8e4e3c707e
+checksum=863578e7d091735fd9c673239058515300faa79ff76304849a93c37ae3bd93cf
 build_options="alsa pulseaudio sndio"
 build_options_default="alsa pulseaudio sndio"
 

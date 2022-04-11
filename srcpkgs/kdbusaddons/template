@@ -1,17 +1,22 @@
 # Template file for 'kdbusaddons'
 pkgname=kdbusaddons
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel qt5-x11extras-devel"
+checkdepends="dbus"
 short_desc="KDE Convenience classes for DBus"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kdbusaddons"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=8e11b19e4a3d4ad8e4deda245eb51b7b77255cbacc07346e7074c8110b946e0a
+checksum=7c03f33cc49ffa80e509f654f410cb142e917bceb2f35f08836dc46ed268ae54
+
+do_check() {
+	cd build
+	dbus-run-session ctest
+}
 
 kdbusaddons-devel_package() {
 	short_desc+=" - development"

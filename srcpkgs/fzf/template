@@ -1,6 +1,6 @@
 # Template file for 'fzf'
 pkgname=fzf
-version=0.24.4
+version=0.30.0
 revision=1
 build_style=go
 go_import_path="github.com/junegunn/fzf"
@@ -12,7 +12,7 @@ license="MIT"
 homepage="https://github.com/junegunn/fzf"
 changelog="https://raw.githubusercontent.com/junegunn/fzf/master/CHANGELOG.md"
 distfiles="https://github.com/junegunn/fzf/archive/${version}.tar.gz"
-checksum=0d9d3ed3cefee86accc2634fc98211af1d571845d912256c33ca0c8b2963d8bd
+checksum=a3428f510b7136e39104a002f19b2e563090496cb5205fa2e4c5967d34a20124
 
 post_install() {
 	cd ${wrksrc}
@@ -23,9 +23,10 @@ post_install() {
 	sed -i -e 's#source ~/\.fzf\.bash; ##' shell/key-bindings.bash
 	vinstall plugin/fzf.vim 644 usr/share/vim/vimfiles/plugin
 	vinstall plugin/fzf.vim 644 usr/share/nvim/runtime/plugin
-	vinstall shell/completion.bash 644 usr/share/doc/fzf
-	vinstall shell/completion.zsh 644 usr/share/doc/fzf
-	vinstall shell/key-bindings.zsh 644 usr/share/doc/fzf
-	vinstall shell/key-bindings.bash 644 usr/share/doc/fzf
-	vinstall shell/key-bindings.fish 644 usr/share/doc/fzf
+
+	vinstall shell/completion.bash 644 usr/share/fzf
+	vinstall shell/completion.zsh 644 usr/share/fzf
+	vinstall shell/key-bindings.zsh 644 usr/share/fzf
+	vinstall shell/key-bindings.bash 644 usr/share/fzf
+	vinstall shell/key-bindings.fish 644 usr/share/fzf
 }

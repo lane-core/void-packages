@@ -1,18 +1,24 @@
 # Template file for 'touchegg'
 pkgname=touchegg
-version=1.1.1
-revision=5
-build_wrksrc=touchegg
-build_style=qmake
-hostmakedepends="qt5-qmake qt5-devel"
-makedepends="libXtst-devel geis-devel qt5-devel qt5-x11extras-devel"
+version=2.0.13
+revision=1
+build_style=cmake
+configure_args="-DUSE_SYSTEMD=false"
+hostmakedepends="pkg-config"
+makedepends="eudev-libudev-devel libinput-devel pugixml-devel cairo-devel libX11-devel
+ libXtst-devel libXrandr-devel libXi-devel glib-devel gtk+3-devel"
 short_desc="Multitouch gesture recognizer"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/JoseExposito/touchegg"
+changelog="https://raw.githubusercontent.com/JoseExposito/touchegg/master/CHANGELOG.md"
 distfiles="https://github.com/JoseExposito/touchegg/archive/${version}.tar.gz"
-checksum=daeca6063eeb9d3ee95803699665ce0b6f101bb3ce8421df2676744556c0b8c8
+checksum=f121cbfdf6725b86f8a6e6a3047c1fe26852217eda38d03de86ff10e23729d5d
+system_accounts="_touchegg"
 
-if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-x11extras-devel"
-fi
+post_install() {
+	# we don't want the package being installed to mean it should be autostarted
+	rm -r ${DESTDIR}/etc/xdg/autostart
+
+	vsv touchegg
+}

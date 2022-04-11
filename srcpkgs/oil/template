@@ -1,20 +1,19 @@
 # Template file for 'oil'
 pkgname=oil
-version=0.8.4
+version=0.9.9
 revision=1
 build_style=configure
 configure_args="--prefix=/usr $(vopt_with readline)"
-hostmakedepends="$(vopt_if readline readline-devel) python"
+hostmakedepends="$(vopt_if readline readline-devel)"
 makedepends="$hostmakedepends"
 short_desc="Oil, a new unix shell"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="MarcoAPC <marcoaureliopc@gmail.com>"
 license="Apache-2.0"
 homepage="https://www.oilshell.org"
 distfiles="${homepage}/download/${pkgname}-${version}.tar.xz"
-checksum=08fd1c6d653ea594a5dcecb7bf40037e683845cf7627129bbeeb4d0b9fe7b879
-python_version=2
+checksum=6f6b4c4b9cf8a1e8e1dc2ff7bf39c85a11b871ddda9e9e51b9f7e1a0e46b2824
 register_shell="/usr/bin/osh"
-nocross="Binaries doesn't build if cross built"
+nocross="Build systems gets confused with host and cross toolchains/headers"
 nostrip=yes
 
 build_options="readline"
@@ -23,8 +22,6 @@ build_options_default="readline"
 pre_build() {
 	# Remove the strip wrapper
 	rm -f "${XBPS_WRAPPERDIR}"/strip
-	# Use system python
-	vsed -i 's|$PREPARE_DIR/python|python|g' build/actions.sh
 }
 
 do_install() {

@@ -1,21 +1,18 @@
 # Template file for 'prison'
 pkgname=prison
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-hostmakedepends="kcoreaddons extra-cmake-modules qt5-tools doxygen qt5-declarative-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-tools doxygen
+ qt5-declarative-devel qt5-qmake qt5-host-tools"
 makedepends="qt5-devel libdmtx-devel qrencode-devel ecm-devel qt5-plugin-sqlite
- qt5-declarative-devel"
+ zxing-cpp-devel qt5-declarative-devel"
 short_desc="Barcode API to produce QRCode barcodes and DataMatrix barcodes"
 maintainer="John <me@johnnynator.dev>"
 license="MIT"
 homepage="https://community.kde.org/Frameworks"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/prison-${version}.tar.xz"
-checksum=6c369efc354f8f3a0e08b0de565fd523f1480d563bec0d19382e9ab01f3efb78
-
-if [ "$CROSS_BUILD" ];then
-	hostmakedepends+=" qt5-qmake qt5-host-tools"
-fi
+checksum=7e6fee9fd56be6c4589c106a3c16a28a4aa5832a24dcefe88302a9ad113ee41e
 
 post_install() {
 	vlicense LICENSES/BSD-3-Clause.txt

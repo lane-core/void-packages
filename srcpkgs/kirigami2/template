@@ -1,6 +1,6 @@
 # Template file for 'kirigami2'
 pkgname=kirigami2
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
 hostmakedepends="kcoreaddons extra-cmake-modules qt5-qmake qt5-host-tools"
@@ -12,7 +12,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.0-or-later"
 homepage="https://techbase.kde.org/Kirigami"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/kirigami2-${version}.tar.xz"
-checksum=90806125143807b74ee7f2fc74cd781d99b4e69ce5f15dcc28e1923f7a34a80a
+checksum=0adaff98ea70c577c9e6d7a688e5c52529a59f56a7d0c8ffce295f342e203d5c
 
 kirigami2-devel_package() {
 	short_desc+=" - development"

@@ -1,18 +1,22 @@
 # Template file for 'vapoursynth'
 pkgname=vapoursynth
-version=R50
-revision=3
+version=R57
+revision=1
 build_style=gnu-configure
-hostmakedepends="automake pkg-config libtool nasm python3-Cython"
-makedepends="python3-devel zimg-devel libmagick-devel libass-devel ffmpeg-devel
- libxml2-devel"
+hostmakedepends="automake libtool nasm pkg-config python3-Cython"
+makedepends="python3-devel zimg-devel"
 short_desc="Application for video manipulation"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="LGPL-2.1-or-later, OFL-1.1"
 homepage="http://www.vapoursynth.com"
 changelog="https://raw.githubusercontent.com/vapoursynth/vapoursynth/master/ChangeLog"
-distfiles="https://github.com/vapoursynth/vapoursynth/archive/$version.tar.gz"
-checksum=b9dc7ce904c6a3432df7491b7052bc4cf09ccf1e7a703053f8079a2267522f97
+distfiles="https://github.com/vapoursynth/vapoursynth/archive/${version}.tar.gz"
+checksum=9bed2ab1823050cfcbdbb1a57414e39507fd6c73f07ee4b5986fcbf0f6cb2d07
+
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+	LDFLAGS="-latomic"
+fi
 
 pre_configure() {
 	./autogen.sh

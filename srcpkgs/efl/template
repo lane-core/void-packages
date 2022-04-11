@@ -1,16 +1,15 @@
 # Template file for 'efl'
 pkgname=efl
-version=1.24.3
-revision=2
+version=1.26.2
+revision=1
 build_style=meson
 configure_args="
+ -Dbuild-examples=false
  -Dembedded-lz4=false
  -Dcrypto=openssl
  -Dnetwork-backend=none
  -Decore-imf-loaders-disabler=$(vopt_if ibus '' ibus,)scim
- -Devas-loaders-disabler=$(vopt_if lottie '[]' json)
- -Demotion-loaders-disabler=$(vopt_if gstreamer '' gstreamer1,)$(vopt_if vlc '' libvlc,)gstreamer,xine
- -Demotion-generic-loaders-disabler=vlc
+ -Devas-loaders-disabler=json
  -Dopengl=$(vopt_if opengl $(vopt_if gles2 es-egl full) none)
  $(vopt_bool elogind systemd)
  $(vopt_bool x11 x11)
@@ -26,17 +25,17 @@ configure_args="
  $(vopt_bool glib glib)"
 hostmakedepends="pkg-config gettext"
 makedepends="
- gettext-devel libressl-devel liblz4-devel glib-devel ibus-devel
+ gettext-devel openssl-devel liblz4-devel glib-devel ibus-devel
  fontconfig-devel fribidi-devel $(vopt_if harfbuzz harfbuzz-devel)
  libjpeg-turbo-devel libpng-devel giflib-devel tiff-devel libwebp-devel
- avahi-libs-devel eudev-libudev-devel bullet-devel
+ avahi-libs-devel eudev-libudev-devel
  libsndfile-devel libmount-devel LuaJIT-devel poppler-cpp-devel
  librsvg-devel libspectre-devel libraw-devel libopenjpeg2-devel
+ libheif-devel libavif-devel
  $(vopt_if drm 'libdrm-devel libinput-devel libxkbcommon-devel')
  $(vopt_if elogind elogind-devel)
  $(vopt_if gstreamer gst-plugins-base1-devel)
  $(vopt_if opengl MesaLib-devel)
- $(vopt_if vlc vlc-devel)
  $(vopt_if wayland 'wayland-protocols wayland-devel')
  $(vopt_if x11 'libXcomposite-devel libXcursor-devel libXp-devel
  libXrandr-devel libXScrnSaver-devel libXdamage-devel
@@ -44,15 +43,17 @@ makedepends="
  xcb-util-devel xcb-util-keysyms-devel xcb-util-image-devel
  xcb-util-renderutil-devel xcb-util-wm-devel xorgproto')
  $(vopt_if pulseaudio pulseaudio-devel)
- $(vopt_if lottie rlottie-devel)
+
  $(vopt_if ibus ibus-devel)"
+checkdepends="dbus xvfb-run"
 short_desc="Enlightenment Foundation Libraries"
 maintainer="q66 <daniel@octaforge.org>"
 license="LGPL-2.1-only"
 homepage="https://enlightenment.org"
 changelog="https://git.enlightenment.org/core/efl.git/plain/NEWS"
 distfiles="https://download.enlightenment.org/rel/libs/efl/efl-${version}.tar.xz"
-checksum=de95c6e673c170c1e21382918b122417c091c643e7dcaced89aa785529625c2a
+checksum=2979cfbc728a1a1f72ad86c2467d861ed91e664d3f17ef03190fb5c5f405301c
+make_check=extended
 
 if [ "$XBPS_CHECK_PKGS" ]; then
 	configure_args+=" -Dbuild-tests=true"
@@ -70,14 +71,12 @@ case "$XBPS_TARGET_MACHINE" in
 esac
 
 # TODO: add option for scim (don't have it packaged)
-build_options="elogind harfbuzz pulseaudio gstreamer vlc x11 wayland
- opengl gles2 drm framebuffer simd lottie glib ibus"
+build_options="elogind harfbuzz pulseaudio gstreamer x11 wayland
+ opengl gles2 drm framebuffer simd glib ibus"
 # wayland_egl and gl_drm need gles, so use that by default
 build_options_default="elogind harfbuzz pulseaudio gstreamer x11 wayland
  opengl gles2 drm glib ibus"
 desc_option_simd="Enable support for SSE3/NEON/AltiVec"
-desc_option_vlc="Enable support for VLC multimedia backend"
-desc_option_lottie="Enable support for Lottie JSON"
 desc_option_glib="Enable GLib integration"
 desc_option_ibus="Enable IBus input method support (needs glib)"
 
@@ -103,6 +102,11 @@ case "$XBPS_TARGET_MACHINE" in
 		# Do not enable on 32-bit ARM by default either
 		;;
 esac
+
+do_check() {
+	# FIXME: tests fail in weird places
+	xvfb-run dbus-run-session ninja -C build test
+}
 
 post_install() {
 	# don't want service file junk

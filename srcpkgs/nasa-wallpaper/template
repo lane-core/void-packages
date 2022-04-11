@@ -1,12 +1,12 @@
 # Template file for 'nasa-wallpaper'
 pkgname=nasa-wallpaper
 version=2.0
-revision=2
+revision=3
 build_style="cargo"
 hostmakedepends="pkg-config"
-makedepends="libressl-devel"
+makedepends="openssl-devel"
 short_desc="Change your desktop background with a NASA image"
-maintainer="Lugubris <lugubris@disroot.org>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://github.com/davidpob99/nasa-wallpaper/"
 distfiles="https://github.com/davidpob99/nasa-wallpaper/archive/v${version}.tar.gz"

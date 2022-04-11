@@ -1,6 +1,6 @@
 # Template file for 'python3-trimesh'
 pkgname=python3-trimesh
-version=3.8.15
+version=3.10.7
 revision=1
 wrksrc="trimesh-${version}"
 build_style=python3-module
@@ -16,7 +16,7 @@ maintainer="Karl Nilsson <karl.robert.nilsson@gmail.com>"
 license="MIT"
 homepage="https://trimsh.org/"
 distfiles="https://github.com/mikedh/trimesh/archive/${version}.tar.gz"
-checksum=74b9a8cd29814200b641204ee438f17f51fd2a85c4289ee7c67e7740ad9b4f02
+checksum=e98fd2dff632729fc6fb963653b91d9f4a5a6a9a1f79493dd885e3e4d1f9c4da
 
 post_install() {
 	vlicense LICENSE.md
@@ -28,3 +28,8 @@ do_check() {
 	vsed -i 's/coveralls//' setup.py
 	python3 -m pytest
 }
+
+# disable tests for i686
+if [ "$XBPS_WORDSIZE" -eq "32" ]; then
+	make_check=no # https://github.com/mikedh/trimesh/issues/690;
+fi

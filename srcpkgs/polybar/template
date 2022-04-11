@@ -1,8 +1,7 @@
 # Template file for 'polybar'
 pkgname=polybar
-version=3.5.0
+version=3.5.7
 revision=1
-wrksrc="$pkgname"
 build_style=cmake
 configure_args="
  -DENABLE_ALSA=$(vopt_if alsa ON OFF)
@@ -12,7 +11,7 @@ configure_args="
  -DENABLE_NETWORK=$(vopt_if network ON OFF)
  -DENABLE_PULSEAUDIO=$(vopt_if pulseaudio ON OFF)
  -DWITH_XCOMPOSITE=ON"
-hostmakedepends="pkg-config xcb-proto python3"
+hostmakedepends="pkg-config xcb-proto python3 python3-Sphinx"
 makedepends="cairo-devel xcb-util-image-devel xcb-util-wm-devel xcb-util-xrm-devel
  zlib-devel xcb-util-renderutil-devel xcb-util-cursor-devel libxcb-devel
  $(vopt_if alsa "alsa-lib-devel")
@@ -24,19 +23,17 @@ makedepends="cairo-devel xcb-util-image-devel xcb-util-wm-devel xcb-util-xrm-dev
 short_desc="Fast and easy-to-use status bar"
 maintainer="Michael Carlberg <c@rlberg.se>"
 license="MIT"
-homepage="https://github.com/jaagr/polybar"
-distfiles="https://github.com/jaagr/polybar/releases/download/${version}/polybar-${version}.tar"
-checksum=e8c1798c195854852fc7c99703287294123381101b371f171d4aa540aeb17afd
+homepage="https://github.com/polybar/polybar"
+distfiles="${homepage}/releases/download/${version}/polybar-${version}.tar.gz"
+checksum=73210e6d74217acb953b253990b4302343b7b6a7870fe1da9a1855daa44123db
 
 build_options="alsa curl i3 mpd network pulseaudio"
 build_options_default="$build_options"
 
-desc_option_alsa="Enable support for ALSA"
 desc_option_curl="Enable support for cURL"
 desc_option_i3="Enable support for i3"
 desc_option_mpd="Enable support for MPD"
 desc_option_network="Enable support for network"
-desc_option_pulseaudio="Enable support for PulseAudio"
 
 CXXFLAGS="-Wno-error=deprecated-declarations"
 
@@ -51,11 +48,8 @@ if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
 	configure_args+=" -DCMAKE_CXX_STANDARD_LIBRARIES='-latomic'"
 fi
 
-post_extract() {
-	# Fixes compilation with musl
-	sed -i 's|strncpy(header->magic, g_i3_ipc_magic.c_str(),|memcpy(header->magic, g_i3_ipc_magic.c_str(),|g' lib/i3ipcpp/src/ipc-util.cpp
-}
-
 post_install() {
+	rm -rf ${DESTDIR}/usr/share/doc/polybar
+	vdoc config
 	vlicense LICENSE
 }

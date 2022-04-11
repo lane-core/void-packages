@@ -1,14 +1,14 @@
 # Template file for 'wine-mono'
 pkgname=wine-mono
-version=5.1.1
+version=7.2.0
 revision=1
 build_style=fetch
 short_desc="Mono built for running .NET applications with WINE"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="MIT, GPL-3.0-or-later, LGPL-2.0-or-later"
 homepage="https://wiki.winehq.org/Mono"
 distfiles="http://dl.winehq.org/wine/wine-mono/${version}/${pkgname}-${version}-x86.msi"
-checksum=74541265b9385842bc22bba2bb4b90bf1d3fd8b4788b6676140700bebacb9227
+checksum=5f06eafbae3a49ecc31dfcea777075bd44f0cc126e4fb4e28ecefa06eb436323
 
 do_install() {
 	# The actual installation within WINE occurs at runtime in whatever

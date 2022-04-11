@@ -1,7 +1,7 @@
 # Template file for 'cinnamon-session'
 pkgname=cinnamon-session
-version=4.6.2
-revision=2
+version=5.2.0
+revision=1
 build_style=meson
 build_helper=gir
 configure_args="-Dgconf=false"
@@ -14,6 +14,6 @@ depends="cinnamon-desktop desktop-file-utils hicolor-icon-theme elogind"
 short_desc="Cinnamon session handler"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later"
-homepage="https://linuxmint-developer-guide.readthedocs.io/en/latest/cinnamon.html#cinnamon-session"
-distfiles="https://github.com/linuxmint/${pkgname}/archive/${version}.tar.gz"
-checksum=0d4793d8fb828ce8ec6dbedc67a5d244e56d4182b83030d10029eadc0c6723e6
+homepage="https://github.com/linuxmint/cinnamon-session"
+distfiles="https://github.com/linuxmint/cinnamon-session/archive/${version}.tar.gz"
+checksum=f7ee24258b419a12e68c129b499889b682489cc5bf4e38b0eea2c60111c67121

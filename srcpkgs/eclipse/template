@@ -1,15 +1,15 @@
 # Template file for 'eclipse'
 pkgname=eclipse
-version=4.17
+version=4.23
 revision=1
 #code name of version
-_release=2020-09
+_release=2022-03
 archs="x86_64"
 wrksrc="eclipse"
 depends="openjdk11 gtk+3 webkit2gtk libXtst
  hicolor-icon-theme desktop-file-utils"
 short_desc="IDE for Java and other languages"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="mobinmob <mobinmob@disroot.org>"
 license="EPL-1.0"
 homepage="https://eclipse.org"
 nopie=yes
@@ -19,7 +19,7 @@ _patch=R
 _edition=java
 _mirror="http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse"
 distfiles="${_mirror}/technology/epp/downloads/release/${_release}/${_patch}/eclipse-${_edition}-${_release}-${_patch}-linux-gtk-x86_64.tar.gz"
-checksum=ad597ad092d349f7a2bca3ca2145614a3e9fdf3d5311b24bff1089010fd34f5e
+checksum=2905e74afac8ecbaaf2563d4c14a1a28100a7a03cb4b73b540df3607ee5bfa6f
 python_version=2
 
 do_install() {

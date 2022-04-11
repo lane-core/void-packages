@@ -1,14 +1,20 @@
 # Template file for 'delta'
 pkgname=delta
-version=0.4.4
+version=0.12.1
 revision=1
 build_style=cargo
+checkdepends="git"
 short_desc="Syntax-highlighting pager for git"
 maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="MIT"
 homepage="https://github.com/dandavison/delta"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=4068cb88a4110bbef24b8148e3ae283ff007f4f6aa4780789cda7a412928daa0
+checksum=1b97998841305909638008bd9fa3fca597907cb23830046fd2e610632cdabba3
+
+post_patch() {
+	# fixes an indexmap error when cross compiling
+	cargo update --package autocfg --precise 1.1.0
+}
 
 post_install() {
 	vlicense LICENSE

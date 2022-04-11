@@ -2,14 +2,14 @@
 # TODO: better places for bin and man?
 # TODO: make -headless versions
 # TODO: config files?
-_java_ver=8
-_jdk_update=272
-_jdk_build=02
-_main_ver=${_java_ver}u${_jdk_update}
-_final_jdk_home="usr/lib/jvm/java-1.8-openjdk"
 pkgname=openjdk8
-version="${_java_ver}u${_jdk_update}b${_jdk_build}"
+version=8u272b02
 revision=1
+_jdk_update=272
+_jdk_update="${version#*u}"
+_jdk_update="${_jdk_update%b*}"
+_jdk_build="${version#*b}"
+_final_jdk_home="usr/lib/jvm/java-1.8-openjdk"
 # we're using aarch64 port repo to get aarch64 JIT; the repo is
 # otherwise the same as the normal one, just with aarch64 port added
 _repo_ver="aarch64-shenandoah-jdk${version/b/-b}"
@@ -30,7 +30,8 @@ configure_args="
  --with-vendor-name="Void"
  --with-vendor-url="https://voidlinux.org/"
  --with-vendor-bug-url="https://github.com/void-linux/void-packages/issues"
- --with-vendor-vm-bug-url="https://github.com/void-linux/void-packages/issues""
+ --with-vendor-vm-bug-url="https://github.com/void-linux/void-packages/issues"
+ --disable-option-checking"
 make_build_args="images $(vopt_if docs docs) COMPILER_WARNINGS_FATAL=false"
 hostmakedepends="pkg-config automake autoconf cpio tar unzip zip ca-certificates
  zlib-devel make-ca which"
@@ -40,7 +41,7 @@ makedepends="libXrender-devel libXtst-devel libXt-devel libXrandr-devel
 depends="openjdk8-jre-${version}_${revision}"
 short_desc="OpenJDK Java Development Kit (version 8)"
 maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
-license="GPL-2.0-or-later"
+license="GPL-2.0-only WITH Classpath-exception-2.0"
 homepage="http://openjdk.java.net/"
 distfiles="
  http://hg.openjdk.java.net/aarch64-port/jdk8u-shenandoah/archive/${_repo_ver}.tar.gz>jdk8u-${_repo_ver}.tar.gz
@@ -79,7 +80,6 @@ else
 fi
 
 provides="java-environment-${version}_1"
-patch_args="-Np1"
 
 if [ -n "$XBPS_DEBUG_PKGS" ]; then
 	configure_args+=" --with-native-debug-symbols=internal"
@@ -198,8 +198,6 @@ do_configure() {
 			CXXFLAGS+=" -Os"
 			;;
 	esac
-
-	configure_args=${configure_args/--with-libtool-sysroot=\/usr\/[a-z0-9]*-linux-[a-z]*/}
 
 	./configure ${configure_args} --with-extra-cflags="$CFLAGS" \
 	 --with-extra-cxxflags="$CXXFLAGS" --with-extra-ldflags="$LDFLAGS"

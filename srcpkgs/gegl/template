@@ -1,10 +1,10 @@
 # Template file for 'gegl'
 pkgname=gegl
-version=0.4.24
+version=0.4.34
 revision=1
 build_style=meson
 build_helper="gir"
-configure_args="-Ddocs=false -Dintrospection=$(vopt_if gir true false)
+configure_args="-Ddocs=false -Dintrospection=true
  -Dlibspiro=disabled -Dlibv4l=disabled -Dlibv4l2=disabled -Dlua=disabled
  -Dmrg=disabled -Dopenexr=disabled -Dsdl2=disabled -Dvapigen=disabled
  -Dlibav=disabled -Dumfpack=disabled"
@@ -18,10 +18,7 @@ license="GPL-3.0-only, LGPL-3.0-only"
 homepage="https://www.gimp.org"
 changelog="https://gitlab.gnome.org/GNOME/gegl/raw/master/docs/NEWS.txt"
 distfiles="https://download.gimp.org/pub/gegl/${version%.*}/gegl-${version}.tar.xz"
-checksum=7765499f27341b0d16032e665319cbc12876483ff6a944fcdf24a9c58e3e254a
-
-build_options="gir"
-build_options_default="gir"
+checksum=ef63f0bca5b431c6119addd834ca7fbb507c900c4861c57b3667b6f4ccfcaaaa
 
 gegl-devel_package() {
 	depends="json-glib-devel babl-devel gegl>=${version}_${revision}"
@@ -29,7 +26,7 @@ gegl-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove "usr/lib/libgegl-0.4.so"
+		vmove usr/lib/libgegl-0.4.so
 		vmove usr/share/gir-1.0
 	}
 }

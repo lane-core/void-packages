@@ -1,6 +1,6 @@
 # Template file for 'foliate'
 pkgname=foliate
-version=2.5.0
+version=2.6.4
 revision=1
 build_style=meson
 hostmakedepends="pkg-config gettext gjs glib-devel"
@@ -11,7 +11,7 @@ maintainer="lorem <notloremipsum@protonmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://johnfactotum.github.io/foliate/"
 distfiles="https://github.com/johnfactotum/foliate/archive/${version}.tar.gz"
-checksum=3b5317b96ccb19aaa79a1ff0a751a7cc5f8607649681c42900daf0f02a4da672
+checksum=4a4381bff6e398f6734e1695da23f1c593ba2a67e463e07021a089ffd0741776
 python_version=3
 
 post_install() {

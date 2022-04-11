@@ -1,12 +1,14 @@
 # Template file for 're2c'
 pkgname=re2c
-version=2.0.3
+version=3.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="bison"
+checkdepends="python3"
 short_desc="Tool for generating fast C-based recognizers"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Public Domain"
-homepage="http://re2c.org/"
-distfiles="https://github.com/skvadrik/${pkgname}/releases/download/${version}/${pkgname}-${version}.tar.xz"
-checksum=b2bc1eb8aaaa21ff2fcd26507b7e6e72c5e3d887e58aa515c2155fb17d744278
+homepage="https://re2c.org/"
+changelog="https://raw.githubusercontent.com/skvadrik/re2c/master/CHANGELOG"
+distfiles="https://github.com/skvadrik/re2c/releases/download/${version}/re2c-${version}.tar.xz"
+checksum=b3babbbb1461e13fe22c630a40c43885efcfbbbb585830c6f4c0d791cf82ba0b

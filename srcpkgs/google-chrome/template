@@ -1,28 +1,26 @@
 # Template file for 'google-chrome'
-_chromeVersion=87.0.4280.88
-_chromeRevision=1
-_channel=stable
-
 pkgname=google-chrome
-version="${_chromeVersion}.${_chromeRevision}"
+version=100.0.4896.75
 revision=1
-maintainer="Michael Aldridge <maldridge@voidlinux.org>"
-homepage="https://www.google.com/chrome/"
-license="custom:chrome"
-short_desc="Attempt at creating a safer, faster, and more stable browser"
+_channel=stable
 archs="x86_64"
 hostmakedepends="curl tar xz python3 python3-html2text python3-setuptools"
-repository=nonfree
-restricted=yes
+depends="gtk+3"
+short_desc="Attempt at creating a safer, faster, and more stable browser"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
+license="custom:chrome"
+homepage="https://www.google.com/chrome/"
 nostrip=yes
+restricted=yes
+repository=nonfree
 
 _baseUrl="https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable"
-_filename="google-chrome-${_channel}_${_chromeVersion}-${_chromeRevision}_amd64.deb"
+_filename="google-chrome-${_channel}_${version}-1_amd64.deb"
 _chromeUrl="${_baseUrl}/${_filename}"
 _licenseUrl="https://www.google.com/intl/en/chrome/terms/"
 
 distfiles="$_chromeUrl"
-checksum=4bc68502dc5e22d5c264b3fb5d0a1ecfdadc3ba21d945646d8d37de4b8a96e58
+checksum=856934272783e5a48fa63e30eb896040f5b46d6f394c1b3aa2e461cbf89b395b
 
 do_extract() {
 	mkdir -p ${DESTDIR}

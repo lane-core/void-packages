@@ -1,6 +1,6 @@
 # Template file for 'ktuberling'
 pkgname=ktuberling
-version=20.08.3
+version=21.12.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-host-tools qt5-qmake kdoctools
@@ -10,6 +10,6 @@ makedepends="libkdegames-devel kdelibs4support-devel qt5-multimedia-devel
 short_desc="Simple constructor game"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
-homepage="https://kde.org/applications/en/games/org.kde.ktuberling"
+homepage="https://kde.org/applications/games/org.kde.ktuberling"
 distfiles="${KDE_SITE}/release-service/${version}/src/ktuberling-${version}.tar.xz"
-checksum=bfe6092dc7238a55fb733f2c212cad31738dfb4e1661778e2a06176e6cb5de60
+checksum=4fbffaeff31ab4c28919a825504f15dc90f89aa249e579bd7fcf265990b09aab

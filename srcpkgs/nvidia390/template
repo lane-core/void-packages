@@ -3,7 +3,7 @@
 _desc="NVIDIA drivers (GeForce 400, 500 series)"
 
 pkgname=nvidia390
-version=390.138
+version=390.147
 revision=2
 maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="custom:NVIDIA Proprietary"
@@ -17,16 +17,16 @@ short_desc="${_desc} - Libraries and Utilities"
 hostmakedepends="tar"
 depends="nvidia390-libs-${version}_${revision} nvidia390-gtklibs-${version}_${revision}
  nvidia390-dkms-${version}_${revision} pkgconf"
-conflicts="xserver-abi-video>24_1"
+conflicts="xserver-abi-video>25_1"
 
 if [ "$XBPS_TARGET_MACHINE" = "i686" ]; then
 	_pkg="NVIDIA-Linux-x86-${version}"
 	distfiles="http://uk.download.nvidia.com/XFree86/Linux-x86/${version}/${_pkg}.run"
-	checksum=7bf67323a393e857a09f979f155baa1ed13183653add0c344edf4d409f977878
+	checksum=2ac4b05d0de612f13f5f080dff6c73f06ea8b1d8ea21b7505441027ab4d55b01
 else
 	_pkg="NVIDIA-Linux-x86_64-${version}-no-compat32"
 	distfiles="http://uk.download.nvidia.com/XFree86/Linux-x86_64/${version}/${_pkg}.run"
-	checksum=a34a19b618be0eb06c4699247489833a8f22c59423f246248614e0a59b1508da
+	checksum=3fc4b5a7c64326cea79156fc31e8160a89621219df09a4cd268844c3e318accc
 fi
 
 subpackages="nvidia390-gtklibs nvidia390-dkms nvidia390-opencl nvidia390-libs"
@@ -36,13 +36,13 @@ do_extract() {
 	cd ${wrksrc}
 	./${_pkg}.run --extract-only
 	rm -f ${_pkg}.run
+	cd ${_pkg}
 }
 
 pre_install() {
 	cd ${_pkg}
 	cp nvidia_icd.json.template nvidia_icd.json
 	sed -i -e 's:__NV_VK_ICD__:libGLX_nvidia.so.0:g' nvidia_icd.json
-	patch -Np1 < ${FILESDIR}/linux-5.8.x.patch
 }
 
 do_install() {
@@ -231,8 +231,10 @@ nvidia390-libs_package() {
 }
 nvidia390-dkms_package() {
 	short_desc="${_desc} - DKMS kernel module"
+	depends="dkms xbps-triggers>=0.121_1"
 	dkms_modules="nvidia ${version}"
-	depends="dkms"
+	# dkms must be before initramfs-regenerate to build modules before images
+	triggers="dkms initramfs-regenerate"
 	pkg_install() {
 		vmove usr/src
 		vmove usr/lib/modprobe.d
@@ -240,7 +242,7 @@ nvidia390-dkms_package() {
 }
 nvidia390-opencl_package() {
 	short_desc="${_desc} - OpenCL implementation"
-	depends="libOpenCL"
+	depends="ocl-icd"
 	pkg_install() {
 		vmove "usr/lib/libnvidia-compiler*"
 		vmove "usr/lib/libnvidia-opencl*"

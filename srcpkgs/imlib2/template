@@ -1,18 +1,19 @@
 # Template file for 'imlib2'
 pkgname=imlib2
-version=1.7.0
-revision=2
+version=1.8.1
+revision=1
 build_style=gnu-configure
 configure_args="--disable-static --sysconfdir=/etc/imlib2 --enable-visibility-hiding"
 hostmakedepends="pkg-config"
 makedepends="freetype-devel libjpeg-turbo-devel libpng-devel libwebp-devel
- tiff-devel libid3tag-devel giflib-devel libXext-devel libSM-devel"
+ tiff-devel libid3tag-devel giflib-devel libXext-devel libSM-devel
+ libheif-devel librsvg-devel"
 short_desc="Image manipulation library"
-maintainer="Orphaned <orphan@voidlinux.org>"
+maintainer="tibequadorian <tibequadorian@posteo.de>"
 license="Imlib2"
 homepage="https://sourceforge.net/projects/enlightenment/"
-distfiles="${SOURCEFORGE_SITE}/enlightenment/imlib2-src/imlib2-${version}.tar.gz"
-checksum=fde6cc188a35e34eff251ee249d2b5624aa0d85f83a689237ec2fe90ceca718a
+distfiles="${SOURCEFORGE_SITE}/enlightenment/imlib2-src/imlib2-${version}.tar.xz"
+checksum=522e1e70e65bc0eddfe207617d15c9a395662a7c090661daaa2c294fb7d9fdaa
 
 post_install() {
 	vlicense COPYING
@@ -29,7 +30,6 @@ imlib2-devel_package() {
 	depends="${sourcepkg}-${version}_${revision} libX11-devel"
 	short_desc+=" - development files"
 	pkg_install() {
-		vmove usr/bin/imlib2-config
 		vmove usr/include
 		vmove usr/share
 		vmove usr/lib/pkgconfig

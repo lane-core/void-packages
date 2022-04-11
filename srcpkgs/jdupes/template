@@ -1,6 +1,6 @@
 # Template file for 'jdupes'
 pkgname=jdupes
-version=1.19.0
+version=1.20.2
 revision=1
 build_style=gnu-makefile
 make_build_args="ENABLE_BTRFS=1"
@@ -10,8 +10,17 @@ license="MIT"
 homepage="https://github.com/jbruchon/jdupes"
 changelog="https://raw.githubusercontent.com/jbruchon/jdupes/master/CHANGES"
 distfiles="https://github.com/jbruchon/jdupes/archive/v${version}.tar.gz"
-checksum=98676d3455c89882c3f7f4934602f9e7aca2b054caf3f0deaf286552ce9b276b
+checksum=d079d22dc77e1d181abcb8a59216520633a8712d197d007a9a9fb64c72610824
+
+pre_build() {
+	sed -i 's/^CFLAGS +=/override CFLAGS +=/g' Makefile
+	sed -i 's/^LDFLAGS =/override LDFLAGS +=/g' Makefile
+}
 
 post_install() {
 	vlicense LICENSE
+}
+
+do_check() {
+	./jdupes -V|grep fsdedup
 }

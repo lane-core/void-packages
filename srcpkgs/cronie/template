@@ -1,19 +1,19 @@
 # Template file for 'cronie'
 pkgname=cronie
-version=1.5.5
-revision=4
+version=1.6.0
+revision=2
 build_style=gnu-configure
 configure_args="--with-inotify --without-selinux --with-pam
  --enable-anacron --enable-pie --enable-relro"
 makedepends="pam-devel"
 depends="run-parts"
 short_desc="Runs specified programs at scheduled times"
-maintainer="Peter Bui <pbui@github.bx612.space>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="https://github.com/cronie-crond/cronie"
 changelog="https://raw.githubusercontent.com/cronie-crond/cronie/master/NEWS"
 distfiles="${homepage}/releases/download/cronie-${version}/cronie-${version}.tar.gz"
-checksum=be34c79505e5544323281854744b9955ff16b160ee569f9df7c0dddae5720eac
+checksum=3f7cc263d21838b53a9943eb2a26b862059e2ae36c3f11789ac33cd6818e3628
 make_dirs="
 	/etc/cron.d 0755 root root
 	/etc/cron.hourly 0755 root root

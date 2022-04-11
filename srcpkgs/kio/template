@@ -1,23 +1,26 @@
 # Template file for 'kio'
 pkgname=kio
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF
+configure_args="-DBUILD_DESIGNERPLUGIN=ON
  -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 hostmakedepends="kcoreaddons extra-cmake-modules kauth gettext
  qt5-host-tools qt5-qmake python kdoctools libxml2 kcoreaddons"
 makedepends="kdoctools-devel ksolid-devel kbookmarks-devel kjobwidgets-devel
  kwallet-devel acl-devel mit-krb5-devel libxslt-devel libxml2-devel"
 depends="desktop-file-utils"
+checkdepends="dbus desktop-file-utils"
 short_desc="KDE Network transparent access to files and data"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kio"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=9351fc85c4020f2f77012e077f4f9d04d8f233e9b67f9b7619c9bc064714145b
+checksum=d4433f9890f71afe3d7d268e978e0ade96f506a38e41f7d57ffe832d96d44cb3
 
-CXXFLAGS+=" -fpermissive"
+do_check() {
+	: # Pain to get working in limited enviroment, excpects e.g. real disks
+}
 
 kio-devel_package() {
 	short_desc+=" - development"

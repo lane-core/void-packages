@@ -17,6 +17,15 @@ if [ "$CROSS_BUILD" ]; then
 	# [build]
 	# target = ${RUST_TARGET}
 	export CARGO_BUILD_TARGET="$RUST_TARGET"
+
+	# If cc-rs needs to build host binaries, it guesses the compiler and
+	# uses default (wrong) flags unless they are specified explicitly;
+	# innocuous flags are used here just to disable its defaults
+	export HOST_CC="gcc"
+	export HOST_CFLAGS="-O2"
+
+	# Crates that use bindgen via build.rs are not cross-aware unless these are set
+	export BINDGEN_EXTRA_CLANG_ARGS="--sysroot=${XBPS_CROSS_BASE} -I${XBPS_CROSS_BASE}/usr/include"
 else
 	unset CARGO_BUILD_TARGET
 fi
@@ -35,6 +44,7 @@ export LIBSSH2_SYS_USE_PKG_CONFIG=1
 # sodium-sys
 export SODIUM_LIB_DIR="${XBPS_CROSS_BASE}/usr/include"
 export SODIUM_INC_DIR="${XBPS_CROSS_BASE}/usr/lib"
+export SODIUM_SHARED=1
 
 # openssl-sys
 export OPENSSL_NO_VENDOR=1

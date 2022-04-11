@@ -1,12 +1,12 @@
 # Template file for 'texlive-langextra'
 pkgname=texlive-langextra
-version=2020.55417
-revision=2
+version=2021.58019
+revision=1
 build_style="texmf"
 depends="texlive-core texlive-latexextra"
 short_desc="TeX Live - Packages for a bunch of extra languages"
 maintainer="fosslinux <fosslinux@aussies.space>"
 license="GPL-2.0-or-later"
-homepage="http://tug.org/texlive/"
+homepage="https://tug.org/texlive/"
 distfiles="https://sources.archlinux.org/other/texlive/${pkgname}-${version}-src.zip"
-checksum=b92cff8917d8f44071de42307c9f5d72d0be8999d789d1d407225d010f026ac9
+checksum=3b4b6b09a67a33f2a327021ba39e32e746b9be602037c1f50f7e4ab64605bd47

@@ -1,9 +1,8 @@
 # Template file for 'kcrash'
 pkgname=kcrash
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules"
 makedepends="kcoreaddons-devel kwindowsystem-devel"
 short_desc="KDE Graceful handling of application crashes"
@@ -11,7 +10,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kcrash"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=c4e32254b22f1f02db556be2ad40000cc52cac2e30a35682af3c75ac69710993
+checksum=9bc5605b5026f55d9c2c1ca32c79842c3ad0f5c042e480fe1e7027b2692526c7
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools kwindowsystem-devel kcoreaddons"

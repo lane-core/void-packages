@@ -1,6 +1,6 @@
 # Template file for 'linux4.19'
 pkgname=linux4.19
-version=4.19.161
+version=4.19.237
 revision=1
 wrksrc="linux-${version}"
 short_desc="Linux kernel and modules (${version%.*} series)"
@@ -8,9 +8,8 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${version}.tar.xz"
-checksum=07412995966899dda7842b808937b55884106465545a162d6f31f3f4ebd43c41
-python_version=2 #unverified
-patch_args="-Np1"
+checksum=bafff35102cc486ec2bf94c6d908be8e24017b2e4a1873f52f24c855eb220cd8
+python_version=3
 
 nodebug=yes  # -dbg package is generated below manually
 nostrip=yes
@@ -20,7 +19,7 @@ preserve=yes
 
 archs="i686* x86_64* arm* aarch64* ppc*"
 hostmakedepends="bc elfutils-devel flex gmp-devel kmod libmpc-devel
- libressl-devel perl uboot-mkimage tar xz"
+ openssl-devel perl uboot-mkimage tar xz"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"
@@ -327,5 +326,6 @@ linux4.19-dbg_package() {
 	short_desc+=" - debugging symbols"
 	pkg_install() {
 		vmove usr/lib/debug
+		vmove "boot/System.map-${_kernver}"
 	}
 }

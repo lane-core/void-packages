@@ -1,20 +1,20 @@
 # Template file for 'netdata'
 pkgname=netdata
-version=1.24.0
-revision=2
+version=1.33.0
+revision=1
 wrksrc="${pkgname}-v${version}"
 build_style=gnu-configure
 configure_args="--with-user=_netdata ac_cv_file_externaldeps_libbpf_libbpf_a=no"
 hostmakedepends="pkg-config autoconf automake"
 makedepends="json-c-devel judy-devel libcap-devel liblz4-devel libmnl-devel
- libnetfilter_acct-devel libressl-devel libuuid-devel libuv-devel zlib-devel"
+ libnetfilter_acct-devel openssl-devel libuuid-devel libuv-devel zlib-devel"
 depends="libcap-progs"
 short_desc="Real-time performance monitoring, done right"
 maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="GPL-3.0-or-later"
-homepage="http://my-netdata.io"
+homepage="https://www.netdata.cloud/"
 distfiles="https://github.com/netdata/netdata/releases/download/v${version}/netdata-v${version}.tar.gz"
-checksum=e7d6691fdce893b5a341fc2ee11b3b4f951e7b426031fae4178e669066c264c0
+checksum=d167d4b2d8529119fa4047ae40d22833dac9d360a6ed07c314ba313807c027eb
 python_version=3
 make_dirs="
  /var/lib/netdata          0755 _netdata _netdata
@@ -25,17 +25,6 @@ make_dirs="
 
 system_accounts="_netdata"
 conf_files="/etc/${pkgname}/*.conf"
-
-subpackages="netdata-plugins-python"
-
-case "$XBPS_TARGET_MACHINE" in
-	ppc64*) ;;
-	ppc*) _without_node=yes ;;
-esac
-
-if [ -z "$_without_node" ]; then
-	subpackages+=" netdata-plugins-nodejs"
-fi
 
 pre_configure() {
 	autoreconf -ivf

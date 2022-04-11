@@ -1,9 +1,8 @@
 # Template file for 'mbedtls'
 pkgname=mbedtls
 reverts="2.17.0_1"
-version=2.16.8
+version=2.16.12
 revision=1
-wrksrc="mbedtls-mbedtls-${version}"
 build_style=cmake
 configure_args="-DENABLE_TESTING=1 -DUSE_SHARED_MBEDTLS_LIBRARY=1"
 hostmakedepends="python3 perl"
@@ -11,15 +10,13 @@ short_desc="Portable cryptographic TLS library"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://tls.mbed.org/"
-changelog="https://raw.githubusercontent.com/ARMmbed/mbedtls/development/ChangeLog"
-distfiles="https://github.com/ARMmbed/mbedtls/archive/mbedtls-${version}.tar.gz"
-checksum=047b4067f21a72947dd1dffd7c3f106ad8e52d85877b77df558296458f6030a3
-
+changelog="https://raw.githubusercontent.com/ARMmbed/mbedtls/mbedtls-${version%.*}/ChangeLog"
+distfiles="https://github.com/ARMmbed/mbedtls/archive/refs/tags/v${version}.tar.gz"
+checksum=294871ab1864a65d0b74325e9219d5bcd6e91c34a3c59270c357bb9ae4d5c393
 
 pre_configure() {
-	sed -i include/mbedtls/config.h \
-		-e 's/.*\(#define MBEDTLS_THREADING_C\)/\1/' \
-		-e 's/.*\(#define MBEDTLS_THREADING_PTHREAD\)/\1/'
+	./scripts/config.pl set MBEDTLS_THREADING_C
+	./scripts/config.pl set MBEDTLS_THREADING_PTHREAD
 }
 
 mbedtls-utils_package() {

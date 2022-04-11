@@ -1,6 +1,6 @@
 # Template file for 'gscan2pdf'.
 pkgname=gscan2pdf
-version=2.10.1
+version=2.12.6
 revision=1
 build_style=perl-module
 hostmakedepends="perl gettext"
@@ -15,9 +15,8 @@ short_desc="GUI to produce PDFs or DjVus from scanned documents"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-3.0-or-later"
 homepage="http://gscan2pdf.sourceforge.net"
-# distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
-distfiles="$DEBIAN_SITE/main/g/gscan2pdf/gscan2pdf_$version.orig.tar.xz"
-checksum=d46233c7e926b5fe10d177656a651ac66989c928482339699f4b55425ce94ca8
+distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
+checksum=f67b695043376ee4f71219de5f3f46f1b89bbf33a710ae97b748c9713bcb293d
 nocross=yes
 
 do_check() {

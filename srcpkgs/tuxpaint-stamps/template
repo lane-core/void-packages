@@ -1,7 +1,7 @@
 # Template file for 'tuxpaint-stamps'
 pkgname=tuxpaint-stamps
-version=2020.05.29
-revision=2
+version=2021.11.25
+revision=1
 build_style=gnu-makefile
 make_install_target="install-all"
 short_desc="Stamps set for tuxpaint"
@@ -9,7 +9,7 @@ maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
 homepage="http://www.tuxpaint.org/"
 distfiles="${SOURCEFORGE_SITE}/tuxpaint/tuxpaint-stamps/${version//./-}/tuxpaint-stamps-${version}.tar.gz"
-checksum=60d04f2c7f0bc60f198da40393d5a8824f142a72af04d7a5af05ad0f0f0163e9
+checksum=cb55ee21b2d25b440ee216acfab0bb8d906af1c99adbc77e8db11eec30589d52
 
 pre_configure() {
 	vsed -i Makefile -e 's,DATA_PREFIX=,&$(DESTDIR),'

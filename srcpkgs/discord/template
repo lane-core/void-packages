@@ -1,16 +1,17 @@
 # Template file for 'discord'
 pkgname=discord
-version=0.0.13
+version=0.0.17
 revision=1
 archs="x86_64"
 wrksrc="Discord"
-depends="alsa-lib dbus-glib gtk+3 libnotify nss libXtst libcxx libatomic"
+depends="alsa-lib dbus-glib gtk+3 libnotify nss libXtst libcxx libatomic
+ xdg-utils webrtc-audio-processing"
 short_desc="Chat and VOIP application"
 maintainer="Ryan Conwell <ryanconwell@protonmail.com>"
 license="custom:Proprietary"
-homepage="https://discordapp.com"
+homepage="https://discord.com"
 distfiles="https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz"
-checksum=feeca83531607eec1a6231ad8eab88bbf1865c39cf5f82b884e3b5241733bf34
+checksum=3462732e5d5d9bb75f901f7ca5047782fe2f96576b208ea538c593ba2a031315
 repository=nonfree
 restricted=yes
 nopie=yes
@@ -26,7 +27,7 @@ do_install() {
 	for item in locales resources Discord libffmpeg.so snapshot_blob.bin discord.png\
 	icudtl.dat libEGL.so libGLESv2.so chrome_100_percent.pak chrome_200_percent.pak \
 	chrome-sandbox resources.pak swiftshader v8_context_snapshot.bin postinst.sh \
-	libvk_swiftshader.so libvulkan.so; do
+	libvk_swiftshader.so; do
 		vcopy "${item}" "${package_location}"
 	done
 	vmkdir usr/bin

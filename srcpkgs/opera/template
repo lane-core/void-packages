@@ -1,35 +1,33 @@
 # Template file for 'opera'
 pkgname=opera
-version=72.0.3815.400
+version=84.0.4316.31
 revision=1
 archs="x86_64"
+create_wrksrc=yes
+hostmakedepends="rpmextract"
 depends="ffmpeg desktop-file-utils hicolor-icon-theme"
 short_desc="Fast, secure, easy to use browser"
-maintainer="Diogo Leal <diogo@diogoleal.com>"
+maintainer="mobinmob <mobinmob@disroot.org>"
 license="custom:Proprietary"
 homepage="https://www.opera.com/computer"
-distfiles="http://get.geo.opera.com/pub/opera/desktop/${version}/linux/${pkgname}-stable_${version}_amd64.deb"
-checksum=a1ba976578b3ace665aefd4fab9f39015a29af9b5a68d399e12d2cd22a84e3a5
+distfiles="https://rpm.opera.com/rpm/opera_stable-${version}-linux-release-x64-signed.rpm"
+checksum=6ae3c4ff44a4ae627724a8df3fcb2d5663ca8677a5eb62b5354b99fe21688608
 repository="nonfree"
 nostrip=yes
 
-do_extract() {
-	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${pkgname}-stable_${version}_amd64.deb
-	bsdtar xf data.tar.xz --exclude=./usr/share/{lintian,menu}
-}
-
 do_install() {
-	vmkdir /usr/lib
-	vcopy usr/lib/x86_64-linux-gnu/opera /usr/lib
+	# Create necessary dirs
+	vmkdir usr/bin
+	vmkdir usr/lib
 
-	vmkdir /usr/bin
-	ln -s ../lib/opera/opera ${DESTDIR}/usr/bin/opera
+	# Copy files
+	vcopy usr/lib64/opera /usr/lib/
+	vcopy usr/share /usr/share/
 
-	vlicense usr/share/doc/opera-stable/copyright
-	rm -rf usr/share/doc
+	# Link executable in path
+	ln -s ../lib/opera/opera "${DESTDIR}/usr/bin/opera"
 
-	vcopy usr/share /usr
-
-	# suid opera_sandbox
-	chmod 4755 ${DESTDIR}/usr/lib/opera/opera_sandbox
+	# Install licenses
+	vlicense usr/lib64/opera/resources/eula_desktop_eea.txt
+	vlicense usr/lib64/opera/resources/eula_desktop_row.txt
 }

@@ -1,6 +1,6 @@
 # Template file for 'knot'
 pkgname=knot
-version=3.0.2
+version=3.1.7
 revision=1
 build_style=gnu-configure
 configure_args="
@@ -18,7 +18,7 @@ maintainer="Duncaen <duncaen@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://www.knot-dns.cz/"
 distfiles="https://secure.nic.cz/files/knot-dns/knot-${version}.tar.xz"
-checksum=f813a5e53263ef51d0415508e1f7d33cfbb75a139ccb10a344ae5a91689933fb
+checksum=ffb6887e238ce4c7df0cc76bb55a5093465275201ac12156a3390782dc49857b
 
 system_accounts="_knot"
 _knot_homedir="/var/lib/knot"

@@ -1,19 +1,19 @@
 # Template file for 'menumaker'
 pkgname=menumaker
-version=0.99.11
-revision=2
+version=0.99.14
+revision=1
 build_style=gnu-configure
 pycompile_dirs="/usr/share/menumaker"
-hostmakedepends="python"
-makedepends="python"
-depends="python"
+hostmakedepends="python3"
+makedepends="python3"
+depends="python3"
 short_desc="Menu generation utility"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="BSD-2-Clause"
 homepage="http://menumaker.sourceforge.net"
 distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tar.gz"
-checksum=9d831adbaef2101d8b8d82e48d764c2c1a80a38e97dcf90740eb540e6db3f936
-python_version=2
+checksum=11e95d0e76a3b850f57df81bc5560222bd60141c5751b6e9bd05c3cd5560d65a
+python_version=3
 
 post_install() {
 	vlicense COPYING

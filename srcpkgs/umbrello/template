@@ -1,6 +1,6 @@
 # Template file for 'umbrello'
 pkgname=umbrello
-version=20.08.3
+version=21.12.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules gettext kcoreaddons kconfig kdoctools qt5-host-tools qt5-qmake"
@@ -9,8 +9,9 @@ short_desc="UML modelling tool and code generator"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later, GFDL-1.2-or-later"
 homepage="https://umbrello.kde.org/"
+changelog="https://kde.org/announcements/changelogs/gear/${version}/#umbrello"
 distfiles="${KDE_SITE}/release-service/${version}/src/umbrello-${version}.tar.xz"
-checksum=f4d13b6b19f748a8fefc4f8ac48a916fa00801e8db3574a3bcc391f59e7f05c2
+checksum=c6c5f6107870b397dcc60932cbdc1767cc2d6a2f5223dc5e0314226b61a124c5
 python_version=2
 
 pre_configure() {

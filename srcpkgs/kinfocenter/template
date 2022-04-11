@@ -1,6 +1,6 @@
 # Template file for 'kinfocenter'
 pkgname=kinfocenter
-version=5.20.4
+version=5.24.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,10 +11,10 @@ makedepends="kdoctools plasma-framework-devel kdesignerplugin-devel kcmutils-dev
 depends="hwids"
 short_desc="KDE Info Center"
 maintainer="John <me@johnnynator.dev>"
-license="GPL-2.0-or-later, LGPL-2.1-or-later, GFDL-1.2"
+license="GPL-2.0-or-later, LGPL-2.1-or-later, GFDL-1.2-only"
 homepage="https://invent.kde.org/plasma/kinfocenter"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=09af2cafde33d0c8a824451ca532a443b6f571e20037fe6b31245c9984e9a6b3
+checksum=d2f5acb7a52434e6b539dc52d23cf09754e313411b32d169f36403ba0801e223
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kpackage-devel kconfig-devel kcoreaddons-devel kdoctools-devel"

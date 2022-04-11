@@ -1,16 +1,18 @@
 # Template file for 'apostrophe'
 pkgname=apostrophe
-version=2.2.0.3
-revision=2
-wrksrc=apostrophe-v$version
+version=2.6.2
+revision=1
+wrksrc="$pkgname-v$version"
 build_style=meson
 build_helper=gir
-hostmakedepends="python3 glib-devel appstream-glib pkg-config gettext glade3-devel"
-makedepends="libglib-devel gtk+3-devel"
-depends="python3-regex python3-pypandoc libgladeui3 gspell iso-codes"
-short_desc="GTK+ based distraction free Markdown editor"
-maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+hostmakedepends="python3 glib-devel appstream-glib pkg-config gettext sassc"
+makedepends="libglib-devel gtk+3-devel libhandy1-devel"
+depends="python3-gobject python3-chardet python3-setuptools python3-pypandoc
+ gspell iso-codes libhandy1 webkit2gtk"
+short_desc="GTK based distraction free Markdown editor"
+maintainer="Michal Vasilek <michal@vasilek.cz>"
 license="GPL-3.0-only"
-homepage="https://gitlab.gnome.org/somas/apostrophe"
-distfiles="$homepage/-/archive/v$version/apostrophe-v$version.tar.bz2"
-checksum=e37d71f2a053e32c0af72672a0cdd318ba3d8ed3f7f673ed0ea2ab0e88f63f52
+homepage="https://gitlab.gnome.org/World/apostrophe"
+changelog="https://gitlab.gnome.org/World/apostrophe/-/raw/main/NEWS"
+distfiles="https://gitlab.gnome.org/World/apostrophe/-/archive/v$version/apostrophe-v$version.tar.gz"
+checksum=b06ca4593ceb21bcd7f9734e41ba3fb69f632b5ab24afcdc66500d18d242c068

@@ -1,6 +1,6 @@
 # Template file for 'hdparm'
 pkgname=hdparm
-version=9.60
+version=9.63
 revision=1
 build_style=gnu-makefile
 make_install_args="exec_prefix=/usr sbindir=/usr/bin"
@@ -9,7 +9,7 @@ maintainer="teldra <teldra@rotce.de>"
 license="0BSD" # Upstream is very unclear and names their stuff 'bsd-style'
 homepage="https://sourceforge.net/projects/hdparm/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=8397739c73e44d5ab96c4aef28fa9c0147276d53a1b5657ce04c4565cf6635cc
+checksum=70785deaebba5877a89c123568b41dee990da55fc51420f13f609a1072899691
 
 post_install() {
 	vlicense LICENSE.TXT

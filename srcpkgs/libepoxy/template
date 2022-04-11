@@ -1,17 +1,17 @@
 # Template file for 'libepoxy'
 pkgname=libepoxy
-version=1.5.4
-revision=2
+version=1.5.9
+revision=1
 build_style=meson
 hostmakedepends="pkg-config xorg-util-macros"
 makedepends="MesaLib-devel"
 short_desc="Library for handling OpenGL function pointer management for you"
-maintainer="Juan RP <xtraeme@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/anholt/libepoxy"
 changelog="https://github.com/anholt/libepoxy/releases"
 distfiles="https://github.com/anholt/libepoxy/archive/${version}.tar.gz"
-checksum=c926fcc606901f3e03e371027056fd478da43e01ce2da7ffc48b5a0de0ca107c
+checksum=ee8048d20179a2e86156ac842ddb6428732d9cd7a2cfc2eca905165bf24887a2
 
 post_install() {
 	vlicense COPYING

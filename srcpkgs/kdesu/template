@@ -1,9 +1,8 @@
 # Template file for 'kdesu'
 pkgname=kdesu
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules gettext
  qt5-host-tools qt5-qmake python3"
 makedepends="kservice-devel kpty-devel"
@@ -12,7 +11,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-only"
 homepage="https://invent.kde.org/frameworks/kdesu"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=421ef43bd47c3eb6b05806af033276c19df20fd76a06b67fada529bb9c52e642
+checksum=4687dc87a9ada0675801e0c575467bb5f7f7fe21b67ae2ffd1fed80736f95efa
 
 kdesu-devel_package() {
 	short_desc+=" - development"

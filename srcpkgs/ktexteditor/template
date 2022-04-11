@@ -1,19 +1,25 @@
 # Template file for 'ktexteditor'
 pkgname=ktexteditor
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF
+configure_args="
  -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 hostmakedepends="kcoreaddons extra-cmake-modules pkg-config
  qt5-host-tools qt5-qmake python3 kauth kparts gettext"
-makedepends="kparts-devel libgit2-devel qt5-xmlpatterns-devel syntax-highlighting-devel"
+makedepends="kparts-devel libgit2-devel qt5-xmlpatterns-devel
+ editorconfig-devel syntax-highlighting-devel"
 short_desc="KDE Full text editor component"
 maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/ktexteditor"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=6f937b7af06562a238f091deef9c4332e94311a697af8466b7f091720eaab2b2
+checksum=bcd01c3ca07d02106de1c68156e568ded7686ca9557b30a04f7b4e24cf43fb8c
+
+do_check() {
+	cd build
+	ctest -E 'kateview_test'
+}
 
 ktexteditor-devel_package() {
 	short_desc+=" - development"

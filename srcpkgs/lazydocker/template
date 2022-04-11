@@ -1,6 +1,6 @@
 # Template file for 'lazydocker'
 pkgname=lazydocker
-version=0.10
+version=0.13
 revision=1
 wrksrc="lazydocker-${version}"
 build_style=go
@@ -11,7 +11,7 @@ maintainer="Benjamín Albiñana <benalb@gmail.com>"
 license="MIT"
 homepage="https://github.com/jesseduffield/lazydocker"
 distfiles="https://github.com/jesseduffield/lazydocker/archive/v${version}.tar.gz"
-checksum=4843347efcb165506c1739584037296c977cb46d167788fd339f49d8946a14e1
+checksum=4328ddcb3156ff57c1e21c0d2f9d9d67d48237a386d338f1d68831b6056dfe3e
 
 post_install() {
 	vlicense LICENSE

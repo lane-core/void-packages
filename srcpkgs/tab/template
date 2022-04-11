@@ -1,17 +1,22 @@
 # Template file for 'tab'
 pkgname=tab
-version=7.2
+version=9.1
 revision=1
-wrksrc="tkatchev-tab-f2e160ebddf8"
+wrksrc="tkatchev-tab-457574615bf4"
+checkdepends="python3"
 short_desc="Shell language for text/number manipulation"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="BSL-1.0"
 homepage="http://tkatchev.bitbucket.io/tab/"
 distfiles="https://bitbucket.org/tkatchev/${pkgname}/get/${version}.tar.bz2"
-checksum=446703528a7e51601371240a8fb74665aa98b02b2c89034ed61705bb3ff488b4
+checksum=ccc72e4c8a5f0d7786a8c4a4c8b8dd5599ad867c876605b2cacad7f32c30651a
 
 do_build() {
 	${CXX} ${CXXFLAGS} -std=c++11 -Wall -Iaxe *.cc -o tab ${LDFLAGS} -pthread -lm
+}
+
+do_check() {
+	( cd test; python go.py; )
 }
 
 do_install() {

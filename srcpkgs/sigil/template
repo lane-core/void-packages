@@ -1,6 +1,6 @@
 # Template file for 'sigil'
 pkgname=sigil
-version=1.4.2
+version=1.9.2
 revision=1
 wrksrc="Sigil-${version}"
 build_style=cmake
@@ -13,18 +13,15 @@ makedepends="zlib-devel qt5-tools-devel qt5-svg-devel
  qt5-declarative-devel qt5-location-devel qt5-webchannel-devel
  qt5-plugin-odbc qt5-plugin-mysql qt5-plugin-pgsql qt5-plugin-sqlite qt5-plugin-tds
  boost-devel hunspell-devel python3-devel minizip-devel"
-depends="desktop-file-utils python3-lxml python3-css-parser"
+depends="desktop-file-utils python3-lxml python3-css-parser python3-PyQt5-webengine"
 short_desc="Multi-platform EPUB ebook editor"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Sigil-Ebook/Sigil"
+changelog="https://raw.githubusercontent.com/Sigil-Ebook/Sigil/master/ChangeLog.txt"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=e31b7c84507ffe9ca896d8a169867923d3274c02d957bd59e5c6b1fd12b5e4c8
+checksum=d1a16f33fe93cda88442c798e0c53f700fa8e2ef792dd78566392d7ad11d997f
 python_version=3
-
-case "$XBPS_TARGET_MACHINE" in
-	arm*) broken="depends on qt5-webengine";;
-esac
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-tools-devel qt5-svg-devel

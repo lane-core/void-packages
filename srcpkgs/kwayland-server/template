@@ -1,8 +1,9 @@
 # Template file for 'kwayland-server'
 pkgname=kwayland-server
-version=5.20.4
+version=5.24.3
 revision=1
 build_style=cmake
+build_helper="qemu"
 configure_args="-DWaylandScanner_EXECUTABLE=/usr/bin/wayland-scanner"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools
  qt5-wayland plasma-wayland-protocols pkg-config wayland-devel"
@@ -12,7 +13,7 @@ maintainer="John <me@johnnynator.dev>"
 license="GPL-3.0-or-later"
 homepage="https://invent.kde.org/plasma/kwayland-server"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=3edc7b73baa6fa8b0bec51272e8786bab41998b0f675262d5086fdf6c1e9bb44
+checksum=560b20a15b459c5a1e8d0b38e9d53c3a75660bc798fa544e7a9d5c36260e063b
 
 kwayland-server-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

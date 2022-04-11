@@ -1,14 +1,15 @@
 # Template file for 'kcron'
 pkgname=kcron
-version=20.08.3
+version=21.12.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules gettext kcoreaddons kdoctools
- pkg-config qt5-host-tools qt5-qmake"
+ kauth pkg-config qt5-host-tools qt5-qmake"
 makedepends="kparts-devel qt5-devel"
 short_desc="KDE Configure and schedule tasks"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
 homepage="https://userbase.kde.org/System_Settings/Task_Scheduler"
+changelog="https://kde.org/announcements/changelogs/gear/${version}/#kcron"
 distfiles="${KDE_SITE}/release-service/${version}/src/kcron-${version}.tar.xz"
-checksum=d260716e3e7485f544f9ac1ce29f716418d79105dc50fc8a806abbf4bcd63cde
+checksum=f556c6afbdf4a060dd52db64d36ebc13fcf7dcdaa6a7013b697e866b6338cc39

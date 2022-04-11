@@ -1,9 +1,8 @@
 # Template file for 'kinit'
 pkgname=kinit
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules libcap-progs pkg-config
  gettext qt5-host-tools qt5-qmake python kdoctools"
 makedepends="kio-devel kdoctools-devel libcap-devel"
@@ -12,7 +11,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-only"
 homepage="https://invent.kde.org/frameworks/kinit"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=a5b63c10b4fc5efcbb5f92b7bce928b4a4880c0ad5d12ff12518106b09239546
+checksum=cb517912bf17d4b4f015cb1ab935eebadc52ece050f21b33fcb4e799b0c5f3ce
 
 kinit-devel_package() {
 	short_desc+=" - development"

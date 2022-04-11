@@ -1,8 +1,9 @@
 # Template file for 'fluidsynth'
 pkgname=fluidsynth
-version=2.1.5
+version=2.2.6
 revision=1
 build_style=cmake
+make_check_target=check
 configure_args="-DLIB_SUFFIX=
  -DDEFAULT_SOUNDFONT:STRING=/usr/share/soundfonts/default.sf2"
 hostmakedepends="pkg-config"
@@ -12,7 +13,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="http://www.fluidsynth.org/"
 distfiles="https://github.com/FluidSynth/fluidsynth/archive/v${version}.tar.gz"
-checksum=b539b7c65a650b56f01cd60a4e83c6125c217c5a63c0c214ef6274894a677d00
+checksum=ca90fe675cacd9a7b442662783c4e7fa0e1fd638b28d64105a4e3fe0f618d20f
 
 libfluidsynth_package() {
 	short_desc+=" - runtime library"
@@ -22,7 +23,7 @@ libfluidsynth_package() {
 }
 
 fluidsynth-devel_package() {
-	depends="libfluidsynth>=${version}"
+	depends="libfluidsynth>=${version} $makedepends"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

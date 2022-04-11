@@ -1,18 +1,19 @@
 # Template file for 'vscode'
 pkgname=vscode
-version=1.51.1
+version=1.66.1
 revision=1
-_electronver=9.3.1
-hostmakedepends="pkg-config python nodejs yarn tar git"
-makedepends="libxkbfile-devel libsecret-devel electron9"
-depends="libXtst libxkbfile nss dejavu-fonts-ttf xdg-utils ripgrep electron9"
+_electronver=13.6.7
+_npmver=8.6.0
+hostmakedepends="pkg-config python3 nodejs yarn tar git ripgrep"
+makedepends="libxkbfile-devel libsecret-devel libxml2-devel ncurses-devel electron13"
+depends="libXtst ncurses nss dejavu-fonts-ttf xdg-utils ripgrep electron13"
 short_desc="Microsoft Code for Linux"
-maintainer="shizonic <realtiaz@gmail.com>"
+maintainer="shizonic <realtiaz@gmail.com>, Alex Lohr <alex.lohr@logmein.com>"
 license="MIT"
 homepage="https://code.visualstudio.com/"
-distfiles="https://github.com/Microsoft/vscode/archive/${version}.tar.gz"
-checksum=3a7127983fac7c8e44b5b26b026341b8fd91c65ff34a4664e65ae43ae358d31b
-patch_args="-Np1"
+distfiles="https://github.com/Microsoft/vscode/archive/refs/tags/${version}.tar.gz"
+checksum=243a25d7214ceba5abf510dc890c64a8cc36ccacd97f4b8c666b8b7bab9c5a28
+nocross=yes # x64 build does not cut it, it contains native code
 
 if [ "$XBPS_TARGET_WORDSIZE" = "32" ]; then
 	broken="FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory"
@@ -33,10 +34,13 @@ do_configure() {
 	grep -rl --exclude-dir=.git -E $_TELEMETRY_URLS | xargs sed -i -E $_REPLACEMENT
 
 	# set used electron version
-	sed -i "s/^target .*/target \"${_electronver}\"/" .yarnrc
+	vsed -e "s/^target .*/target \"${_electronver}\"/" -i .yarnrc
 }
 
 do_build() {
+	# Update to a more recent npm version to fix some issues
+	npm install -g npm@${_npmver}
+
 	# The default memory limit may be too low for current versions of node
 	# to successfully build vscode.  This sets it to 4GB, but
 	# change this number if it still doesn't work for your system.
@@ -44,9 +48,11 @@ do_build() {
 
 	export NODE_OPTIONS="${_mem_limit}"
 	/usr/lib/node_modules/npm/bin/node-gyp-bin/node-gyp install \
-		--target=$_electronver \
-		--tarball=/usr/include/electron${_electronver%%.*}/node_headers.tar.gz
-	yarn install --ignore-engines --frozen-lockfile --arch=x64
+	--target=$_electronver \
+	--tarball=/usr/include/electron${_electronver%%.*}/node_headers.tar.gz
+
+	yarn install --ignore-engines --arch=x64
+
 	export CFLAGS="$CFLAGS -I/usr/include/node"
 	yarn run gulp vscode-linux-x64-min
 }
@@ -61,10 +67,10 @@ do_install() {
 	ln -sf /usr/lib/code-oss/resources/app/resources/linux/code.desktop ${DESTDIR}/usr/share/applications/code-oss.desktop
 	vmkdir usr/share/pixmaps
 	ln -sf /usr/lib/code-oss/resources/app/resources/linux/code.png ${DESTDIR}/usr/share/pixmaps/code-oss.png
-	ln -sf /usr/bin/rg ${DESTDIR}/usr/lib/code-oss/resources/app/node_modules.asar.unpacked/vscode-ripgrep/bin/rg
 	vsed \
-		-e "s|ELECTRON=.*|ELECTRON=/usr/lib/electron${_electronver%%.*}/electron|g" \
-		-e 's|"$CLI"|"$CLI" --app="${VSCODE_PATH}/resources/app"|g' \
-		-i "$DESTDIR"/usr/lib/code-oss/bin/code-oss
+	-e "s|ELECTRON=.*|ELECTRON=/usr/lib/electron${_electronver%%.*}/electron|g" \
+	-e 's|"$CLI"|"$CLI" --app="${VSCODE_PATH}/resources/app"|g' \
+	-i "$DESTDIR"/usr/lib/code-oss/bin/code-oss
 	vlicense LICENSE.txt
+	chmod -R o-w ${DESTDIR}/usr/lib/code-oss/resources/app/
 }

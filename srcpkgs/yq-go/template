@@ -1,23 +1,24 @@
 # Template file for 'yq-go'
 pkgname=yq-go
-version=3.4.1
+version=4.23.1
 revision=1
 wrksrc="yq-${version}"
 build_style=go
-go_import_path=github.com/mikefarah/yq/v3
+go_import_path=github.com/mikefarah/yq/v4
 short_desc="Lightweight and portable command-line YAML processor written in go"
 maintainer="Frank Steinborn <steinex@nognu.de>"
 license="MIT"
 homepage="https://github.com/mikefarah/yq"
-distfiles="https://github.com/mikefarah/yq/archive/${version}.tar.gz"
-checksum=73259f808d589d11ea7a18e4cd38a2e98b518a6c2c178d1ec57d9c5942277cb1
+changelog="https://raw.githubusercontent.com/mikefarah/yq/master/release_notes.txt"
+distfiles="https://github.com/mikefarah/yq/archive/v${version}.tar.gz"
+checksum=f55ffb9c6d7926b06d5862eb6a9e9ea942ec2883286df8e2e3d6f0716cc36eed
 
 do_check() {
 	go test -v
 }
 
 post_install() {
-	# this came after yq 'the jq wrapper for yaml' so yq has the right tp
+	# this came after yq 'the jq wrapper for yaml' so yq has the right to
 	# /usr/bin/yq, rename it to yq-go
 	mv -v "${DESTDIR}"/usr/bin/{yq,yq-go}
 

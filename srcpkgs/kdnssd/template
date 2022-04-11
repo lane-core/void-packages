@@ -1,9 +1,8 @@
 # Template file for 'kdnssd'
 pkgname=kdnssd
-version=5.76.0
+version=5.92.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel avahi-libs-devel"
 short_desc="Network service discovery using Zeroconf"
@@ -11,7 +10,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later"
 homepage="https://invent.kde.org/frameworks/kdnssd"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=9cc2979e56915b5c4d8f8e66053a41406bff46aefd65af1ab07d2b87d8f4a753
+checksum=5f36af49faab84d8ae7ec46f1ba3300c9cdd3d8820dd1e7e48c5c37bcdd844d4
 
 kdnssd-devel_package() {
 	short_desc+=" - development"
