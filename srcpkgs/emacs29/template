@@ -1,7 +1,7 @@
 # Template file for 'emacs29'
 pkgname=emacs29
-version=20220301
-_commit=6b71b80fdcf32aed5191898e7339ffb9dcd29005
+version=20220414
+_commit=203c503ff22e6c3c7b75d0e30d1974bb0ca9e60a
 revision=1
 wrksrc=emacs-${_commit}
 build_style=gnu-configure
@@ -24,11 +24,11 @@ makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  $(vopt_if nativecomp libgccjit)"
 depends="emacs29-common-${version}_${revision} $(vopt_if nativecomp libgccjit)"
 short_desc="GNU Emacs editor"
-maintainer="Leah Neukirchen <leah@vuxu.org>"
+maintainer="Lane Biocini <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
-checksum=9e9ca0aa70ab823541aa3d8fe69614da070834ff20a809deb02826fd573b1c6e
+checksum=71b904193bc077feb03614d032e32b34043beb6693e0f777aea59ebc1a4547fa
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
