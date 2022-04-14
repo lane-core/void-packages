@@ -220,7 +220,7 @@ do_install() {
 	make DESTDIR=${DESTDIR} -C gcc jit.install-common jit.install-info
 
 	# Remove everything that isn't the soname and header files
-	find "${DESTDIR}/usr" -type f ! -name "libgccjit*" -delete
+	#find "${DESTDIR}/usr" -type f ! -name "libgccjit*" -delete
 }
 
 post_install() {
