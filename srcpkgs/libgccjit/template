@@ -174,7 +174,7 @@ do_configure() {
 	_args+=" --disable-sjlj-exceptions"
 	_args+=" --disable-target-libiberty"
 
-	# libgccjit compilcation specific
+	# libgccjit compilation specific
 	_args+=" --enable-host-shared"
 	_args+=" --disable-bootstrap"
 	_args+=" --disable-libquadmath"
@@ -184,7 +184,7 @@ do_configure() {
 	_args+=" --disable-libada"
 	_args+=" --disable-libvtv"
 	_args+=" --disable-libsanitizer"
-	_args+=" --with-bugurl='https://github.com/jashandeep-sohi/libgccjit-pkg/issues'"
+	_args+=" --with-bugurl='https://github.com/void-linux/void-packages/issues'"
 
 	mkdir -p build
 	cd build
@@ -217,10 +217,10 @@ pre_install() {
 
 do_install() {
 	cd "${wrksrc}/build"
-	make DESTDIR=${DESTDIR} -C gcc install
+	make DESTDIR=${DESTDIR} -C gcc jit.install-common jit.install-info
 
 	# Remove everything that isn't the soname and header files
-	find "${DESTDIR}/usr" -type f ! -name "libgccjit*" -delete
+	#find "${DESTDIR}/usr" -type f ! -name "libgccjit*" -delete
 }
 
 post_install() {
