@@ -3,9 +3,10 @@ pkgname=geonkick
 version=2.9.0
 revision=1
 build_style=cmake
+configure_args="-DGKICK_VST3=ON"
 hostmakedepends="pkg-config tar xz"
 makedepends="jack-devel libsndfile-devel rapidjson
- lv2 libX11-devel cairo-devel"
+ lv2 libX11-devel cairo-devel steinberg-vst-devel"
 short_desc="Free software percussion synthesizer"
 maintainer="teldra <teldra@rotce.de>"
 license="GPL-3.0-or-later"
