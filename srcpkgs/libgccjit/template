@@ -218,9 +218,6 @@ pre_install() {
 do_install() {
 	cd "${wrksrc}/build"
 	make DESTDIR=${DESTDIR} -C gcc jit.install-common jit.install-info
-
-	# Remove everything that isn't the soname and header files
-	#find "${DESTDIR}/usr" -type f ! -name "libgccjit*" -delete
 }
 
 post_install() {
