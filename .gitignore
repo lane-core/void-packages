@@ -15,3 +15,5 @@ etc/xbps.d/custom
 .stash
 lane*
 x86_64-dotconfig-custom
+private.pem*
+sign.sh
