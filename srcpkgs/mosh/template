@@ -2,7 +2,7 @@
 pkgname=mosh
 version=20220204
 _commit=dbe419d0e069df3fedc212d456449f64d0280c76
-revision=1
+revision=2
 wrksrc=${pkgname}-${_commit}
 build_style=gnu-configure
 hostmakedepends="pkg-config protobuf autoconf automake"
