@@ -1,7 +1,7 @@
 # Template file for 'emacs29'
 pkgname=emacs29
-version=20220414
-_commit=203c503ff22e6c3c7b75d0e30d1974bb0ca9e60a
+version=20220418
+_commit=92667cc2fb17af947c202d2de765d8736679e858
 revision=1
 wrksrc=emacs-${_commit}
 build_style=gnu-configure
@@ -21,14 +21,14 @@ makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
  $(vopt_if sound alsa-lib-devel) $(vopt_if m17n m17n-lib-devel)
  $(vopt_if json jansson-devel) $(vopt_if harfbuzz harfbuzz-devel)
  $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)
- $(vopt_if nativecomp libgccjit)"
-depends="emacs29-common-${version}_${revision} $(vopt_if nativecomp libgccjit)"
+ $(vopt_if nativecomp libgccjit-devel)"
+depends="emacs29-common-${version}_${revision} libgccjit"
 short_desc="GNU Emacs editor"
 maintainer="Lane Biocini <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
-checksum=71b904193bc077feb03614d032e32b34043beb6693e0f777aea59ebc1a4547fa
+checksum=286094070a655726acef9e9fe34882ff43488202a6f963fee8792b4ab25efadf
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
