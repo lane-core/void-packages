@@ -2,7 +2,7 @@
 # This package should be updated together with qemu-user-static
 pkgname=qemu
 version=6.2.0
-revision=2
+revision=3
 build_style=configure
 configure_args="--prefix=/usr --sysconfdir=/etc --libexecdir=/usr/libexec --localstatedir=/var
  --disable-glusterfs --disable-xen --enable-docs --enable-kvm --enable-libusb --enable-pie
@@ -75,6 +75,8 @@ pre_configure() {
 }
 
 post_install() {
+	vdoc "${FILESDIR}/README.voidlinux"
+
 	# qemu-bridge-helper must be setuid for non privileged users.
 	chmod u+s ${DESTDIR}/usr/libexec/qemu-bridge-helper
 
