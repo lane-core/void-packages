@@ -1,0 +1,24 @@
+# Template file for 'pop-launcher'
+pkgname=pop-launcher
+version=20220628
+_commit=790ab0b95fd82f2154d5e1066d3471ebac341d4d
+revision=1
+wrksrc=launcher-${_commit}
+build_style=cargo
+hostmakedepends="just"
+makedepends=""
+depends=""
+short_desc="Application for displaying and demoing Pop Shell shortcuts"
+maintainer="lane-brain <lane@mailbox.org>"
+license="MPL-2.0"
+homepage="https://github.com/pop-os/launcher"
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=122314030e64b2965a6ded1e3d31433715f004624251257bdfcb669edf148a5b
+
+do_build() {
+	just
+}
+
+do_install() {
+	just rootdir=${DESTDIR} install	
+}

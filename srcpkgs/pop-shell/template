@@ -1,0 +1,17 @@
+# Template file for 'pop-shell'
+pkgname=pop-shell
+version=20220610
+_commit=811201b37a6dafa51539f26cf7da029d4ccdbafb
+revision=1
+#archs="i686 x86_64"
+wrksrc=shell-${_commit}
+build_style=gnu-makefile
+hostmakedepends="glib"
+makedepends="typescript"
+depends="gnome-shell pop-launcher pop-shell-shortcuts gnome-shell-extensions xprop"
+short_desc="Pop Shell - Tiling window management in Gnome"
+maintainer="lane-brain <lane@mailbox.org>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/pop-os/shell"
+distfiles="https://github.com/pop-os/shell/archive/${_commit}.tar.gz"
+checksum=47f01a21852188ecfd456d2747020b3d84aecb8249be44a1c1bb1fe6ed1fcd28

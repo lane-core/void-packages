@@ -1,0 +1,24 @@
+# Template file for 'pop-shell-shortcuts'
+pkgname=pop-shell-shortcuts
+version=20211001
+_commit=52cc83fb0b0e77c1ffa8de9f0c22dc372f32bb02
+revision=1
+#archs="i686 x86_64"
+wrksrc=shell-shortcuts-${_commit}
+#create_wrksrc=yes
+build_style=cargo
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config"
+makedepends="atk-devel gtk+3-devel gdk-pixbuf-devel glib-devel pango-devel cairo-devel"
+depends="atk glib gtk+3 gdk-pixbuf cairo pango"
+short_desc="Application for displaying and demoing Pop Shell shortcuts"
+maintainer="lane-brain <lane@mailbox.org>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/pop-os/shell-shortcuts"
+#changelog=""
+distfiles="${homepage}/archive/${_commit}.tar.gz"
+checksum=f2c2d8d1562dfbb74d48f4847127eff8aece5675858fde2ee27b49cd2593dec0
