@@ -1,0 +1,39 @@
+# Template file for 'typescript'
+pkgname=typescript
+version=4.7.4
+revision=1
+#archs="i686 x86_64"
+#wrksrc=
+#create_wrksrc=yes
+build_style=fetch
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+#hostmakedepends=""
+makedepends="nodejs"
+depends="nodejs"
+short_desc="TypeScript is a language for application scale JavaScript development"
+maintainer="lane-brain <lane@mailbox.org>"
+license="Apache-2.0"
+homepage="http://typescriptlang.org/"
+#changelog=""
+distfiles="https://registry.npmjs.org/${pkgname}/-/${pkgname}-${version}.tgz"
+checksum=7b3d17a81b83dca89782321f5f073ac2a99c0634352c3b5171dd1a7fc9f9e86c
+
+do_extract() {
+    msg_normal "No extract"
+}
+
+do_install() {
+    npm install --location=global --prefix "${DESTDIR}"/usr "${XBPS_SRCDISTDIR}"/${pkgname}-${version}/${pkgname}-${version}.tgz
+
+    # npm installs package.json owned by build user
+    # https://bugs.archlinux.org/task/63396
+    #chown -R "root:root" "${DESTDIR}"
+
+    # Non-deterministic race in npm gives 777 permissions to random directories.
+    # See https://github.com/npm/npm/issues/9359 for details.
+    chmod -R u=rwX,go=rX "${DESTDIR}/usr"
+}
