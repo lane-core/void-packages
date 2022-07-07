@@ -1,7 +1,7 @@
 # Template file for 'emacs29'
 pkgname=emacs29
-version=20220418
-_commit=92667cc2fb17af947c202d2de765d8736679e858
+version=20220706
+_commit=ab9b55d617fe1235548d368e416e07aeb25504b8
 revision=1
 wrksrc=emacs-${_commit}
 build_style=gnu-configure
@@ -28,7 +28,7 @@ maintainer="Lane Biocini <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
-checksum=286094070a655726acef9e9fe34882ff43488202a6f963fee8792b4ab25efadf
+checksum=5341b17c7e8d2a1aaa4a68a0cf3f081de9f22b74b7e1c4f3ed57bc61049158b3
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
