@@ -1,7 +1,7 @@
 # Template file for 'emacs29'
 pkgname=emacs29
-version=20220706
-_commit=ab9b55d617fe1235548d368e416e07aeb25504b8
+version=20220707
+_commit=a371298d2a2fd1c24f29c6c4ca8026a62f5bdd33
 revision=1
 wrksrc=emacs-${_commit}
 build_style=gnu-configure
@@ -28,7 +28,7 @@ maintainer="Lane Biocini <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
-checksum=5341b17c7e8d2a1aaa4a68a0cf3f081de9f22b74b7e1c4f3ed57bc61049158b3
+checksum=545c862504c11c73c978c73a6ff3f6428a20ff32158593932f7d398a381b0e85
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
@@ -40,7 +40,7 @@ build_options="jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus 
 desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
 desc_option_m17n="Enable support for m17n multilingual text processing"
-build_options_default="jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp"
+build_options_default="jpeg tiff gif png xpm imagemagick svg xml gnutls sound m17n json gmp dbus harfbuzz cairo nativecomp gtk3"
 
 #post_extract() {
 #	#find . -type f -exec touch {} +
