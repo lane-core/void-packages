@@ -1,6 +1,6 @@
 # Template file for 'emacs29'
 pkgname=emacs29
-version=20220707
+version=20220715
 _commit=a371298d2a2fd1c24f29c6c4ca8026a62f5bdd33
 revision=1
 wrksrc=emacs-${_commit}
@@ -40,7 +40,7 @@ build_options="jpeg tiff gif png xpm svg xml imagemagick gnutls sound m17n dbus 
 desc_option_xpm="Enable support for XPM images"
 desc_option_sound="Enable support for sound"
 desc_option_m17n="Enable support for m17n multilingual text processing"
-build_options_default="jpeg tiff gif png xpm imagemagick svg xml gnutls sound m17n json gmp dbus harfbuzz cairo nativecomp gtk3"
+build_options_default="jpeg tiff gif png xpm svg xml gnutls sound m17n json gmp dbus harfbuzz cairo nativecomp gtk3"
 
 #post_extract() {
 #	#find . -type f -exec touch {} +
