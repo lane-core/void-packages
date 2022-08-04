@@ -1,0 +1,43 @@
+Signed-off-by: Zhengping Jiang <jiangzp@xxxxxxxxxx>
+Reviewed-by: Abhishek Pandit-Subedi <abhishekpandit@xxxxxxxxxxxx>
+---
+
+Changes in v2:
+- Reduce title length
+
+Changes in v1:
+- Fix updating passive scan after suspend resume
+
+ net/bluetooth/hci_sync.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 7cb3100518799..212b0cdb25f5e 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -5063,13 +5063,13 @@ static int hci_resume_scan_sync(struct hci_dev *hdev)
+ 	if (!hdev->scanning_paused)
+ 		return 0;
+ 
++	hdev->scanning_paused = false;
++
+ 	hci_update_scan_sync(hdev);
+ 
+ 	/* Reset passive scanning to normal */
+ 	hci_update_passive_scan_sync(hdev);
+ 
+-	hdev->scanning_paused = false;
+-
+ 	return 0;
+ }
+ 
+@@ -5088,7 +5088,6 @@ int hci_resume_sync(struct hci_dev *hdev)
+ 		return 0;
+ 
+ 	hdev->suspended = false;
+-	hdev->scanning_paused = false;
+ 
+ 	/* Restore event mask */
+ 	hci_set_event_mask_sync(hdev);
+-- 
+2.37.0.144.g8ac04bfd2-goog
