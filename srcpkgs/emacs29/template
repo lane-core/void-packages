@@ -1,7 +1,7 @@
 # Template file for 'emacs29'
 pkgname=emacs29
-version=20220715
-_commit=a371298d2a2fd1c24f29c6c4ca8026a62f5bdd33
+version=20220808
+_commit=f1f1912658556e2f2a39cdae0da7ea2b8564d861
 revision=1
 wrksrc=emacs-${_commit}
 build_style=gnu-configure
@@ -13,7 +13,7 @@ configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with nativecomp native-compilation)"
 hostmakedepends="pkg-config tar autoconf texinfo git"
 makedepends="ncurses-devel libXaw-devel gtk+-devel gtk+3-devel webkit2gtk-devel
- dbus-devel acl-devel
+ dbus-devel acl-devel zlib-devel
  $(vopt_if jpeg libjpeg-turbo-devel) $(vopt_if tiff tiff-devel)
  $(vopt_if gif giflib-devel) $(vopt_if png libpng-devel) $(vopt_if xpm libXpm-devel)
  $(vopt_if svg librsvg-devel) $(vopt_if imagemagick libmagick-devel)
@@ -28,7 +28,7 @@ maintainer="Lane Biocini <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
-checksum=545c862504c11c73c978c73a6ff3f6428a20ff32158593932f7d398a381b0e85
+checksum=b5bcf4a1f966591f7f201bdfa9d86d8a21d76a02650f601b9f82443bee5bb0b8
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
