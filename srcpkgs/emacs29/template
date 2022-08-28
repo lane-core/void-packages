@@ -1,7 +1,7 @@
 # Template file for 'emacs29'
 pkgname=emacs29
-version=20220808
-_commit=f1f1912658556e2f2a39cdae0da7ea2b8564d861
+version=20220828
+_commit=78698e9211ce642fb0ddeb63ce7d26339863d557
 revision=1
 wrksrc=emacs-${_commit}
 build_style=gnu-configure
