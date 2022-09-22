@@ -1,7 +1,8 @@
 # Template file for 'gnome-text-editor'
 pkgname=gnome-text-editor
+reverts="43.0_1"
 version=42.2
-revision=1
+revision=2
 build_style=meson
 hostmakedepends="pkg-config gettext itstool glib-devel
  gtk-update-icon-cache desktop-file-utils"

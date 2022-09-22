@@ -1,7 +1,8 @@
 # Template file for 'glib'
 pkgname=glib
+reverts="2.74.0_1"
 version=2.72.2
-revision=2
+revision=3
 build_style=meson
 # static version is necessary for qemu-user-static;
 # also disable LTO, otherwise there are multiple failures when linking qemu
