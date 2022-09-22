@@ -28,7 +28,7 @@ maintainer="Lane Biocini <lane@mailbox.org>"
 license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 distfiles="https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${_commit}.tar.gz"
-checksum=b5bcf4a1f966591f7f201bdfa9d86d8a21d76a02650f601b9f82443bee5bb0b8
+checksum=b97094ee134a5e87bc8812d6462d10b13847e74cd7ece91293c35fac18ed86a6
 provides="emacs-${version}_${revision}"
 replaces="emacs>=0"   
 
