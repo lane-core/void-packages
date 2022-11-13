@@ -1,8 +1,7 @@
 # Template file for 'freecad'
 pkgname=freecad
 version=0.20.1
-revision=4
-wrksrc="FreeCAD-${version}"
+revision=5
 build_style=cmake
 
 _inst_prefix=/usr/lib/${pkgname}
@@ -44,9 +43,10 @@ fi
 
 post_extract() {
 	# Report exact minor version
+	# Freecad has a record of shipping mismatching version info
 	vminor=${version#*.}
 	vminor=${vminor%%.*}
-	vsed -i -e "s,^\(set(PACKAGE_VERSION_MINOR\) .*,\1 \"${vminor}\")," CMakeLists.txt
+	sed -i -e "s,^\(set(PACKAGE_VERSION_MINOR\) .*,\1 \"${vminor}\")," CMakeLists.txt
 
 	# SubWCRev.py (SCM check) reports "unknown" for these fields
 	vsed -e "s,\${PACKAGE_WCREF},${revision}_voidlinux," \

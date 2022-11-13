@@ -1,6 +1,6 @@
 # Template file for 'kdoctools'
 pkgname=kdoctools
-version=5.97.0
+version=5.99.0
 revision=1
 build_style=cmake
 build_helper=qemu
@@ -15,7 +15,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kdoctools"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=61ac72b2d338cddc6da57b9097287303117e0d49ccd1c717f69f38ac01150af6
+checksum=c695efa912f4526d1aaf68f422014a830a22ac10a1d1ebd66a2c10a3e3a4e3a6
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DDOCBOOKL10NHELPER_EXECUTABLE=/usr/bin/docbookl10nhelper"

@@ -1,8 +1,7 @@
 # Template file for 'python3-autocommand'
 pkgname=python3-autocommand
 version=2.2.1
-revision=1
-wrksrc=autocommand-${version}
+revision=2
 build_style=python3-module
 hostmakedepends="python3-setuptools"
 depends="python3"

@@ -1,8 +1,7 @@
 # Template file for 'python3-pyclip'
 pkgname=python3-pyclip
 version=0.6.0
-revision=1
-wrksrc="pyclip-${version}"
+revision=2
 build_style=python3-module
 hostmakedepends="python3-setuptools"
 depends="python3"

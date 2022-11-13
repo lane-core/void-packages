@@ -1,8 +1,7 @@
 # Template file for 'blueprint-compiler'
 pkgname=blueprint-compiler
 version=0.4.0
-revision=1
-wrksrc="${pkgname}-v${version}"
+revision=2
 build_style=meson
 depends="python3-gobject gobject-introspection"
 checkdepends="${depends} gtk4-devel"

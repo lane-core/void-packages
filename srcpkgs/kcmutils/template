@@ -1,6 +1,6 @@
 # Template file for 'kcmutils'
 pkgname=kcmutils
-version=5.97.0
+version=5.99.0
 revision=1
 build_style=cmake
 build_helper=qemu
@@ -12,7 +12,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.0-or-later, LGPL-2.0-only"
 homepage="https://invent.kde.org/frameworks/kcmutils"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=ad1907b5347a907cfa2ff0ef37432d4f1f6b6abbaac2866b75a590b8926a5a75
+checksum=757bcd8ea8ca1882612fdb4d4537e1932cfd23150f59931910e70b253bfa4ad2
 
 kcmutils-devel_package() {
 	short_desc+=" - development"

@@ -1,10 +1,10 @@
 # Template file for 'google-chrome'
 pkgname=google-chrome
-version=105.0.5195.125
+version=107.0.5304.110
 revision=1
 _channel=stable
 archs="x86_64"
-hostmakedepends="curl tar xz python3 python3-html2text python3-setuptools"
+hostmakedepends="tar xz python3 python3-html2text python3-setuptools"
 depends="gtk+3"
 short_desc="Attempt at creating a safer, faster, and more stable browser"
 maintainer="Michael Aldridge <maldridge@voidlinux.org>"
@@ -13,6 +13,7 @@ homepage="https://www.google.com/chrome/"
 nostrip=yes
 restricted=yes
 repository=nonfree
+skiprdeps="/opt/google/chrome/libqt5_shim.so"
 
 _baseUrl="https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable"
 _filename="google-chrome-${_channel}_${version}-1_amd64.deb"
@@ -20,7 +21,7 @@ _chromeUrl="${_baseUrl}/${_filename}"
 _licenseUrl="https://www.google.com/intl/en/chrome/terms/"
 
 distfiles="$_chromeUrl"
-checksum=1b167d54b289343f7e6db078d0b26505a54828e0663d033dd1307e8bca917692
+checksum=52e6d1be974c36cb40469f03b128cf21b36359a05fdadbb2e0379fbb17ef341b
 
 do_extract() {
 	mkdir -p ${DESTDIR}
@@ -49,6 +50,7 @@ do_install() {
 }
 
 post_install() {
-	curl ${_licenseUrl} | html2text >> google-chrome-eula.md
+	xbps-fetch ${_licenseUrl} -o google-chrome-eula.html
+	cat google-chrome-eula.html | html2text >> google-chrome-eula.md
 	vlicense google-chrome-eula.md
 }

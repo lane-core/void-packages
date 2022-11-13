@@ -1,7 +1,8 @@
 # Template file for 'maturin'
 pkgname=maturin
-version=0.13.3
-revision=1
+version=0.13.6
+revision=2
+create_wrksrc=yes
 build_style=python3-module
 build_helper="qemu rust"
 hostmakedepends="python3-setuptools-rust python3-tomli python3-wheel cargo"
@@ -14,7 +15,7 @@ homepage="https://github.com/PyO3/maturin"
 # bump target-lexicon version if it changes in Cargo.lock
 distfiles="${homepage}/archive/v${version}.tar.gz
  https://github.com/bytecodealliance/target-lexicon/archive/v0.12.4.tar.gz>target-lexicon-${version}.tar.gz"
-checksum="0fa5f2bebaefe706c12db0fbb15a56a74d0b55a44742520114b84afc1507a794
+checksum="b29b8262ae2df0daa39cc2c04409ad062eb6f547887a9e1237b6d0ab81888845
  f801dbb02555852e90d56d5a71e73ee42678c1bc583bb62a2970d4158f6ab6de"
 # Tests use unstable features and fail to build
 make_check=no
@@ -23,8 +24,16 @@ if [ "$CROSS_BUILD" ]; then
 	makedepends+=" rust-std"
 fi
 
+case "$XBPS_TARGET_MACHINE" in
+	ppc64*) ;;
+	ppc*)
+		broken="https://github.com/console-rs/indicatif/blob/main/src/state.rs#L2"
+		;;
+esac
+
 post_extract() {
-	mv ../target-lexicon* target-lexicon
+	mv maturin-${version}/* .
+	mv target-lexicon-* target-lexicon
 	echo "[patch.crates-io]" >> Cargo.toml
 	echo "target-lexicon = { path = './target-lexicon' }" >> Cargo.toml
 }

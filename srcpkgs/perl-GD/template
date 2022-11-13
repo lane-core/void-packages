@@ -1,8 +1,7 @@
 # Template file for 'perl-GD'
 pkgname=perl-GD
 version=2.73
-revision=1
-wrksrc="GD-${version}"
+revision=2
 build_style=perl-module
 hostmakedepends="perl-ExtUtils-PkgConfig"
 makedepends="gd-devel"

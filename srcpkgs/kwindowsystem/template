@@ -1,6 +1,6 @@
 # Template file for 'kwindowsystem'
 pkgname=kwindowsystem
-version=5.97.0
+version=5.99.0
 revision=1
 build_style=cmake
 # Check stage requires a running X Server
@@ -12,7 +12,7 @@ maintainer="John <me@johnnynator.dev>"
 license="LGPL-2.1-or-later"
 homepage="https://invent.kde.org/frameworks/kwindowsystem"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=b822a796379a1ce03a4a9fad64aa6289ba7abd84e3b137af31d8043b9c5efef1
+checksum=f4d13fbf562c05075bb59f997a0de567f96c008a379b7c796d2ca26c01a7f877
 
 kwindowsystem-devel_package() {
 	short_desc+=" - development"

@@ -1,8 +1,7 @@
 # Template file for 'python3-pycodestyle'
 pkgname=python3-pycodestyle
 version=2.9.1
-revision=1
-wrksrc="pycodestyle-${version}"
+revision=2
 build_style=python3-module
 hostmakedepends="python3-setuptools"
 depends="python3"

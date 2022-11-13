@@ -1,9 +1,8 @@
 # Template file for 'discord-ptb'
 pkgname=discord-ptb
-version=0.0.33
+version=0.0.35
 revision=1
 archs="x86_64"
-wrksrc="DiscordPTB"
 hostmakedepends="w3m"
 depends="alsa-lib dbus-glib gtk+3 libnotify nss libXtst libcxx libatomic
  xdg-utils webrtc-audio-processing"
@@ -12,15 +11,15 @@ maintainer="0x5c <dev@0x5c.io>"
 license="custom:Proprietary"
 homepage="https://discord.com/"
 distfiles="https://dl-ptb.discordapp.net/apps/linux/${version}/discord-ptb-${version}.tar.gz"
-checksum=37eb96945b86c2171cdb215e3e1b73e6bd2c65451fbfb54e8063a9b82cb30721
-_license_checksum=41fe9e5a91c8f0af3a0a3833a0badf0ace75f1c4097889fafc0a029c68b96fcd
+checksum=6e7a79c1f711db5b3b2cc3f11608f91b752cc4f5a5163e2de826dea2c8ae7c76
+_license_checksum=45e63af835972e94b311bc44d515ca11a919d6a8f127ec801267b0a8fba10847
 nopie=yes
 restricted=yes
 repository=nonfree
 
 post_extract() {
-	$XBPS_FETCH_CMD -o eula https://discord.com/terms; cat eula |
-		w3m -dump -I utf-8 -T text/html |
+	$XBPS_FETCH_CMD -o eula https://discord.com/terms
+	w3m -dump -I utf-8 -T text/html eula |
 		sed -n '/Discord.s Terms of Service/,/^Imagine a place$/p' > EULA
 
 	filesum="$(xbps-digest EULA)"

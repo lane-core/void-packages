@@ -1,8 +1,7 @@
 # Template file for 'python3-construct'
 pkgname=python3-construct
 version=2.10.54
-revision=2
-wrksrc="construct-${version}"
+revision=3
 build_style=python3-module
 hostmakedepends="python3-setuptools"
 depends="python3"

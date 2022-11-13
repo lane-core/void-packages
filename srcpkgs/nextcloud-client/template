@@ -1,8 +1,7 @@
 # Template file for 'nextcloud-client'
 pkgname=nextcloud-client
-version=3.5.4
+version=3.6.1
 revision=1
-wrksrc="desktop-${version}"
 build_style=cmake
 configure_args="-Wno-dev"
 hostmakedepends="pkg-config inkscape"
@@ -20,7 +19,7 @@ license="GPL-2.0-or-later"
 homepage="https://nextcloud.com/clients/"
 changelog="https://github.com/nextcloud/desktop/releases"
 distfiles="https://github.com/nextcloud/desktop/archive/v${version}.tar.gz"
-checksum=f6222403063f83d52577ab4c53060eec8d0dc499e56975e44767b53d9b6e896f
+checksum=c7ea1ed2d0f44a3b8b645a67f21af164bf1024b6872570a61c62994d2a8c1b5b
 # https://github.com/void-linux/void-packages/pull/33358#discussion_r724518549
 make_check=ci-skip
 
