@@ -1,6 +1,6 @@
 # Template file for 'bitwig-studio'
 pkgname=bitwig-studio
-version=4.2.2
+version=4.4.3
 revision=1
 archs="x86_64"
 depends="xdg-utils xcb-util-wm libbsd glibc-32bit"
@@ -10,7 +10,7 @@ license="custom:bitwig"
 homepage="https://bitwig.com/"
 _file="bitwig-studio-${version}.deb"
 distfiles="https://downloads.bitwig.com/stable/${version}/${_file}"
-checksum=729115d04596f6f776644f916aa37d7e1cb2edac603e5c783e694e797dd349f6
+checksum=34ff5c335c481db94c75414a22f88f2838bab2ee8d737c6c5f6a673de3fb85d4
 nostrip=yes
 restricted=yes
 repository=nonfree
