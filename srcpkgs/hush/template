@@ -1,0 +1,27 @@
+# Template file for 'hush'
+pkgname=hush
+version=20220714
+revision=1
+_commit=7fa2dc426f83873a92197ab7feaf37f10bd25d8d
+wrksrc=hush-${_commit}
+#create_wrksrc=yes
+build_style=cargo
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends=""
+short_desc="Hush is a unix shell based on the Lua programming language"
+maintainer="lane-brain <lane@mailbox.org>"
+license="GPL-3.0-or-later"
+homepage="https://hush-shell.github.io"
+distfiles="https://github.com/hush-shell/hush/archive/${_commit}.tar.gz"
+checksum=3b18a1166aaa6395131e94e313f4ffcac29987ed03165cd951b7d7c54c8e7965
+
+#do_install() {
+#    vmkdir "/usr/bin"
+#    vbin "${wrksrc}/target/x86_64-unknown-linux-gnu/release/"
+#}
