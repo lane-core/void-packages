@@ -15,15 +15,8 @@ nostrip=yes
 restricted=yes
 repository=nonfree
 
-do_extract() {
-	mkdir -p ${DESTDIR}
-	ar x ${XBPS_SRCDISTDIR}/bitwig-studio-${version}/${_file}
-}
-
 do_install() {
-	bsdtar -xf data.tar.xz -C ${DESTDIR}
-}
-
-post_install() {
-	vlicense ${DESTDIR}/opt/bitwig-studio/EULA.rtf
+	vcopy opt /
+	vcopy usr /
+	vlicense ${DESTDIR}/opt/bitwig-studio/EULA.txt
 }
