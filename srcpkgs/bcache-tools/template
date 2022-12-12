@@ -1,6 +1,6 @@
 # Template file for 'bcache-tools'
 pkgname=bcache-tools
-version=1.1
+version=24
 revision=1
 build_style=gnu-makefile
 make_use_env=yes
@@ -10,7 +10,7 @@ short_desc="User space tools for the bcache hybrid storage system"
 maintainer="Enno Boland <gottox@voidlinux.org>"
 license="GPL-2.0-only"
 homepage="https://bcache.evilpiepirate.org/"
-distfiles="https://git.kernel.org/pub/scm/linux/kernel/git/colyli/bcache-tools.git/snapshot/bcache-tools-${version}.tar.gz"
+distfiles="https://git.kernel.org/pub/scm/linux/kernel/git/colyli/bcache-tools.git/snapshot/https://evilpiepirate.org/git/bcachefs-tools.git/snapshot/bcachefs-tools-${_version}.tar.zst"
 checksum=d1c92274ae03b414dd1a05277bf89dd2a8395496c692e3b143d9e6112d3421f8
 python_version=3
 
