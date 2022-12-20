@@ -17,38 +17,38 @@
 # one (order top->bottom) is preferred over the next ones.
 #
 libc.so musl-1.1.24_7
-libc.so.6 glibc-2.32_1
-libm.so.6 glibc-2.32_1
-libpthread.so.0 glibc-2.32_1
-librt.so.1 glibc-2.32_1
-libdl.so.2 glibc-2.32_1
-ld-linux-x86-64.so.2 glibc-2.32_1 x86_64
-ld-linux.so.2 glibc-2.32_1 i686
-ld-linux.so.3 glibc-2.32_1 armv5tel
-ld-linux-aarch64.so.1 glibc-2.32_1 aarch64
-ld64.so.2 glibc-2.32_1 ppc64
-ld.so.1 glibc-2.32_1 mips
-ld.so.1 glibc-2.32_1 ppc
-ld-linux-armhf.so.3 glibc-2.32_1
-libresolv.so.2 glibc-2.32_1
-libanl.so.1 glibc-2.32_1
-libthread_db.so.1 glibc-2.32_1
-libutil.so.1 glibc-2.32_1
-libnsl.so.1 glibc-2.32_1
-libnss_db.so.2 glibc-2.32_1
-libnss_files.so.2 glibc-2.32_1
-libnss_compat.so.2 glibc-2.32_1
-libnss_dns.so.2 glibc-2.32_1
-libnss_hesiod.so.2 glibc-2.32_1
-libcrypt.so.1 glibc-2.32_1
-libBrokenLocale.so.1 glibc-2.32_1
+libc.so.6 glibc-2.36_1
+libm.so.6 glibc-2.36_1
+libpthread.so.0 glibc-2.36_1
+librt.so.1 glibc-2.36_1
+libdl.so.2 glibc-2.36_1
+ld-linux-x86-64.so.2 glibc-2.36_1 x86_64
+ld-linux.so.2 glibc-2.36_1 i686
+ld-linux.so.3 glibc-2.36_1 armv5tel
+ld-linux-aarch64.so.1 glibc-2.36_1 aarch64
+ld64.so.2 glibc-2.36_1 ppc64
+ld.so.1 glibc-2.36_1 mips
+ld.so.1 glibc-2.36_1 ppc
+ld-linux-armhf.so.3 glibc-2.36_1
+libresolv.so.2 glibc-2.36_1
+libanl.so.1 glibc-2.36_1
+libthread_db.so.1 glibc-2.36_1
+libutil.so.1 glibc-2.36_1
+libnsl.so.1 glibc-2.36_1
+libnss_db.so.2 glibc-2.36_1
+libnss_files.so.2 glibc-2.36_1
+libnss_compat.so.2 glibc-2.36_1
+libnss_dns.so.2 glibc-2.36_1
+libnss_hesiod.so.2 glibc-2.36_1
+libcrypt.so.1 glibc-2.36_1
+libBrokenLocale.so.1 glibc-2.36_1
 libSimGearCore.so.2020.3.17 simgear-2020.3.17_1
 libSimGearScene.so.2020.3.17 simgear-2020.3.17_1
-libmemusage.so glibc-2.32_1
-libSegFault.so glibc-2.32_1
-libpcprofile.so glibc-2.32_1
-libcidn.so.1 glibc-2.32_1
-libmvec.so.1 glibc-2.32_1
+libmemusage.so glibc-2.36_1
+libSegFault.so glibc-2.36_1
+libpcprofile.so glibc-2.36_1
+libcidn.so.1 glibc-2.36_1
+libmvec.so.1 glibc-2.36_1
 libcddgmp.so.0 cddlib-0.94m_1
 libcdd.so.0 cddlib-0.94m_1
 libz.so.1 zlib-1.2.3_1
@@ -60,7 +60,7 @@ libcc1plugin.so.0 gcc-6.2.1_1
 libitm.so.1 libitm-4.7.3_1
 liblto_plugin.so.0 gcc-4.7.3_1
 libgcc_s.so.1 libgcc-4.4.0_1
-libgo.so.16 libgo-10.2.0_1
+libgo.so.21 libgo-12.2.0_1
 libgccjit.so.0 libgccjit-10.2.1pre1_1
 libperl.so.5.36 perl-5.36.0_1
 libgmp.so.10 gmp-5.0.1_1
@@ -183,9 +183,8 @@ libnl-cli-3.so.200 libnl3-3.2.1_1
 libreadline.so.8 libreadline8-8.0_1
 libhistory.so.8 libhistory8-8.0_1
 libxfconf-0.so.3 xfconf-4.13.7_1
-libxfce4util.so.7 libxfce4util-4.12.1_1
-libxfce4panel-1.0.so.4 libxfce4panel-4.9.2_1
-libxfce4panel-2.0.so.4 libxfce4panel-4.12.0_1
+libxfce4util.so.7 libxfce4util-4.18.0_1
+libxfce4panel-2.0.so.4 libxfce4panel-4.18.0_1
 libgdbm.so.6 gdbm-1.16_1
 libgdbm_compat.so.4 gdbm-1.10_1_1
 libintl.so.8 gettext-libs-0.19.2_1
@@ -735,10 +734,8 @@ libqgpgme.so.15 gpgmeqt-1.18.0_1
 libgarcon-1.so.0 garcon-0.1.12_1
 libgarcon-gtk2-1.so.0 garcon-0.4.0_1
 libgarcon-gtk3-1.so.0 garcon-0.6.1_1
-libxfce4ui-1.so.0 libxfce4ui-4.9.2_1
-libxfce4ui-2.so.0 libxfce4ui-4.12.1_2
-libxfce4kbd-private-2.so.0 libxfce4ui-4.9.2_1
-libxfce4kbd-private-3.so.0 libxfce4ui-4.12.1_2
+libxfce4ui-2.so.0 libxfce4ui-4.18.0_1
+libxfce4kbd-private-3.so.0 libxfce4ui-4.18.0_1
 libxml++-2.6.so.2 libxml++-2.32.0_1
 libxml++-3.0.so.1 libxml++3.0-3.0.1_1
 libftgl.so.2 ftgl-2.1.2_1
@@ -858,8 +855,8 @@ libgdkmm-2.4.so.1 gtkmm2-2.24.0_1
 libgtkmm-2.4.so.1 gtkmm2-2.24.0_1
 libquadmath.so.0 libquadmath-4.4.0_1
 libgfortran.so.5 libgfortran-8.2.0_1
-libgnarl-10.so libada-10.2.0_1
-libgnat-10.so libada-10.2.0_1
+libgnarl-12.so libada-12.2.0_1
+libgnat-12.so libada-12.2.0_1
 libwebp.so.7 libwebp-0.6.0_1
 libwebpmux.so.3 libwebp-0.6.0_1
 libwebpdemux.so.2 libwebp-0.5.0_1
@@ -1713,8 +1710,8 @@ libextractor.so.3 libextractor-1.1_1
 libextractor_common.so.1 libextractor-1.1_1
 libpano13.so.3 libpano13-2.9.19_1
 libubsan.so.1 libsanitizer-8.2.0_1
-libtsan.so.0 libsanitizer-6.3.0_1
-libasan.so.6 libsanitizer-10.2.0_1
+libtsan.so.2 libsanitizer-12.2.0_1
+libasan.so.8 libsanitizer-12.2.0_1
 liblsan.so.0 libsanitizer-6.3.0_1
 libvtv.so.0 libvtv-6.3.0_1
 libatomic.so.1 libatomic-4.9.0_1
@@ -2192,11 +2189,10 @@ libFcitx5Config.so.6 libfcitx5-5.0.5_1
 libFcitx5GClient.so.2 fcitx5-gtk-5.0.4_1
 libFcitx5Qt5DBusAddons.so.1 fcitx5-qt5-5.0.3_1
 libFcitx5Qt5WidgetsAddons.so.2 fcitx5-qt5-5.0.3_1
-libdruntime-ldc-debug-shared.so.98 ldc-runtime-1.28.0_1
-libdruntime-ldc-shared.so.98 ldc-runtime-1.28.0_1
-libphobos2-ldc-shared.so.98 ldc-runtime-1.28.0_1
-libphobos2-ldc-debug-shared.so.98 ldc-runtime-1.28.0_1
-libldc-jit.so.99 ldc-runtime-1.29.0_1
+libdruntime-ldc-debug-shared.so.100 ldc-runtime-1.30.0_1
+libdruntime-ldc-shared.so.100 ldc-runtime-1.30.0_1
+libphobos2-ldc-shared.so.100 ldc-runtime-1.30.0_1
+libphobos2-ldc-debug-shared.so.100 ldc-runtime-1.30.0_1
 libmarblewidget-qt5.so.28 marble5-17.12.2_1
 libastro.so.2 marble5-17.12.2_1
 libparrot.so.6.9.0 parrot-6.9.0_1
@@ -3454,7 +3450,7 @@ libSoapySDR.so.0.8 SoapySDR-0.8.1_1
 libeditorconfig.so.0 editorconfig-0.12.2_1
 libcfitsio.so.10 cfitsio-4.2.0_1
 libapparmor.so.1 libapparmor-2.12.0_1
-libplacebo.so.192 libplacebo-4.192.1_1
+libplacebo.so.208 libplacebo-4.208.0_1
 libw2xc.so waifu2x-converter-cpp-5.2_1
 libnova-0.15.so.0 libnova-0.15.0_1
 libcue.so.2 libcue-2.2.0_1
