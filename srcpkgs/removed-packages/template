@@ -1,6 +1,6 @@
 # Template file for 'removed-packages'
 pkgname=removed-packages
-version=0.1.20230102
+version=0.1.20230109
 revision=1
 build_style=meta
 short_desc="Uninstalls packages removed from repository"
@@ -9,6 +9,7 @@ license="Public Domain"
 homepage="https://voidlinux.org"
 
 replaces="
+ 6cord<=9.6_1
  FeedReader<=2.11.0_2
  ImageMagick6<=6.9.12.12_2
  Lidarr<=0.5.0.583_1
@@ -242,6 +243,8 @@ replaces="
  icecat-i18n-zh-CN<=78.6.1_1
  icecat-i18n-zh-TW<=78.6.1_1
  icecat<=78.6.1_1
+ ilmbase<=2.4.2_2
+ ilmbase-devel<=2.4.2_2
  ioquake3-rpi<=20130506_2
  isl16<=0.16_2
  js<=1.8.5_11
@@ -289,6 +292,8 @@ replaces="
  libunique1-devel<=1.1.6_12
  libunique1<=1.1.6_12
  libunique<=3.0.2_11
+ libwnck2-devel<=2.30.7_8
+ libwnck2<=2.30.7_8
  libxml2-python<=2.9.10_4
  libxnoise<=0.2.21_4
  libxslt-python<=1.1.34_5
