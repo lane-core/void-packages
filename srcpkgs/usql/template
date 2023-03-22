@@ -1,6 +1,6 @@
 # Template file for 'usql'
 pkgname=usql
-version=0.13.5
+version=0.13.10
 revision=1
 build_style=go
 go_import_path=github.com/xo/usql
@@ -10,7 +10,7 @@ maintainer="Alan Brown <adbrown@rocketmail.com>"
 license="MIT"
 homepage="https://github.com/xo/usql"
 distfiles="https://github.com/xo/usql/archive/refs/tags/v${version}.tar.gz"
-checksum=c6feec52395a93b705e00f2fb613d1dd581031bbabb6c39c9125ac000cc733e9
+checksum=e52ff4e93f28875acef39ddc168d79baeacc7041e68af6e0bcc37b0b54b2a0c7
 
 post_install() {
 	vlicense LICENSE

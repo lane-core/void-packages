@@ -2,7 +2,7 @@
 # When Updating: Please confirm the upstream config still refers to make_dirs
 pkgname=chrony
 version=4.3
-revision=1
+revision=2
 build_style=gnu-configure
 configure_args="--without-nss --enable-scfilter
  --with-sendmail=/usr/bin/sendmail"
@@ -10,7 +10,7 @@ hostmakedepends="pkg-config"
 makedepends="libcap-devel libedit-devel libseccomp-devel nettle-devel gnutls-devel"
 conf_files="/etc/chrony.conf"
 short_desc="Versatile implementation of the Network Time Protocol (NTP)"
-maintainer="Anthony Iliopoulos <ailiop@altatus.com>"
+maintainer="Michal Vasilek <michal@vasilek.cz>"
 license="GPL-2.0-only"
 homepage="https://chrony.tuxfamily.org/"
 changelog="https://chrony.tuxfamily.org/news.html"
