@@ -525,12 +525,12 @@ libkImageAnnotator.so.0 kImageAnnotator-0.4.1_1
 libkColorPicker.so.0 kColorPicker-0.1.5_1
 libbabl-0.1.so.0 babl-0.1.16_1
 libbamf3.so.2 bamf-0.5.1_1
-libicuio.so.72 icu-libs-72.1_2
-libicui18n.so.72 icu-libs-72.1_2
-libicudata.so.72 icu-libs-72.1_2
-libicutu.so.72 icu-libs-72.1_2
-libicuuc.so.72 icu-libs-72.1_2
-libicutest.so.72 icu-libs-72.1_2
+libicuio.so.73 icu-libs-73.2_1
+libicui18n.so.73 icu-libs-73.2_1
+libicudata.so.73 icu-libs-73.2_1
+libicutu.so.73 icu-libs-73.2_1
+libicuuc.so.73 icu-libs-73.2_1
+libicutest.so.73 icu-libs-73.2_1
 libaspell.so.15 libaspell-0.60.8_2
 libpspell.so.15 libaspell-0.60.8_2
 libenchant-2.so.2 enchant2-2.2.3_1
@@ -2210,7 +2210,6 @@ libphobos2-ldc-debug-shared.so.101 ldc-runtime-1.31.0_1
 libmarblewidget-qt5.so.28 marble5-17.12.2_1
 libastro.so.2 marble5-17.12.2_1
 libparrot.so.6.9.0 parrot-6.9.0_1
-libasr.so.0 libasr-1.0.0_1
 libssr-glinject.so ssr-0.3.1_1
 libgdict-1.0.so.10 gnome-dictionary-3.18.1_1
 libasignify.so.1 asignify-1.0_1
@@ -3559,7 +3558,7 @@ libwlroots.so.9 wlroots0.14-0.14.1_1
 libwlroots.so.10 wlroots0.15-0.15.1_1
 libwlroots.so.11 wlroots-0.16.0_1
 libbaseencode.so.1 libbaseencode-1.0.9_1
-libcotp.so.12 libcotp-1.2.1_1
+libcotp.so.2 libcotp-2.0.1_1
 libunarr.so.1 libunarr-1.0.1_1
 libretro-gtk-1.so.0 retro-gtk-1.0.0_1
 libmanette-0.2.so.0 libmanette-0.2.1_1
@@ -4260,7 +4259,7 @@ libdspy-1.so.1 d-spy-1.4.0_1
 libpanel-1.so.1 libpanel-1.0.1_1
 libqrtr.so.1 qrtr-ns-1.0_1
 libbpf.so.1 libbpf-1.0.0_1
-libImath-3_1.so.30 imath-3.1.7_1
+libImath-3_1.so.29 imath-3.1.9_1
 libIex-3_1.so.30 libopenexr-3.1.5_1
 libIlmThread-3_1.so.30 libopenexr-3.1.5_1
 libOpenEXR-3_1.so.30 libopenexr-3.1.5_1
