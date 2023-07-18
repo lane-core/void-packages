@@ -1,8 +1,8 @@
 # Template file for 'neovim'
 # tracking git master
 pkgname=neovim
-version=20230708
-_commit=fbeef0d4ef1aadc4e50b9f33946cf4dca8ca6b62
+version=20230717
+_commit=80cf0f3d29fa337d43ec417759cb061bd2798ea8
 revision=1
 build_style=cmake
 build_helper="qemu"
@@ -18,7 +18,7 @@ maintainer="Lane Biocini <lane@mailbox.org>"
 license="Apache-2.0, Vim"
 homepage="https://neovim.io"
 distfiles="https://github.com/neovim/neovim/archive/${_commit}.tar.gz"
-checksum=
+checksum=f44ada802690d604ec4c3e0b1e4ce37fc2a59893de54bf4d282d3eea00514981
 
 build_options=luajit
 
