@@ -3085,7 +3085,7 @@ libsctp.so.1 lksctp-tools-1.0.17_1
 libwithsctp.so.1 lksctp-tools-1.0.17_1
 libnss_ldap.so.2 nss-pam-ldapd-0.9.7_4
 libunshield.so.0 libunshield-0.6_1
-libMyGUIEngine.so.3.4.1 libmygui-3.4.1_1
+libMyGUIEngine.so.3.4.2 libmygui-3.4.2_1
 libproj.so.25 proj-9.1.1_1
 libnlopt.so.0 nlopt-2.4.2_1
 libeb.so.16 libeb-4.3.3_1
@@ -3699,7 +3699,7 @@ libircclient.so.1 libircclient-1.10_5
 libFAudio.so.0 FAudio-19.05_1
 libqaccessibilityclient-qt5.so.0 libqaccessibilityclient-0.4.0_1
 libnitrokey.so.3 libnitrokey-3.4.1_1
-libceres.so.2 ceres-solver-2.0.0_1
+libceres.so.3 ceres-solver-2.1.0_1
 libgraphene-1.0.so.0 graphene-1.8.2_1
 libflite.so.1 flite-2.1_1
 libflite_cmu_us_kal.so.1 flite-2.1_1
